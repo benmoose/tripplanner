@@ -1,0 +1,15 @@
+{
+  "name": "tripplanner",
+  "version": "1.0.0",
+  "description": "A Trip Planner Platform",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/tripplannerapp/platform.git"
+  },
+  "author": "Ben Hadfield",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/tripplannerapp/platform/issues"
+  },
+  "homepage": "https://gitlab.com/tripplannerapp/platform#README"
+}
