@@ -15,3 +15,7 @@ class Trip(TimeStampedModel, RichTextAndPreviewTextModel):
     """
     users = models.ManyToManyField(User)
     title = models.CharField(max_length=60)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
