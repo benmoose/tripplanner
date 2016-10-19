@@ -18,8 +18,7 @@ export default class Itinerary extends Component {
                                    departTime={item.depart}
                                    travelType="Flight"
                                    originLocation="Stockholm"
-                                   travelTime="8 Hours"
-            />);
+                                   travelTime="8 Hours"/>);
         });
 
         return (
@@ -63,7 +62,7 @@ class ItineraryTravel extends Component {
                 <div className={styles.itinerarytravel__line}></div>
                 <div className={styles.itinerarytravel__detail}>
                     <p className={styles.itinerarytravel__detail__item}>
-                        {travelType} from <strong>{originLocation}</strong>
+                        <i className="fa fa-plane"></i>{travelType} from <strong>{originLocation}</strong>
                     </p>
                     {travelTime ? <p className={styles.itinerarytravel__detail__time}>{travelTime}</p> : null}
                 </div>

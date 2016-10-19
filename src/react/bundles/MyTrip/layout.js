@@ -31,11 +31,17 @@ export default class Layout extends Component {
     }
 
     render() {
+        var trip = Object.assign({
+            get_trip_locations: [],
+            origin_title: undefined,
+            destination_title: undefined,
+        }, this.state.trip);
+
         return (
             <div>
-                <Map/>
+                <Map origin={trip.origin_title} destination={trip.destination_title}/>
                 <div className="page-container">
-                    <Itinerary {...this.state.trip}/>
+                    <Itinerary {...trip}/>
                 </div>
             </div>
         );

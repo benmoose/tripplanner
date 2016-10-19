@@ -21472,15 +21472,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Map = __webpack_require__(174);
+	var _Map = __webpack_require__(173);
 
 	var _Map2 = _interopRequireDefault(_Map);
 
-	var _Itinerary = __webpack_require__(179);
+	var _Itinerary = __webpack_require__(178);
 
 	var _Itinerary2 = _interopRequireDefault(_Itinerary);
 
-	var _endpoints = __webpack_require__(182);
+	var _endpoints = __webpack_require__(181);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21526,14 +21526,20 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var trip = Object.assign({
+	                get_trip_locations: [],
+	                origin_title: undefined,
+	                destination_title: undefined
+	            }, this.state.trip);
+
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_Map2.default, null),
+	                _react2.default.createElement(_Map2.default, { origin: trip.origin_title, destination: trip.destination_title }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'page-container' },
-	                    _react2.default.createElement(_Itinerary2.default, this.state.trip)
+	                    _react2.default.createElement(_Itinerary2.default, trip)
 	                )
 	            );
 	        }
@@ -21545,8 +21551,7 @@
 	exports.default = Layout;
 
 /***/ },
-/* 173 */,
-/* 174 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21561,7 +21566,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _map = __webpack_require__(175);
+	var _map = __webpack_require__(174);
 
 	var _map2 = _interopRequireDefault(_map);
 
@@ -21585,6 +21590,20 @@
 	    _createClass(Map, [{
 	        key: 'render',
 	        value: function render() {
+	            var _props = this.props;
+	            var origin = _props.origin;
+	            var destination = _props.destination;
+	            var waypoints = _props.waypoints;
+
+	            var props = Object.assign({
+	                origin: undefined,
+	                destination: undefined,
+	                waypoints: []
+	            }, this.props);
+
+	            var apiKey = 'AIzaSyC4ysxYvlgZfqItrZ2qB-_d8GuniL6ZvFU';
+	            var googleApi = props.origin && props.destination ? 'https://www.google.com/maps/embed/v1/directions?key=' + apiKey + '&origin=' + props.origin + (props.waypoints.length ? '&waypoints=' + props.waypoints.join('|') : '') + '&destination=' + props.destination + '&units=metric' : 'https://www.google.com/maps/embed/v1/view?key=' + apiKey + '&zoom=2&center=51.5074,0.1278';
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: _map2.default.map },
@@ -21593,7 +21612,7 @@
 	                    width: '650',
 	                    height: '450',
 	                    frameBorder: '0',
-	                    src: 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyC4ysxYvlgZfqItrZ2qB-_d8GuniL6ZvFU&origin=London,UK&waypoints=Boston|New%20York&destination=London,UK&units=metric' })
+	                    src: googleApi })
 	            );
 	        }
 	    }]);
@@ -21604,16 +21623,16 @@
 	exports.default = Map;
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(176);
+	var content = __webpack_require__(175);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(178)(content, {});
+	var update = __webpack_require__(177)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -21630,10 +21649,10 @@
 	}
 
 /***/ },
-/* 176 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(177)();
+	exports = module.exports = __webpack_require__(176)();
 	// imports
 
 
@@ -21647,7 +21666,7 @@
 	};
 
 /***/ },
-/* 177 */
+/* 176 */
 /***/ function(module, exports) {
 
 	/*
@@ -21703,7 +21722,7 @@
 
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -21955,7 +21974,7 @@
 
 
 /***/ },
-/* 179 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21970,7 +21989,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _itinerary = __webpack_require__(180);
+	var _itinerary = __webpack_require__(179);
 
 	var _itinerary2 = _interopRequireDefault(_itinerary);
 
@@ -22007,8 +22026,7 @@
 	                    departTime: item.depart,
 	                    travelType: 'Flight',
 	                    originLocation: 'Stockholm',
-	                    travelTime: '8 Hours'
-	                });
+	                    travelTime: '8 Hours' });
 	            });
 
 	            return _react2.default.createElement(
@@ -22135,6 +22153,7 @@
 	                    _react2.default.createElement(
 	                        'p',
 	                        { className: _itinerary2.default.itinerarytravel__detail__item },
+	                        _react2.default.createElement('i', { className: 'fa fa-plane' }),
 	                        travelType,
 	                        ' from ',
 	                        _react2.default.createElement(
@@ -22157,16 +22176,16 @@
 	}(_react.Component);
 
 /***/ },
-/* 180 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(181);
+	var content = __webpack_require__(180);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(178)(content, {});
+	var update = __webpack_require__(177)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -22183,10 +22202,10 @@
 	}
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(177)();
+	exports = module.exports = __webpack_require__(176)();
 	// imports
 
 
@@ -22205,7 +22224,7 @@
 	};
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports) {
 
 	'use strict';
