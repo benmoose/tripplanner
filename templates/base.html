@@ -11,7 +11,7 @@
     {% endblock %}
 </head>
 <body>
-{% include '_components/navigation/navigation.html' %}
+{% include '_components/navigation/navigation.html' with user_full_name=user_full_name %}
 
 {% block window %}
 {% endblock %}

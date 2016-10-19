@@ -12,7 +12,7 @@ Objects Layer
 
 .sidemenu__list {
   @include reset_list;
-  margin-top: $sd-space;
+  padding-top: $sd-space;
 }
 
 .sidemenu__list__item__a {

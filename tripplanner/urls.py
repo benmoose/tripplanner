@@ -22,6 +22,7 @@ from trip.views import *
 
 
 urlpatterns = [
+    url(r'^api/', include('api.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^redactor/', include('redactor.urls')),
     url(r'^', include('trip.urls')),

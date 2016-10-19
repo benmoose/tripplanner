@@ -10,7 +10,7 @@ class TripAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'content', 'active',),
+            'fields': ('title', 'content', 'users', 'active',),
         },),
         ('Additional Information', {
             'fields': ('created', 'modified',)
