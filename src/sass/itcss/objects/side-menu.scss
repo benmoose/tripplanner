@@ -1,0 +1,20 @@
+/*
+Objects Layer
+*/
+
+
+.sidemenu {
+  @include set_inline_block;
+  background: $background-light;
+  width: auto;
+  height: calc(100vh - #{$navigation-height});
+}
+
+.sidemenu__list {
+  @include reset_list;
+  margin-top: $sd-space;
+}
+
+.sidemenu__list__item__a {
+  @extend .btn--sidemenu;
+}

@@ -1,0 +1,18 @@
+/*
+Elements Layer
+*/
+
+
+html,
+body {
+  @include set_body_font;
+  color: $text;
+  background: $background;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: $navigation-height 0 0;
+  color: $text;
+}

@@ -1,6 +1,38 @@
 {% extends 'base.html' %}
+{% load render_bundle from webpack_loader %}
 
-
-{% block page %}
-    <p>Dashboard under construction...</p>
+{% block window %}
+    <div class="window">
+        <div class="sidemenu">
+            <ul class="sidemenu__list">
+                <li>
+                    <a class="sidemenu__list__item__a active" href="#">
+                        <i class="fa fa-globe" aria-hidden="true"></i>
+                        My Trip
+                    </a>
+                </li>
+                <li>
+                    <a class="sidemenu__list__item__a" href="#">
+                        <i class="fa fa-list-ul" aria-hidden="true"></i>
+                        Todo List
+                    </a>
+                </li>
+                <li>
+                    <a class="sidemenu__list__item__a" href="#">
+                        <i class="fa fa-plane" aria-hidden="true"></i>
+                        Itinerary
+                    </a>
+                </li>
+                <li>
+                    <a class="sidemenu__list__item__a" href="#">
+                        <i class="fa fa-glass" aria-hidden="true"></i>
+                        Bucket List
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="page">
+            <p>Hello</p>
+        </div>
+    </div>
 {% endblock %}

@@ -2,12 +2,19 @@
 const outputRoot = './static/',
       inputRoot = './src/',
       webpackOutput = `${outputRoot}bundles`,
-      webpackInput = `${inputRoot}webpack`;
+      webpackInput = `${inputRoot}react`;
+
+var entry = (...component) => {
+    return `${webpackInput}/bundles/${component.join('/')}`;
+};
+
+// Plugins
+const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
     context: __dirname,
     entry: {
-
+        newTrip: entry('trip', 'NewTrip.js')
     },
     output: {
         path: webpackOutput,
@@ -25,8 +32,11 @@ module.exports = {
             },
             {
                 test: /.scss$/,
-                loader: 'style!css?minimize!sass'
+                loader: 'style!css?minimize&modules!sass'
             }
         ]
-    }
+    },
+    plugins: [
+        new BundleTracker({filename: "./webpack-stats.json"})
+    ]
 };

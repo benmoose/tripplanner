@@ -1,0 +1,19 @@
+/*
+Settings layer
+*/
+
+// Application Colours
+$background: #393E46;
+$background-dark: darken($background, 7%);
+$background-light: lighten($background, 5%);
+
+
+// Brand Colours
+$primary: #3498db;
+$secondary: #FC5185;
+
+
+// Text Colours
+$text: white;
+$text-subtle: rgba($text, .75);
+$text-x-subtle: rgba($text, .45);

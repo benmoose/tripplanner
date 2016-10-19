@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% include '_components/head/meta.html' %}
     <title>Trip Planner</title>
-    {% include '_components/head/materialize.html' %}
+    {% include '_components/head/cdn.html' %}
+    {% include '_components/head/styles.html' %}
+    {% include '_components/head/fonts.html' %}
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
-{% block page %}
+{% include '_components/navigation/navigation.html' %}
+
+{% block window %}
+{% endblock %}
+
+{% block react %}
 {% endblock %}
 
 {% block js %}

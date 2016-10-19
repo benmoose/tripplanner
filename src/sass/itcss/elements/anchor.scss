@@ -1,0 +1,18 @@
+/*
+Elements Layer
+*/
+
+
+a {
+  &,
+  &:link,
+  &:visited {
+    text-decoration: none;
+    color: $primary;
+  }
+
+  &:hover,
+  &:active {
+    color: darken($primary, 10%);
+  }
+}

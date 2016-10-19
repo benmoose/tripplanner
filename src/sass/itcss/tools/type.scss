@@ -1,0 +1,23 @@
+/*
+Tools Layer
+*/
+
+
+@mixin set_body_font {
+  color: $text;
+  font-family: $body-font;
+  font-weight: normal;
+  letter-spacing: $body-letter-spacing;
+}
+
+@mixin set_heading_font {
+  color: $text;
+  font-family: "Poppins", $font-stack;
+  font-weight: bold;
+  letter-spacing: $heading-letter-spacing;
+}
+
+@mixin set_small_font {
+  @include set_body_font;
+  font-size: $small-font-size;
+}
