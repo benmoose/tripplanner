@@ -2,10 +2,12 @@
     <div class="navigation__brand">
         <a href="#">TripPlanner</a>
     </div>
+    {% if trip %}
     <div class="navigation__trip">
-        <span class="navigation__trip__title">Our American Holiday</span>
+        <span class="navigation__trip__title">{{ trip.title }}</span>
         <span class="navigation__trip__countdown">24 days left</span>
     </div>
+    {% endif %}
     <ul class="navigation__profile">
         <li class="navigation__link">
             <a class="navigation__link__a navigation__profile__user" href="#">{{ user_full_name }}<i class="fa fa-chevron-down"></i></a>

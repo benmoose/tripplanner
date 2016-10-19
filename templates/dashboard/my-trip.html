@@ -1,0 +1,10 @@
+{% extends 'dashboard.html' %}
+{% load render_bundle from webpack_loader %}
+
+{% block page %}
+    <div id="rm-MyTrip"></div>
+{% endblock %}
+
+{% block react %}
+    {% render_bundle 'MyTrip' %}
+{% endblock %}

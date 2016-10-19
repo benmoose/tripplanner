@@ -9,10 +9,10 @@ Objects Layer
     left: 0;
   display: flex;
   width: 100%;
-  height: auto;
+  height: $navigation-height;
   box-sizing: border-box;
   padding: $sd-space $sd-space $sd-space - 2px;
-  background: $background-dark;
+  background: $navigation;
   z-index: $zindex-2-nav;
 }
 
@@ -63,17 +63,20 @@ Objects Layer
 
 .navigation__trip {
   @extend %navigation__item;
-  display: block;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.navigation__trip__title {
-  display: block;
+.navigation__trip__title,
+.navigation__trip__countdown {
+  display: inline-block;
+  padding: 2px 0;
 }
 
 .navigation__trip__countdown {
   @include set_small_font;
-  display: block;
   color: $text-subtle;
 }
 

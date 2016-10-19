@@ -4,7 +4,10 @@ Objects Layer
 
 
 .page {
-  display: flex;
+  display: block;
   flex: 1;
+}
+
+.page-container {
   padding: $sd-space;
 }

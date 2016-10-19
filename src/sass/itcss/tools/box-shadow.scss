@@ -2,7 +2,6 @@
 Tools Layer
 */
 
-
-@mixin set_box_shadow_nav {
-  box-shadow: 0 1px 6px rgba(black, .15);
+@mixin set_box_shadow {
+  box-shadow: 0 2px 5px rgba(black, 28%);
 }

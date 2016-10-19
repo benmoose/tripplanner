@@ -5,7 +5,7 @@ const outputRoot = './static/',
       webpackInput = `${inputRoot}react`;
 
 var entry = (...component) => {
-    return `${webpackInput}/bundles/${component.join('/')}`;
+    return `${webpackInput}/bundles/${component.join('/')}/mount.js`;
 };
 
 // Plugins
@@ -14,7 +14,7 @@ const BundleTracker = require('webpack-bundle-tracker');
 module.exports = {
     context: __dirname,
     entry: {
-        newTrip: entry('trip', 'NewTrip.js')
+        MyTrip: entry('MyTrip')
     },
     output: {
         path: webpackOutput,

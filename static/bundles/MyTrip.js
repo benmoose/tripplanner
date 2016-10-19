@@ -56,9 +56,9 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _NewTrip = __webpack_require__(172);
+	var _layout = __webpack_require__(172);
 
-	var _NewTrip2 = _interopRequireDefault(_NewTrip);
+	var _layout2 = _interopRequireDefault(_layout);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68,26 +68,26 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var NewTripComponent = function (_Component) {
-	    _inherits(NewTripComponent, _Component);
+	var MyTrip = function (_Component) {
+	    _inherits(MyTrip, _Component);
 
-	    function NewTripComponent() {
-	        _classCallCheck(this, NewTripComponent);
+	    function MyTrip() {
+	        _classCallCheck(this, MyTrip);
 
-	        return _possibleConstructorReturn(this, (NewTripComponent.__proto__ || Object.getPrototypeOf(NewTripComponent)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (MyTrip.__proto__ || Object.getPrototypeOf(MyTrip)).apply(this, arguments));
 	    }
 
-	    _createClass(NewTripComponent, [{
+	    _createClass(MyTrip, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_NewTrip2.default, null);
+	            return _react2.default.createElement(_layout2.default, null);
 	        }
 	    }]);
 
-	    return NewTripComponent;
+	    return MyTrip;
 	}(_react.Component);
 
-	_reactDom2.default.render(_react2.default.createElement(NewTripComponent, null), document.getElementById('rm-newTrip'));
+	_reactDom2.default.render(_react2.default.createElement(MyTrip, null), document.getElementById('rm-MyTrip'));
 
 /***/ },
 /* 1 */
@@ -21472,6 +21472,16 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Map = __webpack_require__(174);
+
+	var _Map2 = _interopRequireDefault(_Map);
+
+	var _Itinerary = __webpack_require__(179);
+
+	var _Itinerary2 = _interopRequireDefault(_Itinerary);
+
+	var _endpoints = __webpack_require__(182);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21480,30 +21490,750 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var NewTrip = function (_Component) {
-	    _inherits(NewTrip, _Component);
+	var Layout = function (_Component) {
+	    _inherits(Layout, _Component);
 
-	    function NewTrip() {
-	        _classCallCheck(this, NewTrip);
+	    function Layout(props) {
+	        _classCallCheck(this, Layout);
 
-	        return _possibleConstructorReturn(this, (NewTrip.__proto__ || Object.getPrototypeOf(NewTrip)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+
+	        _this.state = {
+	            trip: undefined
+	        };
+	        return _this;
 	    }
 
-	    _createClass(NewTrip, [{
+	    _createClass(Layout, [{
+	        key: 'getTripDetails',
+	        value: function getTripDetails() {
+	            var _this2 = this;
+
+	            var pathname = window.location.pathname;
+	            fetch((0, _endpoints.TRIPDETAIL)(pathname)).then(function (response) {
+	                return response.json();
+	            }).then(function (json) {
+	                return _this2.setState({
+	                    trip: json
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            this.getTripDetails();
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'h1',
+	                'div',
 	                null,
-	                '+ New Trip'
+	                _react2.default.createElement(_Map2.default, null),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'page-container' },
+	                    _react2.default.createElement(_Itinerary2.default, this.state.trip)
+	                )
 	            );
 	        }
 	    }]);
 
-	    return NewTrip;
+	    return Layout;
 	}(_react.Component);
 
-	exports.default = NewTrip;
+	exports.default = Layout;
+
+/***/ },
+/* 173 */,
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _map = __webpack_require__(175);
+
+	var _map2 = _interopRequireDefault(_map);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Map = function (_Component) {
+	    _inherits(Map, _Component);
+
+	    function Map() {
+	        _classCallCheck(this, Map);
+
+	        return _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).apply(this, arguments));
+	    }
+
+	    _createClass(Map, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: _map2.default.map },
+	                _react2.default.createElement('iframe', {
+	                    className: _map2.default.map__map,
+	                    width: '650',
+	                    height: '450',
+	                    frameBorder: '0',
+	                    src: 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyC4ysxYvlgZfqItrZ2qB-_d8GuniL6ZvFU&origin=London,UK&waypoints=Boston|New%20York&destination=London,UK&units=metric' })
+	            );
+	        }
+	    }]);
+
+	    return Map;
+	}(_react.Component);
+
+	exports.default = Map;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(176);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(178)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?minimize&modules!./../../../../../node_modules/sass-loader/index.js!./map.scss", function() {
+				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?minimize&modules!./../../../../../node_modules/sass-loader/index.js!./map.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(177)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".LZOI6CXY8o1_EEJzrN8iL{height:260px;width:100%;overflow:hidden;background:#4b525c}._32CHC909YqrpNlpbz4Eg4K{box-shadow:0 2px 5px #000;height:260px;width:100%;border:0}", ""]);
+
+	// exports
+	exports.locals = {
+		"map": "LZOI6CXY8o1_EEJzrN8iL",
+		"map__map": "_32CHC909YqrpNlpbz4Eg4K"
+	};
+
+/***/ },
+/* 177 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _itinerary = __webpack_require__(180);
+
+	var _itinerary2 = _interopRequireDefault(_itinerary);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Itinerary = function (_Component) {
+	    _inherits(Itinerary, _Component);
+
+	    function Itinerary() {
+	        _classCallCheck(this, Itinerary);
+
+	        return _possibleConstructorReturn(this, (Itinerary.__proto__ || Object.getPrototypeOf(Itinerary)).apply(this, arguments));
+	    }
+
+	    _createClass(Itinerary, [{
+	        key: 'render',
+	        value: function render() {
+	            var props = Object.assign({
+	                get_trip_locations: [],
+	                origin_title: undefined,
+	                destination_title: undefined
+	            }, this.props);
+
+	            var itineraryItems = props.get_trip_locations.map(function (item, i) {
+	                return _react2.default.createElement(ItineraryItem, { key: i,
+	                    location: item.title,
+	                    arriveTime: item.arrive,
+	                    departTime: item.depart,
+	                    travelType: 'Flight',
+	                    originLocation: 'Stockholm',
+	                    travelTime: '8 Hours'
+	                });
+	            });
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: _itinerary2.default.itinerary },
+	                _react2.default.createElement(
+	                    'h6',
+	                    null,
+	                    props.origin_title
+	                ),
+	                itineraryItems,
+	                _react2.default.createElement(
+	                    'h6',
+	                    null,
+	                    props.destination_title
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Itinerary;
+	}(_react.Component);
+
+	exports.default = Itinerary;
+
+	var ItineraryItem = function (_Component2) {
+	    _inherits(ItineraryItem, _Component2);
+
+	    function ItineraryItem() {
+	        _classCallCheck(this, ItineraryItem);
+
+	        return _possibleConstructorReturn(this, (ItineraryItem.__proto__ || Object.getPrototypeOf(ItineraryItem)).apply(this, arguments));
+	    }
+
+	    _createClass(ItineraryItem, [{
+	        key: 'render',
+	        value: function render() {
+	            var _props = this.props;
+	            var location = _props.location;
+	            var arriveTime = _props.arriveTime;
+	            var departTime = _props.departTime;
+	            var travelType = _props.travelType;
+	            var originLocation = _props.originLocation;
+	            var destinationLocation = _props.destinationLocation;
+	            var travelTime = _props.travelTime;
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: _itinerary2.default.itineraryitem },
+	                    arriveTime ? _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'Arrive in ',
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            location
+	                        ),
+	                        ' on ',
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            arriveTime
+	                        ),
+	                        '.'
+	                    ) : null,
+	                    departTime ? _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'Depart ',
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            location
+	                        ),
+	                        ' on ',
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            departTime
+	                        ),
+	                        '.'
+	                    ) : null
+	                ),
+	                originLocation ? _react2.default.createElement(ItineraryTravel, { travelType: travelType,
+	                    originLocation: originLocation,
+	                    destinationLocation: destinationLocation,
+	                    travelTime: travelTime }) : null
+	            );
+	        }
+	    }]);
+
+	    return ItineraryItem;
+	}(_react.Component);
+
+	var ItineraryTravel = function (_Component3) {
+	    _inherits(ItineraryTravel, _Component3);
+
+	    function ItineraryTravel() {
+	        _classCallCheck(this, ItineraryTravel);
+
+	        return _possibleConstructorReturn(this, (ItineraryTravel.__proto__ || Object.getPrototypeOf(ItineraryTravel)).apply(this, arguments));
+	    }
+
+	    _createClass(ItineraryTravel, [{
+	        key: 'render',
+	        value: function render() {
+	            var _props2 = this.props;
+	            var travelType = _props2.travelType;
+	            var originLocation = _props2.originLocation;
+	            var destinationLocation = _props2.destinationLocation;
+	            var travelTime = _props2.travelTime;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: _itinerary2.default.itinerarytravel },
+	                _react2.default.createElement('div', { className: _itinerary2.default.itinerarytravel__line }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: _itinerary2.default.itinerarytravel__detail },
+	                    _react2.default.createElement(
+	                        'p',
+	                        { className: _itinerary2.default.itinerarytravel__detail__item },
+	                        travelType,
+	                        ' from ',
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            originLocation
+	                        )
+	                    ),
+	                    travelTime ? _react2.default.createElement(
+	                        'p',
+	                        { className: _itinerary2.default.itinerarytravel__detail__time },
+	                        travelTime
+	                    ) : null
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ItineraryTravel;
+	}(_react.Component);
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(181);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(178)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?minimize&modules!./../../../../../node_modules/sass-loader/index.js!./itinerary.scss", function() {
+				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?minimize&modules!./../../../../../node_modules/sass-loader/index.js!./itinerary.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(177)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "._2au4eyya6oi_zskEvM-JkD{display:flex;flex-direction:column;box-sizing:border-box;width:50%}._2PC_hajZlyeg9JZlJUTF3V{display:inline-block;box-sizing:border-box;padding:15px;background:#4b525c;border:none;flex:1}._2PC_hajZlyeg9JZlJUTF3V :last-child{margin-bottom:0}.EL4O_hABXAgNnVgeSMnLF{display:flex;height:auto}._20fF_XlIDIWsbNTqkq_HZz{width:25px;border-right:3px dotted #4b525c;margin-right:25px}.iQDG1KWPfCuofXeavXSzu{flex:1}.F8kw8D33WRBN6Dn6SCh-u{margin:0}.F8kw8D33WRBN6Dn6SCh-u:first-of-type{margin-top:15px}.F8kw8D33WRBN6Dn6SCh-u:last-of-type{margin-bottom:15px}.h_IfDTIxiqsORtYoVR68C{color:#58b9e2;font-weight:700;padding-top:5px}", ""]);
+
+	// exports
+	exports.locals = {
+		"itinerary": "_2au4eyya6oi_zskEvM-JkD",
+		"itineraryitem": "_2PC_hajZlyeg9JZlJUTF3V",
+		"itinerarytravel": "EL4O_hABXAgNnVgeSMnLF",
+		"itinerarytravel__line": "_20fF_XlIDIWsbNTqkq_HZz",
+		"itinerarytravel__detail": "iQDG1KWPfCuofXeavXSzu",
+		"itinerarytravel__detail__item": "F8kw8D33WRBN6Dn6SCh-u",
+		"itinerarytravel__detail__time": "h_IfDTIxiqsORtYoVR68C F8kw8D33WRBN6Dn6SCh-u"
+	};
+
+/***/ },
+/* 182 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/*
+	* Use this to generate endpoints.
+	* */
+
+	var baseUri = '/api/';
+
+	var apiEndpoint = exports.apiEndpoint = function apiEndpoint() {
+	    for (var _len = arguments.length, path = Array(_len), _key = 0; _key < _len; _key++) {
+	        path[_key] = arguments[_key];
+	    }
+
+	    var path = path.map(function (item) {
+	        return item.replace(new RegExp('/', 'g'), '');
+	    });
+	    return '' + baseUri + path.join('/');
+	};
+
+	var TRIPLIST = exports.TRIPLIST = apiEndpoint('trips');
+	var TRIPDETAIL = exports.TRIPDETAIL = function TRIPDETAIL(uuid) {
+	    return apiEndpoint('trips', uuid);
+	};
 
 /***/ }
 /******/ ]);

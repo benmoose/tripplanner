@@ -5,8 +5,11 @@ Objects Layer
 
 .sidemenu {
   @include set_inline_block;
-  background: $background-light;
-  width: auto;
+  position: fixed;
+  top: $navigation-height;
+  left: 0;
+  background: $background-dark;
+  width: $sidemenu-width;
   height: calc(100vh - #{$navigation-height});
 }
 

@@ -4,7 +4,12 @@ Objects Layer
 
 
 .window {
-  display: flex;
+  @include set_block;
   position: relative;
   width: 100%;
+  padding-left: $sidemenu-width;
+}
+
+.window-container {
+  padding: $sd-space;
 }
