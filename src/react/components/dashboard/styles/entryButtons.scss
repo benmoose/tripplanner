@@ -1,0 +1,19 @@
+@import "../../../../sass/itcss/settings/spacing";
+@import "../../../../sass/itcss/settings/sizing";
+
+/*
+EntryButtons Component
+*/
+
+
+.buttons {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+  box-sizing: border-box;
+  flex-flow: row wrap;
+  flex-basis: 0;
+  width: 100%;
+  height: calc(100vh - #{$navigation-height});
+  padding: $sd-space;
+}

@@ -20,4 +20,4 @@ class TripSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trip
-        fields = ('title', 'trip_locations',)
+        fields = ('title', 'get_absolute_url', 'trip_locations',)

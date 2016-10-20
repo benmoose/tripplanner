@@ -14,7 +14,8 @@ const BundleTracker = require('webpack-bundle-tracker');
 module.exports = {
     context: __dirname,
     entry: {
-        MyTrip: entry('MyTrip')
+        MyTrip: entry('MyTrip'),
+        SelectTrip: entry('SelectTrip'),
     },
     output: {
         path: webpackOutput,

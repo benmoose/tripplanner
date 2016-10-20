@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load render_bundle from webpack_loader %}
+
+{% block window %}
+    <div id="rm-SelectTrip"></div>
+{% endblock %}
+
+{% block react %}
+    {% render_bundle 'SelectTrip' %}
+{% endblock %}

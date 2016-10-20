@@ -8,7 +8,7 @@ from .models import Trip
 
 
 class NewTrip(TemplateView):
-    template_name = 'dashboard/new-trip.html'
+    template_name = 'dashboard/select-trip.html'
 
 
 class Dashboard(DetailView):
