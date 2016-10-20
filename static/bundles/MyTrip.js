@@ -21527,15 +21527,17 @@
 	        key: 'render',
 	        value: function render() {
 	            var trip = Object.assign({
-	                get_trip_locations: [],
-	                origin_title: undefined,
-	                destination_title: undefined
+	                trip_locations: []
 	            }, this.state.trip);
+
+	            var waypoints = trip.trip_locations.map(function (location) {
+	                return location.title;
+	            });
 
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_Map2.default, { origin: trip.origin_title, destination: trip.destination_title }),
+	                _react2.default.createElement(_Map2.default, { origin: trip.origin_title, destination: trip.destination_title, waypoints: waypoints }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'page-container' },
@@ -21590,11 +21592,6 @@
 	    _createClass(Map, [{
 	        key: 'render',
 	        value: function render() {
-	            var _props = this.props;
-	            var origin = _props.origin;
-	            var destination = _props.destination;
-	            var waypoints = _props.waypoints;
-
 	            var props = Object.assign({
 	                origin: undefined,
 	                destination: undefined,
@@ -21602,8 +21599,9 @@
 	            }, this.props);
 
 	            var apiKey = 'AIzaSyC4ysxYvlgZfqItrZ2qB-_d8GuniL6ZvFU';
-	            var googleApi = props.origin && props.destination ? 'https://www.google.com/maps/embed/v1/directions?key=' + apiKey + '&origin=' + props.origin + (props.waypoints.length ? '&waypoints=' + props.waypoints.join('|') : '') + '&destination=' + props.destination + '&units=metric' : 'https://www.google.com/maps/embed/v1/view?key=' + apiKey + '&zoom=2&center=51.5074,0.1278';
+	            var googleApi = props.origin && props.destination ? encodeURI('https://www.google.com/maps/embed/v1/directions?key=' + apiKey + '&origin=' + props.origin + (props.waypoints.length ? '&waypoints=' + props.waypoints.join('|') : '') + '&destination=' + props.destination + '&units=metric') : encodeURI('https://www.google.com/maps/embed/v1/view?key=' + apiKey + '&zoom=2&center=51.5074,0.1278');
 
+	            console.log(googleApi);
 	            return _react2.default.createElement(
 	                'div',
 	                { className: _map2.default.map },
@@ -22013,36 +22011,24 @@
 	    _createClass(Itinerary, [{
 	        key: 'render',
 	        value: function render() {
-	            var props = Object.assign({
-	                get_trip_locations: [],
-	                origin_title: undefined,
-	                destination_title: undefined
-	            }, this.props);
+	            var trip_locations = this.props.trip_locations;
 
-	            var itineraryItems = props.get_trip_locations.map(function (item, i) {
+
+	            var itineraryItems = trip_locations.map(function (item, i) {
 	                return _react2.default.createElement(ItineraryItem, { key: i,
 	                    location: item.title,
 	                    arriveTime: item.arrive,
 	                    departTime: item.depart,
-	                    travelType: 'Flight',
-	                    originLocation: 'Stockholm',
-	                    travelTime: '8 Hours' });
+	                    travelType: item.travel_type,
+	                    travelIcon: item.travel_icon,
+	                    destinationLocation: 'Destination',
+	                    travelDuration: '8 Hours' }); // #
 	            });
 
 	            return _react2.default.createElement(
 	                'div',
 	                { className: _itinerary2.default.itinerary },
-	                _react2.default.createElement(
-	                    'h6',
-	                    null,
-	                    props.origin_title
-	                ),
-	                itineraryItems,
-	                _react2.default.createElement(
-	                    'h6',
-	                    null,
-	                    props.destination_title
-	                )
+	                itineraryItems
 	            );
 	        }
 	    }]);
@@ -22069,9 +22055,9 @@
 	            var arriveTime = _props.arriveTime;
 	            var departTime = _props.departTime;
 	            var travelType = _props.travelType;
-	            var originLocation = _props.originLocation;
+	            var travelIcon = _props.travelIcon;
 	            var destinationLocation = _props.destinationLocation;
-	            var travelTime = _props.travelTime;
+	            var travelDuration = _props.travelDuration;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -22114,10 +22100,12 @@
 	                        '.'
 	                    ) : null
 	                ),
-	                originLocation ? _react2.default.createElement(ItineraryTravel, { travelType: travelType,
-	                    originLocation: originLocation,
+	                travelType && destinationLocation ? _react2.default.createElement(ItineraryTravel, { travelType: travelType,
+	                    travelIcon: travelIcon,
+	                    originLocation: location,
 	                    destinationLocation: destinationLocation,
-	                    travelTime: travelTime }) : null
+	                    travelDuration: travelDuration
+	                }) : null
 	            );
 	        }
 	    }]);
@@ -22139,9 +22127,10 @@
 	        value: function render() {
 	            var _props2 = this.props;
 	            var travelType = _props2.travelType;
+	            var travelIcon = _props2.travelIcon;
 	            var originLocation = _props2.originLocation;
 	            var destinationLocation = _props2.destinationLocation;
-	            var travelTime = _props2.travelTime;
+	            var travelDuration = _props2.travelDuration;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -22153,19 +22142,25 @@
 	                    _react2.default.createElement(
 	                        'p',
 	                        { className: _itinerary2.default.itinerarytravel__detail__item },
-	                        _react2.default.createElement('i', { className: 'fa fa-plane' }),
+	                        _react2.default.createElement('i', { className: 'fa ' + travelIcon, 'aria-hidden': 'true' }),
 	                        travelType,
 	                        ' from ',
 	                        _react2.default.createElement(
 	                            'strong',
 	                            null,
 	                            originLocation
+	                        ),
+	                        ' to ',
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            destinationLocation
 	                        )
 	                    ),
-	                    travelTime ? _react2.default.createElement(
+	                    travelDuration ? _react2.default.createElement(
 	                        'p',
 	                        { className: _itinerary2.default.itinerarytravel__detail__time },
-	                        travelTime
+	                        travelDuration
 	                    ) : null
 	                )
 	            );

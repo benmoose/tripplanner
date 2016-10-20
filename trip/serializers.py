@@ -6,19 +6,18 @@ from .models import Trip, TripLocation
 class TripLocationSerializer(serializers.ModelSerializer):
     arrive = serializers.DateTimeField(format='%A %d, %B')
     depart = serializers.DateTimeField(format='%A %d, %B')
+    travel_icon = serializers.CharField(source='get_travel_icon')
+    travel_type = serializers.CharField(source='get_travel_type_display')
 
     class Meta:
         model = TripLocation
-        fields = ('title', 'order', 'longitude', 'latitude', 'arrive',
-                  'depart')
+        fields = ('title', 'longitude', 'latitude', 'arrive', 'depart',
+                  'travel_type', 'travel_icon')
 
 
 class TripSerializer(serializers.ModelSerializer):
-    get_trip_locations = TripLocationSerializer(many=True)
+    trip_locations = TripLocationSerializer(many=True, source='get_trip_locations')
 
     class Meta:
         model = Trip
-        fields = ('title', 'get_trip_locations',
-                  'origin_title', 'origin_longitude', 'origin_latitude',
-                  'destination_title', 'destination_longitude',
-                  'destination_latitude',)
+        fields = ('title', 'trip_locations',)

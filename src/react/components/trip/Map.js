@@ -5,7 +5,6 @@ import styles from './styles/map.scss';
 
 export default class Map extends Component {
     render() {
-        const { origin, destination, waypoints } = this.props;
         const props = Object.assign({
             origin: undefined,
             destination: undefined,
@@ -14,9 +13,10 @@ export default class Map extends Component {
 
         const apiKey = 'AIzaSyC4ysxYvlgZfqItrZ2qB-_d8GuniL6ZvFU';
         var googleApi = props.origin && props.destination ?
-            `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${props.origin}${props.waypoints.length ? `&waypoints=${props.waypoints.join('|')}` : ''}&destination=${props.destination}&units=metric` :
-            `https://www.google.com/maps/embed/v1/view?key=${apiKey}&zoom=2&center=51.5074,0.1278`;
+            encodeURI(`https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${props.origin}${props.waypoints.length ? `&waypoints=${props.waypoints.join('|')}` : ''}&destination=${props.destination}&units=metric`) :
+            encodeURI(`https://www.google.com/maps/embed/v1/view?key=${apiKey}&zoom=2&center=51.5074,0.1278`);
 
+        console.log(googleApi);
         return (
             <div className={styles.map}>
                 <iframe

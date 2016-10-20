@@ -5,27 +5,22 @@ import styles from './styles/itinerary.scss';
 
 export default class Itinerary extends Component {
     render() {
-        var props = Object.assign({
-            get_trip_locations: [],
-            origin_title: undefined,
-            destination_title: undefined,
-        }, this.props);
+        const {trip_locations} = this.props;
 
-        var itineraryItems = props.get_trip_locations.map((item, i) => {
+        var itineraryItems = trip_locations.map((item, i) => {
             return (<ItineraryItem key={i}
                                    location={item.title}
                                    arriveTime={item.arrive}
                                    departTime={item.depart}
-                                   travelType="Flight"
-                                   originLocation="Stockholm"
-                                   travelTime="8 Hours"/>);
+                                   travelType={item.travel_type}
+                                   travelIcon={item.travel_icon}
+                                   destinationLocation="Destination"
+                                   travelDuration="8 Hours"/>);  // #
         });
 
         return (
             <div className={styles.itinerary}>
-                <h6>{props.origin_title}</h6>
                 {itineraryItems}
-                <h6>{props.destination_title}</h6>
             </div>
         );
     }
@@ -34,20 +29,22 @@ export default class Itinerary extends Component {
 
 class ItineraryItem extends Component {
     render() {
-        const {location, arriveTime, departTime, travelType, originLocation, destinationLocation, travelTime} = this.props;
+        const { location, arriveTime, departTime,
+            travelType, travelIcon, destinationLocation, travelDuration } = this.props;
         return (
             <div>
                 <div className={styles.itineraryitem}>
-                    {arriveTime ?
-                        <p>Arrive in <strong>{location}</strong> on <strong>{arriveTime}</strong>.</p> : null}
-                    {departTime ?
-                        <p>Depart <strong>{location}</strong> on <strong>{departTime}</strong>.</p> : null}
+                    {arriveTime ? <p>Arrive in <strong>{location}</strong> on <strong>{arriveTime}</strong>.</p> : null}
+                    {departTime ? <p>Depart <strong>{location}</strong> on <strong>{departTime}</strong>.</p> : null}
                 </div>
-                {originLocation ?
-                    <ItineraryTravel travelType={travelType}
-                                     originLocation={originLocation}
-                                     destinationLocation={destinationLocation}
-                                     travelTime={travelTime}/> : null}
+
+                {travelType && destinationLocation ?
+                <ItineraryTravel travelType={travelType}
+                                 travelIcon={travelIcon}
+                                 originLocation={location}
+                                 destinationLocation={destinationLocation}
+                                 travelDuration={travelDuration}
+                /> : null}
             </div>
         );
     }
@@ -56,15 +53,17 @@ class ItineraryItem extends Component {
 
 class ItineraryTravel extends Component {
     render() {
-        const {travelType, originLocation, destinationLocation, travelTime} = this.props;
+        const { travelType, travelIcon, originLocation, destinationLocation, travelDuration } = this.props;
         return (
             <div className={styles.itinerarytravel}>
                 <div className={styles.itinerarytravel__line}></div>
+
                 <div className={styles.itinerarytravel__detail}>
                     <p className={styles.itinerarytravel__detail__item}>
-                        <i className="fa fa-plane"></i>{travelType} from <strong>{originLocation}</strong>
+                        <i className={`fa ${travelIcon}`} aria-hidden="true"></i>
+                        {travelType} from <strong>{originLocation}</strong> to <strong>{destinationLocation}</strong>
                     </p>
-                    {travelTime ? <p className={styles.itinerarytravel__detail__time}>{travelTime}</p> : null}
+                    {travelDuration ? <p className={styles.itinerarytravel__detail__time}>{travelDuration}</p> : null}
                 </div>
             </div>
         );

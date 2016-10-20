@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import Map from '../../components/trip/Map';
 import Itinerary from '../../components/trip/Itinerary';
 
-import { TRIPDETAIL } from '../../api/endpoints';
+import {TRIPDETAIL} from '../../api/endpoints';
 
 
 export default class Layout extends Component {
@@ -32,14 +32,17 @@ export default class Layout extends Component {
 
     render() {
         var trip = Object.assign({
-            get_trip_locations: [],
-            origin_title: undefined,
-            destination_title: undefined,
+            trip_locations: [],
         }, this.state.trip);
+
+        var waypoints = trip.trip_locations.map(location => {
+            return location.title;
+        });
 
         return (
             <div>
-                <Map origin={trip.origin_title} destination={trip.destination_title}/>
+                <Map origin={trip.origin_title} destination={trip.destination_title} waypoints={waypoints}/>
+
                 <div className="page-container">
                     <Itinerary {...trip}/>
                 </div>

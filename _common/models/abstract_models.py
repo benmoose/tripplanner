@@ -87,7 +87,8 @@ class RichTextAndPreviewTextModel(models.Model):
     returns a snippet of the content in the rich text field.
     """
 
-    content = RedactorField(allow_file_upload=False, allow_image_upload=True)
+    content = RedactorField(allow_file_upload=False, allow_image_upload=True,
+                            blank=True)
 
     def get_preview_content(self, words=31):
         """

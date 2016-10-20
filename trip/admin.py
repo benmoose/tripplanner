@@ -12,11 +12,6 @@ class TripAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('title', 'content', 'users', 'active',),
         },),
-        ('Origin and Destination', {
-            'fields': ('origin_title', 'origin_longitude', 'origin_latitude',
-                       'destination_title', 'destination_longitude',
-                       'destination_latitude'),
-        },),
         ('Additional Information', {
             'fields': ('uuid', 'created', 'modified',)
         },)
@@ -24,9 +19,9 @@ class TripAdmin(admin.ModelAdmin):
 
 
 class TripLocationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'trip', 'order',)
+    list_display = ('title', 'trip', 'arrive',)
     list_filter = ('trip',)
-    ordering = ('trip', 'order', 'id',)
+    ordering = ('trip', '-arrive', 'id',)
 
 
 admin.site.register(Trip, TripAdmin)
