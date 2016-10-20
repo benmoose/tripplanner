@@ -35,13 +35,13 @@ export default class Layout extends Component {
             trip_locations: [],
         }, this.state.trip);
 
-        var waypoints = trip.trip_locations.map(location => {
+        var locations_array = trip.trip_locations.map(location => {
             return location.title;
         });
 
         return (
             <div>
-                <Map origin={trip.origin_title} destination={trip.destination_title} waypoints={waypoints}/>
+                <Map locations={locations_array}/>
 
                 <div className="page-container">
                     <Itinerary {...trip}/>

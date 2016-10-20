@@ -21,7 +21,7 @@ class TripAdmin(admin.ModelAdmin):
 class TripLocationAdmin(admin.ModelAdmin):
     list_display = ('title', 'trip', 'arrive',)
     list_filter = ('trip',)
-    ordering = ('trip', '-arrive', 'id',)
+    ordering = ('trip', 'arrive', 'id',)
 
 
 admin.site.register(Trip, TripAdmin)

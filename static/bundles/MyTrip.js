@@ -21530,14 +21530,14 @@
 	                trip_locations: []
 	            }, this.state.trip);
 
-	            var waypoints = trip.trip_locations.map(function (location) {
+	            var locations_array = trip.trip_locations.map(function (location) {
 	                return location.title;
 	            });
 
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_Map2.default, { origin: trip.origin_title, destination: trip.destination_title, waypoints: waypoints }),
+	                _react2.default.createElement(_Map2.default, { locations: locations_array }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'page-container' },
@@ -21593,15 +21593,22 @@
 	        key: 'render',
 	        value: function render() {
 	            var props = Object.assign({
-	                origin: undefined,
-	                destination: undefined,
-	                waypoints: []
+	                locations: []
 	            }, this.props);
 
-	            var apiKey = 'AIzaSyC4ysxYvlgZfqItrZ2qB-_d8GuniL6ZvFU';
-	            var googleApi = props.origin && props.destination ? encodeURI('https://www.google.com/maps/embed/v1/directions?key=' + apiKey + '&origin=' + props.origin + (props.waypoints.length ? '&waypoints=' + props.waypoints.join('|') : '') + '&destination=' + props.destination + '&units=metric') : encodeURI('https://www.google.com/maps/embed/v1/view?key=' + apiKey + '&zoom=2&center=51.5074,0.1278');
+	            var origin = undefined,
+	                waypoints = undefined,
+	                destination = undefined;
 
-	            console.log(googleApi);
+	            if (props.locations.length >= 2) {
+	                origin = props.locations[0];
+	                waypoints = props.locations.slice(1, -1);
+	                destination = props.locations[props.locations.length - 1];
+	            }
+
+	            var apiKey = 'AIzaSyC4ysxYvlgZfqItrZ2qB-_d8GuniL6ZvFU';
+	            var googleApi = origin && destination ? encodeURI('https://www.google.com/maps/embed/v1/directions?key=' + apiKey + '&origin=' + origin + (waypoints.length ? '&waypoints=' + waypoints.join('|') : '') + '&destination=' + destination + '&units=metric') : encodeURI('https://www.google.com/maps/embed/v1/view?key=' + apiKey + '&zoom=2&center=51.5074,0.1278');
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: _map2.default.map },

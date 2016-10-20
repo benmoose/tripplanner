@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from _common.models.abstract_models import TimeStampedModel,\
     RichTextAndPreviewTextModel
@@ -24,6 +25,9 @@ class Trip(TimeStampedModel, RichTextAndPreviewTextModel):
 
     def get_trip_locations(self):
         return TripLocation.objects.filter(trip=self)
+
+    def get_absolute_url(self):
+        return reverse('trip:dashboard', kwargs={'uuid': self.uuid})
 
     def __str__(self):
         return self.title
