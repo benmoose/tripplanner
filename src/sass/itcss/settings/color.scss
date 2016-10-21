@@ -2,11 +2,12 @@
 Settings layer
 */
 
-// Application Colours
-$background: #393E46;
+// UI Colours
+$background: #444F5A;
 $background-light: lighten($background, 8%);
-$background-dark: darken($background, 5%);
-$navigation: darken($background, 8%);
+$background-dark: darken($background, 6%);
+
+$navigation: darken($background, 12%);
 
 
 // Brand Colours

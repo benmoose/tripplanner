@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Map from '../../components/trip/Map';
 import Itinerary from '../../components/trip/Itinerary';
 
-import {TRIPDETAIL} from '../../api/endpoints';
+import { TRIPDETAIL } from '../../constants/endpoints';
 
 
 export default class Layout extends Component {

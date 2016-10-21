@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import EntryButtons from '../../components/dashboard/EntryButtons';
 
-import {TRIPLIST} from '../../api/endpoints';
+import { TRIPLIST } from '../../constants/endpoints';
 
 
 export default class Layout extends Component {

@@ -5,7 +5,7 @@ const outputRoot = './static/',
       webpackInput = `${inputRoot}react`;
 
 var entry = (...component) => {
-    return `${webpackInput}/bundles/${component.join('/')}/mount.js`;
+    return `${webpackInput}/containers/${component.join('/')}/mount.js`;
 };
 
 // Plugins
@@ -33,7 +33,7 @@ module.exports = {
             },
             {
                 test: /.scss$/,
-                loader: 'style!css?minimize&modules!sass'
+                loader: 'style!css?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!sass'
             }
         ]
     },

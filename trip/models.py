@@ -24,7 +24,7 @@ class Trip(TimeStampedModel, RichTextAndPreviewTextModel):
     active = models.BooleanField(default=True)
 
     def get_trip_locations(self):
-        return TripLocation.objects.filter(trip=self)
+        return TripLocation.objects.filter(trip=self).order_by('arrive')
 
     def get_absolute_url(self):
         return reverse('trip:dashboard', kwargs={'uuid': self.uuid})

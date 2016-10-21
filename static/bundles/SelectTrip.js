@@ -21936,7 +21936,7 @@
 
 	            var tripButtons = trips.map(function (trip, i) {
 	                console.log('trip', i, trip);
-	                return _react2.default.createElement(_TripButton2.default, { key: i, text: trip.title, href: trip.get_absolute_url, image: 'http://images2.content-hca.com/commimg/myhotcourses/blog/post/myhc_16523.jpg' });
+	                return _react2.default.createElement(_TripButton2.default, { key: i, text: trip.title, href: trip.get_absolute_url, image: 'https://media-cdn.tripadvisor.com/media/photo-s/03/9b/2d/f2/new-york-city.jpg' });
 	            });
 
 	            return _react2.default.createElement(
@@ -21974,8 +21974,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?minimize&modules!./../../../../../node_modules/sass-loader/index.js!./entryButtons.scss", function() {
-				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?minimize&modules!./../../../../../node_modules/sass-loader/index.js!./entryButtons.scss");
+			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./entryButtons.scss", function() {
+				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./entryButtons.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -21993,11 +21993,11 @@
 
 
 	// module
-	exports.push([module.id, "._1UK9n4bKYCB163meugyUiD{display:flex;justify-content:center;align-items:center;box-sizing:border-box;flex-flow:row wrap;flex-basis:0;width:100%;height:calc(100vh - 64px);padding:15px}", ""]);
+	exports.push([module.id, ".entryButtons_buttons_1UK9n{display:flex;justify-content:center;align-items:center;box-sizing:border-box;flex-flow:row wrap;flex-basis:0;width:100%;height:calc(100vh - 64px);padding:15px}", ""]);
 
 	// exports
 	exports.locals = {
-		"buttons": "_1UK9n4bKYCB163meugyUiD"
+		"buttons": "entryButtons_buttons_1UK9n"
 	};
 
 /***/ },
@@ -22120,8 +22120,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?minimize&modules!./../../../../../node_modules/sass-loader/index.js!./tripButton.scss", function() {
-				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?minimize&modules!./../../../../../node_modules/sass-loader/index.js!./tripButton.scss");
+			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./tripButton.scss", function() {
+				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./tripButton.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -22139,14 +22139,14 @@
 
 
 	// module
-	exports.push([module.id, ".zMuYM6dW1kGnzz6-S52ik{display:flex;flex:1;flex-direction:column;flex-grow:0;min-width:150px;padding:0 15px 15px}.zMuYM6dW1kGnzz6-S52ik:focus ._1e5gmrtJBuQ7xDH5cc3zI3,.zMuYM6dW1kGnzz6-S52ik:focus ._3b0p7ntcWx3s155sFvn_76,.zMuYM6dW1kGnzz6-S52ik:hover ._1e5gmrtJBuQ7xDH5cc3zI3,.zMuYM6dW1kGnzz6-S52ik:hover ._3b0p7ntcWx3s155sFvn_76{box-shadow:0 0 24px #000}._1e5gmrtJBuQ7xDH5cc3zI3,._3b0p7ntcWx3s155sFvn_76{object-fit:cover;width:100%;height:150px;border:2px solid #fff;border-radius:2px}._3N4HQerOb19ZL6NODYv6Sd{flex:1;text-align:center;padding:15px 0 0;height:40px;overflow-y:visible}._1e5gmrtJBuQ7xDH5cc3zI3{display:flex;align-items:center}._1e5gmrtJBuQ7xDH5cc3zI3>*{text-align:center;flex:1;font-size:3rem}", ""]);
+	exports.push([module.id, ".tripButton_tripButton_zMuYM{display:flex;flex:1;flex-direction:column;flex-grow:0;min-width:150px;padding:0 15px 15px}.tripButton_tripButton_zMuYM:focus .tripButton_tripButton__icon_1e5gm,.tripButton_tripButton_zMuYM:focus .tripButton_tripButton__img_3b0p7,.tripButton_tripButton_zMuYM:hover .tripButton_tripButton__icon_1e5gm,.tripButton_tripButton_zMuYM:hover .tripButton_tripButton__img_3b0p7{box-shadow:0 0 24px #000}.tripButton_tripButton__icon_1e5gm,.tripButton_tripButton__img_3b0p7{object-fit:cover;width:100%;height:150px;border:2px solid #fff;border-radius:2px}.tripButton_tripButton__title_3N4HQ{flex:1;text-align:center;padding:15px 0 0;height:40px;overflow-y:visible}.tripButton_tripButton__icon_1e5gm{display:flex;align-items:center}.tripButton_tripButton__icon_1e5gm>*{text-align:center;flex:1;font-size:3rem}", ""]);
 
 	// exports
 	exports.locals = {
-		"tripButton": "zMuYM6dW1kGnzz6-S52ik",
-		"tripButton__img": "_3b0p7ntcWx3s155sFvn_76",
-		"tripButton__icon": "_1e5gmrtJBuQ7xDH5cc3zI3",
-		"tripButton__title": "_3N4HQerOb19ZL6NODYv6Sd"
+		"tripButton": "tripButton_tripButton_zMuYM",
+		"tripButton__img": "tripButton_tripButton__img_3b0p7",
+		"tripButton__icon": "tripButton_tripButton__icon_1e5gm",
+		"tripButton__title": "tripButton_tripButton__title_3N4HQ"
 	};
 
 /***/ }
