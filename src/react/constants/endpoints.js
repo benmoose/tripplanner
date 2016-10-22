@@ -14,3 +14,5 @@ export var apiEndpoint = (...path) => {
 
 export var TRIPLIST = apiEndpoint('trips');
 export var TRIPDETAIL = (uuid) => apiEndpoint('trips', uuid);
+
+export var USERDETAIL = apiEndpoint('user');

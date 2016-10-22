@@ -29733,8 +29733,12 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	var defaultState = {
-	    name: undefined,
-	    age: undefined
+	    loading: false,
+	    error: null,
+	    fullName: undefined,
+	    firstName: undefined,
+	    lastName: undefined,
+	    username: undefined
 	};
 
 	var userReducer = exports.userReducer = function userReducer() {
@@ -29742,13 +29746,18 @@
 	    var action = arguments[1];
 
 	    switch (action.type) {
-	        case actionType.CHANGE_NAME:
+	        case actionType.USER_REQUEST:
 	            return _extends({}, state, {
-	                name: action.payload.name
+	                loading: true
 	            });
-	        case actionType.CHANGE_AGE:
-	            return _extends({}, state, {
-	                age: action.payload.age
+	        case actionType.USER_SUCCESS:
+	            return _extends({}, state, action.payload, {
+	                loading: false,
+	                error: null
+	            });
+	        case actionType.USER_FAILURE:
+	            return _extends({}, state, action.payload, {
+	                loading: false
 	            });
 	    }
 
@@ -29757,45 +29766,71 @@
 
 /***/ },
 /* 272 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.changeName = changeName;
-	exports.changeAge = changeAge;
-	/*
-	* Redux User Actions
-	* */
+	exports.USER_FAILURE = exports.USER_SUCCESS = exports.USER_REQUEST = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
+	                                                                                                                                                                                                                                                                  * Redux User Actions
+	                                                                                                                                                                                                                                                                  * */
+
+	exports.userRequest = userRequest;
+	exports.userSuccess = userSuccess;
+	exports.userFailure = userFailure;
+	exports.getUser = getUser;
+
+	var _endpoints = __webpack_require__(275);
 
 	/*
 	 * Action Creators
 	 * */
 
-	var CHANGE_NAME = exports.CHANGE_NAME = 'CHANGE_NAME';
-	var CHANGE_AGE = exports.CHANGE_AGE = 'CHANGE_AGE';
+	var USER_REQUEST = exports.USER_REQUEST = 'USER_REQUEST';
+	var USER_SUCCESS = exports.USER_SUCCESS = 'USER_SUCCESS';
+	var USER_FAILURE = exports.USER_FAILURE = 'USER_FAILURE';
 
 	/*
 	 * Action Creators
 	 * */
 
-	function changeName(name) {
+	function userRequest() {
 	    return {
-	        type: CHANGE_NAME,
+	        type: USER_REQUEST
+	    };
+	}
+
+	function userSuccess(user) {
+	    return {
+	        type: USER_SUCCESS,
+	        payload: _extends({}, user)
+	    };
+	}
+
+	function userFailure(error) {
+	    return {
+	        type: USER_FAILURE,
 	        payload: {
-	            name: name
+	            error: error
 	        }
 	    };
 	}
 
-	function changeAge(age) {
-	    return {
-	        type: CHANGE_AGE,
-	        payload: {
-	            age: age
-	        }
+	function getUser() {
+	    return function (dispatch) {
+	        dispatch(userRequest());
+
+	        return fetch(_endpoints.USERDETAIL).then(function (response) {
+	            return response.json();
+	        }).then(function (json) {
+	            return dispatch(userSuccess(json));
+	        }).catch(function (error) {
+	            return dispatch(userFailure(error));
+	        });
 	    };
 	}
 
@@ -29952,6 +29987,8 @@
 	    return apiEndpoint('trips', uuid);
 	};
 
+	var USERDETAIL = exports.USERDETAIL = apiEndpoint('user');
+
 /***/ },
 /* 276 */
 /***/ function(module, exports, __webpack_require__) {
@@ -29969,6 +30006,8 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactRedux = __webpack_require__(173);
+
+	var _user = __webpack_require__(272);
 
 	var _trips = __webpack_require__(274);
 
@@ -29999,12 +30038,14 @@
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            this.props.dispatch((0, _user.getUser)());
 	            this.props.dispatch((0, _trips.getTrips)());
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _props = this.props;
+	            var fullName = _props.fullName;
 	            var loading = _props.loading;
 	            var trips = _props.trips;
 	            var error = _props.error;
@@ -30015,6 +30056,12 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(_navigation2.default, null),
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Hello ',
+	                    fullName
+	                ),
 	                _react2.default.createElement(
 	                    'p',
 	                    null,
@@ -30042,6 +30089,7 @@
 	}(_react.Component);
 
 	function mapStateToProps(state) {
+	    var fullName = state.user.fullName;
 	    var _state$trips = state.trips;
 	    var loading = _state$trips.loading;
 	    var trips = _state$trips.trips;

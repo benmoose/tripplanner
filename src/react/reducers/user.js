@@ -6,21 +6,33 @@ import * as actionType from '../actions/user';
 
 
 const defaultState = {
-    name: undefined,
-    age: undefined,
+    loading: false,
+    error: null,
+    fullName: undefined,
+    firstName: undefined,
+    lastName: undefined,
+    username: undefined,
 };
 
 export const userReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case actionType.CHANGE_NAME:
+        case actionType.USER_REQUEST:
             return {
                 ...state,
-                name: action.payload.name,
+                loading: true,
             };
-        case actionType.CHANGE_AGE:
+        case actionType.USER_SUCCESS:
             return {
                 ...state,
-                age: action.payload.age,
+                ...action.payload,
+                loading: false,
+                error: null,
+            };
+        case actionType.USER_FAILURE:
+            return {
+                ...state,
+                ...action.payload,
+                loading: false,
             };
     }
 

@@ -25,7 +25,6 @@ urlpatterns = [
     url(r'^api/', include('api.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^redactor/', include('redactor.urls')),
-    url(r'^redux/', redux),
     url(r'^.*', Application.as_view()),
 ]
 
