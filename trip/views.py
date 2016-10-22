@@ -1,10 +1,15 @@
 from django.shortcuts import Http404
 from django.views.generic import TemplateView, DetailView
+from django.shortcuts import render
 
 from rest_framework import generics
 
 from .serializers import TripSerializer
 from .models import Trip
+
+
+def redux(request):
+    return render(request, 'redux.html', {})
 
 
 class NewTrip(TemplateView):

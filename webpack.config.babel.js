@@ -16,6 +16,7 @@ module.exports = {
     entry: {
         MyTrip: entry('MyTrip'),
         SelectTrip: entry('SelectTrip'),
+        ReduxTest: './src/react/reduxTest/simple.js',
     },
     output: {
         path: webpackOutput,

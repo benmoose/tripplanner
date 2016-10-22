@@ -46,48 +46,19 @@
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactDom = __webpack_require__(34);
 
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _layout = __webpack_require__(182);
+	var _layout = __webpack_require__(197);
 
 	var _layout2 = _interopRequireDefault(_layout);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SelectTrip = function (_Component) {
-	    _inherits(SelectTrip, _Component);
-
-	    function SelectTrip() {
-	        _classCallCheck(this, SelectTrip);
-
-	        return _possibleConstructorReturn(this, (SelectTrip.__proto__ || Object.getPrototypeOf(SelectTrip)).apply(this, arguments));
-	    }
-
-	    _createClass(SelectTrip, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(_layout2.default, null);
-	        }
-	    }]);
-
-	    return SelectTrip;
-	}(_react.Component);
-
-	_reactDom2.default.render(_react2.default.createElement(SelectTrip, null), document.getElementById('rm-SelectTrip'));
+	(0, _reactDom.render)(_react2.default.createElement(_layout2.default, null), document.getElementById('rm-SelectTrip'));
 
 /***/ },
 /* 1 */
@@ -21803,7 +21774,22 @@
 	};
 
 /***/ },
-/* 182 */
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21818,7 +21804,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _EntryButtons = __webpack_require__(183);
+	var _EntryButtons = __webpack_require__(198);
 
 	var _EntryButtons2 = _interopRequireDefault(_EntryButtons);
 
@@ -21888,7 +21874,7 @@
 	exports.default = Layout;
 
 /***/ },
-/* 183 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21903,11 +21889,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _entryButtons = __webpack_require__(184);
+	var _entryButtons = __webpack_require__(199);
 
 	var _entryButtons2 = _interopRequireDefault(_entryButtons);
 
-	var _TripButton = __webpack_require__(186);
+	var _TripButton = __webpack_require__(201);
 
 	var _TripButton2 = _interopRequireDefault(_TripButton);
 
@@ -21959,13 +21945,13 @@
 	exports.default = EntryButtons;
 
 /***/ },
-/* 184 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(185);
+	var content = __webpack_require__(200);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(177)(content, {});
@@ -21985,7 +21971,7 @@
 	}
 
 /***/ },
-/* 185 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(176)();
@@ -22001,7 +21987,7 @@
 	};
 
 /***/ },
-/* 186 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22017,7 +22003,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tripButton = __webpack_require__(187);
+	var _tripButton = __webpack_require__(202);
 
 	var _tripButton2 = _interopRequireDefault(_tripButton);
 
@@ -22105,13 +22091,13 @@
 	}(_react.Component);
 
 /***/ },
-/* 187 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(188);
+	var content = __webpack_require__(203);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(177)(content, {});
@@ -22131,7 +22117,7 @@
 	}
 
 /***/ },
-/* 188 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(176)();
