@@ -12,26 +12,8 @@ def redux(request):
     return render(request, 'redux.html', {})
 
 
-class NewTrip(TemplateView):
-    template_name = 'dashboard/select-trip.html'
-
-
-class Dashboard(DetailView):
-    model = Trip
-    pk_url_kwarg = 'uuid'
-    template_name = 'dashboard/my-trip.html'
-
-    def get_queryset(self):
-        return Trip.objects.filter(active=True).filter(
-            users__username__contains=self.request.user.username)
-
-    def get_object(self, queryset=None):
-        if not queryset:
-            queryset = self.get_queryset()
-        try:
-            return queryset.get(uuid=self.kwargs['uuid'])
-        except:
-            raise Http404
+class Application(TemplateView):
+    template_name = 'application.html'
 
 
 # API Views

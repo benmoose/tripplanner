@@ -14,9 +14,7 @@ const BundleTracker = require('webpack-bundle-tracker');
 module.exports = {
     context: __dirname,
     entry: {
-        MyTrip: entry('MyTrip'),
-        SelectTrip: entry('SelectTrip'),
-        ReduxTest: './src/react/reduxTest/simple.js',
+        App: './src/react/index.js',
     },
     output: {
         path: webpackOutput,
