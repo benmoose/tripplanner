@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 
 import { getTrips } from '../actions/trips';
 
+// import { TripSelector } from '../components/dashboard/TripSelector';
+import Navigation from '../components/navigation';
+
 
 class App extends Component {
     componentDidMount() {
@@ -12,14 +15,12 @@ class App extends Component {
     render() {
         const { loading, trips, error, params } = this.props;
 
-        const tripsList = trips.map((trip, i) => {
-            return <li key={i}>{trip.title} ({trip.trip_locations.length} locations)</li>;
-        });
-
         return (
             <div>
-                <p><strong>loading</strong> {loading.toString()}</p>
-                <ul>{tripsList}</ul>
+                <Navigation/>
+                <p>loading: {loading.toString()}</p>
+                {trips.map((trip, i) => <p key={i}>{trip.title}</p>)}
+                <p>uuid: {params.uuid}</p>
             </div>
         );
     }

@@ -1,0 +1,43 @@
+@import "../settings/color";
+@import "../settings/type";
+
+/*
+Tools Layer
+*/
+
+
+// Abstract classes
+
+%set_antialias {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: auto;
+  font-smooth: auto;
+}
+
+
+// Mixins
+
+@mixin set_body_font {
+  @extend %set_antialias;
+  color: $text;
+  font-family: $body-font;
+  font-weight: normal;
+  font-size: $base-font-size;
+  letter-spacing: $body-letter-spacing;
+  line-height: $body-line-height;
+}
+
+@mixin set_heading_font {
+  @extend %set_antialias;
+  color: $text;
+  font-family: "Poppins", $font-stack;
+  font-weight: bold;
+  letter-spacing: $heading-letter-spacing;
+  line-height: $headings-line-height;
+}
+
+@mixin set_small_font {
+  @extend %set_antialias;
+  @include set_body_font;
+  font-size: $small-font-size;
+}

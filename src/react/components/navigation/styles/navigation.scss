@@ -1,5 +1,12 @@
+@import "../../styles/settings/color";
+@import "../../styles/settings/sizing";
+@import "../../styles/settings/spacing";
+@import "../../styles/settings/z-index";
+
+@import "../../styles/tools/type";
+
 /*
-Objects Layer
+Navigation Component
 */
 
 
@@ -13,6 +20,7 @@ Objects Layer
   box-sizing: border-box;
   padding: $sd-space $sd-space $sd-space - 2px;
   background: $navigation;
+  color: $text;
   z-index: $zindex-2-nav;
 }
 
@@ -27,7 +35,6 @@ Objects Layer
 
 %navigation__text {
   @include set_heading_font;
-  color: $text;
 }
 
 
@@ -94,6 +101,8 @@ Objects Layer
 }
 
 .navigation__profile__user {
+  composes: navigation__link__a;
+
   .fa {
     margin-left: 7px;
   }

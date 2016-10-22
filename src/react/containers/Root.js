@@ -13,7 +13,7 @@ export default class Root extends Component {
         return (
             <Provider store={store}>
                 <Router history={browserHistory}>
-                    <Route path="/(:params)" component={App}/>
+                    <Route path="/(:uuid)" component={App}/>
                 </Router>
             </Provider>
         )

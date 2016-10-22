@@ -1,9 +1,31 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import styles from './styles/tripButton.scss';
+import styles from './styles/entryButtons.scss';
 
 
-export default class TripButton extends Component {
+export default class TripSelector extends Component {
+
+    render() {
+        const { trips } = this.props;
+
+        var tripButtons = trips.map((trip, i) => {
+            return <TripButton key={i} text={trip.title} href={trip.get_absolute_url} image="https://media-cdn.tripadvisor.com/media/photo-s/03/9b/2d/f2/new-york-city.jpg"/>
+        });
+
+        return (
+            <div className={styles.buttons}>
+                <TripButtonWithCallback text="New Trip"
+                                        image="http://images2.content-hca.com/commimg/myhotcourses/blog/post/myhc_16523.jpg"
+                                        onClick={() => alert('clicked!')}
+                                        icon={<i className="fa fa-plus"></i>}/>
+                {tripButtons}
+            </div>
+        );
+    }
+}
+
+
+export class TripButton extends Component {
     render() {
         const props = Object.assign({
             image: undefined,
