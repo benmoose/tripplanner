@@ -1,12 +1,6 @@
 import { store } from '../store';
 
-import { CHANGE_NAME, CHANGE_AGE, CHANGE_USER } from '../actions/user';
+import { getTrips } from '../actions/trips';
 
 
-store.dispatch({
-    type: CHANGE_USER,
-    payload: {
-        name: 'Ben Hadfield',
-        age: 20,
-    }
-});
+// store.dispatch(getTrips());

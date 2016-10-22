@@ -12,11 +12,6 @@ const defaultState = {
 
 export const userReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case actionType.CHANGE_USER:
-            return {
-                ...state,
-                ...action.payload,
-            };
         case actionType.CHANGE_NAME:
             return {
                 ...state,
