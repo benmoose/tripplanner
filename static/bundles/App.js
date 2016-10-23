@@ -29702,7 +29702,7 @@
 
 	var _user = __webpack_require__(271);
 
-	var _trips = __webpack_require__(273);
+	var _trips = __webpack_require__(274);
 
 	var reducer = exports.reducer = (0, _redux.combineReducers)({
 	    user: _user.userReducer,
@@ -29733,8 +29733,11 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	var defaultState = {
+	    auth: null,
+	    authenticating: false,
+
 	    loading: false,
-	    error: null,
+	    detail: null,
 	    fullName: undefined,
 	    firstName: undefined,
 	    lastName: undefined,
@@ -29746,6 +29749,20 @@
 	    var action = arguments[1];
 
 	    switch (action.type) {
+	        case actionType.USER_GET_TOKEN_REQUEST:
+	            return _extends({}, state, {
+	                authenticating: true
+	            });
+	        case actionType.USER_GET_TOKEN_SUCCESS:
+	            return _extends({}, state, {
+	                auth: action.payload.token,
+	                authenticating: false
+	            });
+	        case actionType.USER_GET_TOKEN_FAILURE:
+	            return _extends({}, state, action.payload, {
+	                authenticating: false
+	            });
+
 	        case actionType.USER_REQUEST:
 	            return _extends({}, state, {
 	                loading: true
@@ -29753,7 +29770,7 @@
 	        case actionType.USER_SUCCESS:
 	            return _extends({}, state, action.payload, {
 	                loading: false,
-	                error: null
+	                detail: null
 	            });
 	        case actionType.USER_FAILURE:
 	            return _extends({}, state, action.payload, {
@@ -29773,22 +29790,30 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.USER_FAILURE = exports.USER_SUCCESS = exports.USER_REQUEST = undefined;
+	exports.USER_FAILURE = exports.USER_SUCCESS = exports.USER_REQUEST = exports.USER_GET_TOKEN_FAILURE = exports.USER_GET_TOKEN_SUCCESS = exports.USER_GET_TOKEN_REQUEST = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
 	                                                                                                                                                                                                                                                                  * Redux User Actions
 	                                                                                                                                                                                                                                                                  * */
 
+	exports.userGetTokenRequest = userGetTokenRequest;
+	exports.userGetTokenSuccess = userGetTokenSuccess;
+	exports.userGetTokenFailure = userGetTokenFailure;
+	exports.getUserToken = getUserToken;
 	exports.userRequest = userRequest;
 	exports.userSuccess = userSuccess;
 	exports.userFailure = userFailure;
 	exports.getUser = getUser;
 
-	var _endpoints = __webpack_require__(275);
+	var _endpoints = __webpack_require__(273);
 
 	/*
 	 * Action Creators
 	 * */
+
+	var USER_GET_TOKEN_REQUEST = exports.USER_GET_TOKEN_REQUEST = 'USER_GET_TOKEN_REQUEST';
+	var USER_GET_TOKEN_SUCCESS = exports.USER_GET_TOKEN_SUCCESS = 'USER_GET_TOKEN_SUCCESS';
+	var USER_GET_TOKEN_FAILURE = exports.USER_GET_TOKEN_FAILURE = 'USER_GET_TOKEN_FAILURE';
 
 	var USER_REQUEST = exports.USER_REQUEST = 'USER_REQUEST';
 	var USER_SUCCESS = exports.USER_SUCCESS = 'USER_SUCCESS';
@@ -29797,6 +29822,55 @@
 	/*
 	 * Action Creators
 	 * */
+
+	/* Get User Token */
+
+	function userGetTokenRequest() {
+	    return {
+	        type: USER_GET_TOKEN_REQUEST
+	    };
+	}
+
+	function userGetTokenSuccess(token) {
+	    return {
+	        type: USER_GET_TOKEN_SUCCESS,
+	        payload: _extends({}, token)
+	    };
+	}
+
+	function userGetTokenFailure(error) {
+	    return {
+	        type: USER_GET_TOKEN_FAILURE,
+	        payload: {
+	            detail: error
+	        }
+	    };
+	}
+
+	function getUserToken(username, password) {
+	    return function (dispatch) {
+	        dispatch(userGetTokenRequest());
+
+	        return fetch(_endpoints.USER_GET_TOKEN, {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({
+	                username: username,
+	                password: password
+	            })
+	        }).then(function (response) {
+	            return response.json();
+	        }).then(function (json) {
+	            return dispatch(userGetTokenSuccess(json));
+	        }).catch(function (error) {
+	            return dispatch(userGetTokenFailure(error));
+	        });
+	    };
+	}
+
+	/* Get User Details */
 
 	function userRequest() {
 	    return {
@@ -29815,16 +29889,23 @@
 	    return {
 	        type: USER_FAILURE,
 	        payload: {
-	            error: error
+	            detail: error
 	        }
 	    };
 	}
 
-	function getUser() {
+	function getUser(token) {
 	    return function (dispatch) {
 	        dispatch(userRequest());
+	        console.log('userRequest() with token', token);
 
-	        return fetch(_endpoints.USERDETAIL).then(function (response) {
+	        return fetch(_endpoints.USER_DETAIL, {
+	            method: 'GET',
+	            headers: {
+	                'Accept': 'application/json',
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Token: ' + token }
+	        }).then(function (response) {
 	            return response.json();
 	        }).then(function (json) {
 	            return dispatch(userSuccess(json));
@@ -29836,6 +29917,40 @@
 
 /***/ },
 /* 273 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/*
+	* Use this to generate endpoints.
+	* */
+
+	var baseUri = '/api/';
+
+	var apiEndpoint = exports.apiEndpoint = function apiEndpoint() {
+	    for (var _len = arguments.length, path = Array(_len), _key = 0; _key < _len; _key++) {
+	        path[_key] = arguments[_key];
+	    }
+
+	    var path_array = path.map(function (item) {
+	        return item.replace(new RegExp('/', 'g'), '');
+	    });
+	    return '' + baseUri + path_array.join('/');
+	};
+
+	var USER_GET_TOKEN = exports.USER_GET_TOKEN = apiEndpoint('api-token-auth');
+	var USER_DETAIL = exports.USER_DETAIL = apiEndpoint('user');
+
+	var TRIP_LIST = exports.TRIP_LIST = apiEndpoint('trips');
+	var TRIP_DETAIL = exports.TRIP_DETAIL = function TRIP_DETAIL(uuid) {
+	    return apiEndpoint('trips', uuid);
+	};
+
+/***/ },
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29849,7 +29964,7 @@
 	                                                                                                                                                                                                                                                                   * Redux Trips Reducer
 	                                                                                                                                                                                                                                                                   * */
 
-	var _trips = __webpack_require__(274);
+	var _trips = __webpack_require__(275);
 
 	var actionType = _interopRequireWildcard(_trips);
 
@@ -29886,7 +30001,7 @@
 	};
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29900,7 +30015,7 @@
 	exports.tripsFailure = tripsFailure;
 	exports.getTrips = getTrips;
 
-	var _endpoints = __webpack_require__(275);
+	var _endpoints = __webpack_require__(273);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /*
 	                                                                                                                                                                                                     * Redux Trips Actions
@@ -29946,7 +30061,7 @@
 	    return function (dispatch) {
 	        dispatch(tripsRequest());
 
-	        return fetch(_endpoints.TRIPLIST).then(function (response) {
+	        return fetch(_endpoints.TRIP_LIST).then(function (response) {
 	            return response.json();
 	        }).then(function (json) {
 	            return dispatch(tripsSuccess(json));
@@ -29955,39 +30070,6 @@
 	        });
 	    };
 	}
-
-/***/ },
-/* 275 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/*
-	* Use this to generate endpoints.
-	* */
-
-	var baseUri = '/api/';
-
-	var apiEndpoint = exports.apiEndpoint = function apiEndpoint() {
-	    for (var _len = arguments.length, path = Array(_len), _key = 0; _key < _len; _key++) {
-	        path[_key] = arguments[_key];
-	    }
-
-	    var path = path.map(function (item) {
-	        return item.replace(new RegExp('/', 'g'), '');
-	    });
-	    return '' + baseUri + path.join('/');
-	};
-
-	var TRIPLIST = exports.TRIPLIST = apiEndpoint('trips');
-	var TRIPDETAIL = exports.TRIPDETAIL = function TRIPDETAIL(uuid) {
-	    return apiEndpoint('trips', uuid);
-	};
-
-	var USERDETAIL = exports.USERDETAIL = apiEndpoint('user');
 
 /***/ },
 /* 276 */
@@ -30009,9 +30091,7 @@
 
 	var _user = __webpack_require__(272);
 
-	var _trips = __webpack_require__(274);
-
-	var _navigation = __webpack_require__(282);
+	var _navigation = __webpack_require__(277);
 
 	var _navigation2 = _interopRequireDefault(_navigation);
 
@@ -30022,9 +30102,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// import { TripSelector } from '../components/dashboard/TripSelector';
-
 
 	var App = function (_Component) {
 	    _inherits(App, _Component);
@@ -30038,17 +30115,17 @@
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            this.props.dispatch((0, _user.getUser)());
-	            this.props.dispatch((0, _trips.getTrips)());
+	            this.props.dispatch((0, _user.getUserToken)('ben', 'Grabb-00'));
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            this.props.dispatch((0, _user.getUser)(this.props.auth));
 	            var _props = this.props;
-	            var fullName = _props.fullName;
-	            var loading = _props.loading;
-	            var trips = _props.trips;
+	            var auth = _props.auth;
+	            var authenticating = _props.authenticating;
 	            var error = _props.error;
+	            var fullName = _props.fullName;
 	            var params = _props.params;
 
 
@@ -30065,21 +30142,10 @@
 	                _react2.default.createElement(
 	                    'p',
 	                    null,
-	                    'loading: ',
-	                    loading.toString()
-	                ),
-	                trips.map(function (trip, i) {
-	                    return _react2.default.createElement(
-	                        'p',
-	                        { key: i },
-	                        trip.title
-	                    );
-	                }),
-	                _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'uuid: ',
-	                    params.uuid
+	                    'Authenticating: ',
+	                    authenticating.toString(),
+	                    ' | ',
+	                    auth
 	                )
 	            );
 	        }
@@ -30089,15 +30155,15 @@
 	}(_react.Component);
 
 	function mapStateToProps(state) {
+	    var _state$user = state.user;
+	    var authenticating = _state$user.authenticating;
+	    var auth = _state$user.auth;
+	    var error = _state$user.error;
 	    var fullName = state.user.fullName;
-	    var _state$trips = state.trips;
-	    var loading = _state$trips.loading;
-	    var trips = _state$trips.trips;
-	    var error = _state$trips.error;
 
 	    return {
-	        loading: loading,
-	        trips: trips,
+	        auth: auth,
+	        authenticating: authenticating,
 	        error: error
 	    };
 	}
@@ -30105,9 +30171,146 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 277 */,
-/* 278 */,
-/* 279 */,
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _navigation = __webpack_require__(278);
+
+	var _navigation2 = _interopRequireDefault(_navigation);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Navigation = function (_Component) {
+	    _inherits(Navigation, _Component);
+
+	    function Navigation() {
+	        _classCallCheck(this, Navigation);
+
+	        return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).apply(this, arguments));
+	    }
+
+	    _createClass(Navigation, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'nav',
+	                { className: '' + _navigation2.default.navigation },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: '' + _navigation2.default.navigation__brand },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#' },
+	                        'TripPlanner'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: '' + _navigation2.default.navigation__trip },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: '' + _navigation2.default.navigation__trip__title },
+	                        'Foo Bar'
+	                    ),
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: '' + _navigation2.default.navigation__trip__countdown },
+	                        '24 days left'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'ul',
+	                    { className: '' + _navigation2.default.navigation__profile },
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: '' + _navigation2.default.navigation__link },
+	                        _react2.default.createElement(
+	                            'a',
+	                            { className: '' + _navigation2.default.navigation__link__a, href: '#' },
+	                            'Foo Bar ',
+	                            _react2.default.createElement('i', { className: 'fa fa-chevron-down' })
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Navigation;
+	}(_react.Component);
+
+	exports.default = Navigation;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(279);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(281)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./navigation.scss", function() {
+				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./navigation.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(280)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".navigation_navigation__brand_2WcTX a,.navigation_navigation__link_22R0S,.navigation_navigation__link_22R0S a,.navigation_navigation__trip__countdown_2azjO{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:auto;font-smooth:auto}.navigation_navigation_2mMcn{position:fixed;top:0;left:0;display:flex;width:100%;height:64px;box-sizing:border-box;padding:15px 15px 13px;background:#2a3037;color:#fff;z-index:100}.navigation_navigation__brand_2WcTX,.navigation_navigation__profile_17Yhp,.navigation_navigation__trip_3qJz9{display:flex;align-items:center;justify-content:space-between}.navigation_navigation__brand_2WcTX a,.navigation_navigation__link_22R0S,.navigation_navigation__link_22R0S a{color:#fff;font-family:Poppins,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,sans-serif;font-weight:700;letter-spacing:.0275em;line-height:1}.navigation_navigation__brand_2WcTX{flex:1;font-size:21.7px}.navigation_navigation__link_22R0S,.navigation_navigation__link_22R0S a{display:inline-block}.navigation_navigation__link__a_3f7hi{padding:5px 12px}.navigation_navigation__trip_3qJz9{display:flex;flex-direction:column;align-items:center;justify-content:center}.navigation_navigation__trip__countdown_2azjO,.navigation_navigation__trip__title_XPYsg{display:inline-block;padding:2px 0}.navigation_navigation__trip__countdown_2azjO{color:#fff;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,sans-serif;font-weight:400;font-size:14px;letter-spacing:.0125em;line-height:1;font-size:11.2px;color:hsla(0,0%,100%,.75)}.navigation_navigation__profile_17Yhp{flex:1;justify-content:flex-end;margin:0;padding:0;list-style-type:none;text-align:right}.navigation_navigation__profile__user_3KtFh .navigation_fa_21tF5{margin-left:7px}", ""]);
+
+	// exports
+	exports.locals = {
+		"navigation__brand": "navigation_navigation__brand_2WcTX",
+		"navigation__link": "navigation_navigation__link_22R0S",
+		"navigation__trip__countdown": "navigation_navigation__trip__countdown_2azjO",
+		"navigation": "navigation_navigation_2mMcn",
+		"navigation__trip": "navigation_navigation__trip_3qJz9",
+		"navigation__profile": "navigation_navigation__profile_17Yhp",
+		"navigation__link__a": "navigation_navigation__link__a_3f7hi",
+		"navigation__trip__title": "navigation_navigation__trip__title_XPYsg",
+		"navigation__profile__user": "navigation_navigation__profile__user_3KtFh navigation_navigation__link__a_3f7hi",
+		"fa": "navigation_fa_21tF5"
+	};
+
+/***/ },
 /* 280 */
 /***/ function(module, exports) {
 
@@ -30414,146 +30617,6 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _navigation = __webpack_require__(283);
-
-	var _navigation2 = _interopRequireDefault(_navigation);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Navigation = function (_Component) {
-	    _inherits(Navigation, _Component);
-
-	    function Navigation() {
-	        _classCallCheck(this, Navigation);
-
-	        return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).apply(this, arguments));
-	    }
-
-	    _createClass(Navigation, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'nav',
-	                { className: '' + _navigation2.default.navigation },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: '' + _navigation2.default.navigation__brand },
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: '#' },
-	                        'TripPlanner'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: '' + _navigation2.default.navigation__trip },
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: '' + _navigation2.default.navigation__trip__title },
-	                        'Foo Bar'
-	                    ),
-	                    _react2.default.createElement(
-	                        'span',
-	                        { className: '' + _navigation2.default.navigation__trip__countdown },
-	                        '24 days left'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'ul',
-	                    { className: '' + _navigation2.default.navigation__profile },
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: '' + _navigation2.default.navigation__link },
-	                        _react2.default.createElement(
-	                            'a',
-	                            { className: '' + _navigation2.default.navigation__link__a, href: '#' },
-	                            'Foo Bar ',
-	                            _react2.default.createElement('i', { className: 'fa fa-chevron-down' })
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Navigation;
-	}(_react.Component);
-
-	exports.default = Navigation;
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(284);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(281)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./navigation.scss", function() {
-				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./navigation.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(280)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".navigation_navigation__brand_2WcTX a,.navigation_navigation__link_22R0S,.navigation_navigation__link_22R0S a,.navigation_navigation__trip__countdown_2azjO{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:auto;font-smooth:auto}.navigation_navigation_2mMcn{position:fixed;top:0;left:0;display:flex;width:100%;height:64px;box-sizing:border-box;padding:15px 15px 13px;background:#2a3037;color:#fff;z-index:100}.navigation_navigation__brand_2WcTX,.navigation_navigation__profile_17Yhp,.navigation_navigation__trip_3qJz9{display:flex;align-items:center;justify-content:space-between}.navigation_navigation__brand_2WcTX a,.navigation_navigation__link_22R0S,.navigation_navigation__link_22R0S a{color:#fff;font-family:Poppins,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,sans-serif;font-weight:700;letter-spacing:.0275em;line-height:1}.navigation_navigation__brand_2WcTX{flex:1;font-size:21.7px}.navigation_navigation__link_22R0S,.navigation_navigation__link_22R0S a{display:inline-block}.navigation_navigation__link__a_3f7hi{padding:5px 12px}.navigation_navigation__trip_3qJz9{display:flex;flex-direction:column;align-items:center;justify-content:center}.navigation_navigation__trip__countdown_2azjO,.navigation_navigation__trip__title_XPYsg{display:inline-block;padding:2px 0}.navigation_navigation__trip__countdown_2azjO{color:#fff;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,sans-serif;font-weight:400;font-size:14px;letter-spacing:.0125em;line-height:1;font-size:11.2px;color:hsla(0,0%,100%,.75)}.navigation_navigation__profile_17Yhp{flex:1;justify-content:flex-end;margin:0;padding:0;list-style-type:none;text-align:right}.navigation_navigation__profile__user_3KtFh .navigation_fa_21tF5{margin-left:7px}", ""]);
-
-	// exports
-	exports.locals = {
-		"navigation__brand": "navigation_navigation__brand_2WcTX",
-		"navigation__link": "navigation_navigation__link_22R0S",
-		"navigation__trip__countdown": "navigation_navigation__trip__countdown_2azjO",
-		"navigation": "navigation_navigation_2mMcn",
-		"navigation__trip": "navigation_navigation__trip_3qJz9",
-		"navigation__profile": "navigation_navigation__profile_17Yhp",
-		"navigation__link__a": "navigation_navigation__link__a_3f7hi",
-		"navigation__trip__title": "navigation_navigation__trip__title_XPYsg",
-		"navigation__profile__user": "navigation_navigation__profile__user_3KtFh navigation_navigation__link__a_3f7hi",
-		"fa": "navigation_fa_21tF5"
-	};
 
 /***/ }
 /******/ ]);

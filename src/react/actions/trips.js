@@ -2,7 +2,7 @@
  * Redux Trips Actions
  * */
 
-import { TRIPLIST } from '../constants/endpoints';
+import { TRIP_LIST } from '../constants/endpoints';
 
 
 /*
@@ -46,7 +46,7 @@ export function getTrips() {
     return dispatch => {
         dispatch(tripsRequest());
 
-        return fetch(TRIPLIST)
+        return fetch(TRIP_LIST)
             .then(response => response.json())
             .then(json => dispatch(tripsSuccess(json)))
             .catch(error => dispatch(tripsFailure(error)))
