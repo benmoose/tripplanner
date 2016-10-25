@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import EntryButtons from '../../components/dashboard/EntryButtons';
 
-import { TRIPLIST } from '../../constants/endpoints';
+import { TRIP_LIST } from '../../constants/endpoints';
 
 
 export default class Layout extends Component {
@@ -15,7 +15,7 @@ export default class Layout extends Component {
     }
 
     getTripDetails() {
-        fetch(TRIPLIST)
+        fetch(TRIP_LIST)
             .then(response => {
                 return response.json();
             })

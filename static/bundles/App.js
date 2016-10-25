@@ -29733,11 +29733,14 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	var defaultState = {
+	    auth: null,
+	    authenticating: false,
+
 	    loading: false,
-	    error: null,
-	    fullName: undefined,
-	    firstName: undefined,
-	    lastName: undefined,
+	    detail: null,
+	    full_name: undefined,
+	    first_name: undefined,
+	    last_name: undefined,
 	    username: undefined
 	};
 
@@ -29746,6 +29749,20 @@
 	    var action = arguments[1];
 
 	    switch (action.type) {
+	        case actionType.USER_GET_TOKEN_REQUEST:
+	            return _extends({}, state, {
+	                authenticating: true
+	            });
+	        case actionType.USER_GET_TOKEN_SUCCESS:
+	            return _extends({}, state, {
+	                auth: action.payload.token,
+	                authenticating: false
+	            });
+	        case actionType.USER_GET_TOKEN_FAILURE:
+	            return _extends({}, state, action.payload, {
+	                authenticating: false
+	            });
+
 	        case actionType.USER_REQUEST:
 	            return _extends({}, state, {
 	                loading: true
@@ -29753,7 +29770,7 @@
 	        case actionType.USER_SUCCESS:
 	            return _extends({}, state, action.payload, {
 	                loading: false,
-	                error: null
+	                detail: null
 	            });
 	        case actionType.USER_FAILURE:
 	            return _extends({}, state, action.payload, {
@@ -29773,12 +29790,16 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.USER_FAILURE = exports.USER_SUCCESS = exports.USER_REQUEST = undefined;
+	exports.USER_FAILURE = exports.USER_SUCCESS = exports.USER_REQUEST = exports.USER_GET_TOKEN_FAILURE = exports.USER_GET_TOKEN_SUCCESS = exports.USER_GET_TOKEN_REQUEST = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
 	                                                                                                                                                                                                                                                                  * Redux User Actions
 	                                                                                                                                                                                                                                                                  * */
 
+	exports.userGetTokenRequest = userGetTokenRequest;
+	exports.userGetTokenSuccess = userGetTokenSuccess;
+	exports.userGetTokenFailure = userGetTokenFailure;
+	exports.getUserToken = getUserToken;
 	exports.userRequest = userRequest;
 	exports.userSuccess = userSuccess;
 	exports.userFailure = userFailure;
@@ -29790,6 +29811,10 @@
 	 * Action Creators
 	 * */
 
+	var USER_GET_TOKEN_REQUEST = exports.USER_GET_TOKEN_REQUEST = 'USER_GET_TOKEN_REQUEST';
+	var USER_GET_TOKEN_SUCCESS = exports.USER_GET_TOKEN_SUCCESS = 'USER_GET_TOKEN_SUCCESS';
+	var USER_GET_TOKEN_FAILURE = exports.USER_GET_TOKEN_FAILURE = 'USER_GET_TOKEN_FAILURE';
+
 	var USER_REQUEST = exports.USER_REQUEST = 'USER_REQUEST';
 	var USER_SUCCESS = exports.USER_SUCCESS = 'USER_SUCCESS';
 	var USER_FAILURE = exports.USER_FAILURE = 'USER_FAILURE';
@@ -29797,6 +29822,55 @@
 	/*
 	 * Action Creators
 	 * */
+
+	/* Get User Token */
+
+	function userGetTokenRequest() {
+	    return {
+	        type: USER_GET_TOKEN_REQUEST
+	    };
+	}
+
+	function userGetTokenSuccess(token) {
+	    return {
+	        type: USER_GET_TOKEN_SUCCESS,
+	        payload: _extends({}, token)
+	    };
+	}
+
+	function userGetTokenFailure(error) {
+	    return {
+	        type: USER_GET_TOKEN_FAILURE,
+	        payload: {
+	            detail: error
+	        }
+	    };
+	}
+
+	function getUserToken(username, password) {
+	    return function (dispatch) {
+	        dispatch(userGetTokenRequest());
+
+	        return fetch(_endpoints.USER_GET_TOKEN, {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({
+	                username: username,
+	                password: password
+	            })
+	        }).then(function (response) {
+	            return response.json();
+	        }).then(function (json) {
+	            return dispatch(userGetTokenSuccess(json));
+	        }).catch(function (error) {
+	            return dispatch(userGetTokenFailure(error));
+	        });
+	    };
+	}
+
+	/* Get User Details */
 
 	function userRequest() {
 	    return {
@@ -29815,16 +29889,23 @@
 	    return {
 	        type: USER_FAILURE,
 	        payload: {
-	            error: error
+	            detail: error
 	        }
 	    };
 	}
 
 	function getUser() {
-	    return function (dispatch) {
+	    return function (dispatch, getState) {
 	        dispatch(userRequest());
 
-	        return fetch(_endpoints.USERDETAIL).then(function (response) {
+	        return fetch(_endpoints.USER_DETAIL, {
+	            method: 'GET',
+	            headers: new Headers({
+	                'Accept': 'application/json',
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Token ' + getState().user.auth
+	            })
+	        }).then(function (response) {
 	            return response.json();
 	        }).then(function (json) {
 	            return dispatch(userSuccess(json));
@@ -29854,18 +29935,19 @@
 	        path[_key] = arguments[_key];
 	    }
 
-	    var path = path.map(function (item) {
+	    var path_array = path.map(function (item) {
 	        return item.replace(new RegExp('/', 'g'), '');
 	    });
-	    return '' + baseUri + path.join('/');
+	    return '' + baseUri + path_array.join('/');
 	};
 
-	var TRIPLIST = exports.TRIPLIST = apiEndpoint('trips');
-	var TRIPDETAIL = exports.TRIPDETAIL = function TRIPDETAIL(uuid) {
+	var USER_GET_TOKEN = exports.USER_GET_TOKEN = apiEndpoint('api-token-auth');
+	var USER_DETAIL = exports.USER_DETAIL = apiEndpoint('user');
+
+	var TRIP_LIST = exports.TRIP_LIST = apiEndpoint('trips');
+	var TRIP_DETAIL = exports.TRIP_DETAIL = function TRIP_DETAIL(uuid) {
 	    return apiEndpoint('trips', uuid);
 	};
-
-	var USERDETAIL = exports.USERDETAIL = apiEndpoint('user');
 
 /***/ },
 /* 274 */
@@ -29979,7 +30061,7 @@
 	    return function (dispatch) {
 	        dispatch(tripsRequest());
 
-	        return fetch(_endpoints.TRIPLIST).then(function (response) {
+	        return fetch(_endpoints.TRIP_LIST).then(function (response) {
 	            return response.json();
 	        }).then(function (json) {
 	            return dispatch(tripsSuccess(json));
@@ -30009,8 +30091,6 @@
 
 	var _user = __webpack_require__(272);
 
-	var _trips = __webpack_require__(275);
-
 	var _navigation = __webpack_require__(277);
 
 	var _navigation2 = _interopRequireDefault(_navigation);
@@ -30022,9 +30102,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// import { TripSelector } from '../components/dashboard/TripSelector';
-
 
 	var App = function (_Component) {
 	    _inherits(App, _Component);
@@ -30038,17 +30115,16 @@
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            this.props.dispatch((0, _user.getUser)());
-	            this.props.dispatch((0, _trips.getTrips)());
+	            this.props.dispatch((0, _user.getUserToken)('ben', 'tripplanner'));
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            var _props = this.props;
+	            var authenticating = _props.authenticating;
 	            var fullName = _props.fullName;
-	            var loading = _props.loading;
-	            var trips = _props.trips;
-	            var error = _props.error;
 	            var params = _props.params;
 
 
@@ -30059,27 +30135,21 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'Hello ',
+	                    'Hello, ',
 	                    fullName
 	                ),
 	                _react2.default.createElement(
 	                    'p',
 	                    null,
-	                    'loading: ',
-	                    loading.toString()
+	                    'Authenticating: ',
+	                    authenticating.toString()
 	                ),
-	                trips.map(function (trip, i) {
-	                    return _react2.default.createElement(
-	                        'p',
-	                        { key: i },
-	                        trip.title
-	                    );
-	                }),
 	                _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'uuid: ',
-	                    params.uuid
+	                    'button',
+	                    { onClick: function onClick() {
+	                            return _this2.props.dispatch((0, _user.getUser)());
+	                        } },
+	                    'Get User Details'
 	                )
 	            );
 	        }
@@ -30089,16 +30159,15 @@
 	}(_react.Component);
 
 	function mapStateToProps(state) {
-	    var fullName = state.user.fullName;
-	    var _state$trips = state.trips;
-	    var loading = _state$trips.loading;
-	    var trips = _state$trips.trips;
-	    var error = _state$trips.error;
+	    var _state$user = state.user;
+	    var authenticating = _state$user.authenticating;
+	    var auth = _state$user.auth;
+	    var error = _state$user.error;
+	    var full_name = _state$user.full_name;
 
 	    return {
-	        loading: loading,
-	        trips: trips,
-	        error: error
+	        authenticating: authenticating,
+	        fullName: full_name
 	    };
 	}
 

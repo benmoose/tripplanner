@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Map from '../../components/trip/Map';
 import Itinerary from '../../components/trip/Itinerary';
 
-import { TRIPDETAIL } from '../../constants/endpoints';
+import { TRIP_DETAIL } from '../../constants/endpoints';
 
 
 export default class Layout extends Component {
@@ -17,7 +17,7 @@ export default class Layout extends Component {
 
     getTripDetails() {
         var pathname = window.location.pathname;
-        fetch(TRIPDETAIL(pathname))
+        fetch(TRIP_DETAIL(pathname))
             .then(response => {
                 return response.json();
             })
