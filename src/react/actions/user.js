@@ -96,8 +96,8 @@ export function userFailure(error) {
     }
 }
 
-export function getUser(token) {
-    return dispatch => {
+export function getUser() {
+    return (dispatch, getState) => {
         dispatch(userRequest());
 
         return fetch(USER_DETAIL, {
@@ -105,7 +105,7 @@ export function getUser(token) {
             headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Token ' + token,
+                'Authorization': 'Token ' + getState().user.auth,
             }),
         })
             .then(response => response.json())

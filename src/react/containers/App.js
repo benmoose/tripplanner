@@ -11,20 +11,15 @@ class App extends Component {
         this.props.dispatch(getUserToken('ben', 'tripplanner'));
     }
 
-    handleClick() {
-        this.forceUpdate();
-    }
-
     render() {
-        const {auth, authenticating, error, fullName, params } = this.props;
+        const { authenticating, fullName, params } = this.props;
 
         return (
             <div>
                 <Navigation/>
                 <h1>Hello, {fullName}</h1>
-                <p>Authenticating: {authenticating.toString()} | {auth}</p>
-                <button onClick={this.handleClick.bind(this)}>Force Render</button>
-                {auth ? <button onClick={() => this.props.dispatch(getUser(auth))}>Get User Details</button> : null}
+                <p>Authenticating: {authenticating.toString()}</p>
+                <button onClick={() => this.props.dispatch(getUser())}>Get User Details</button>
             </div>
         );
     }
@@ -34,9 +29,7 @@ class App extends Component {
 function mapStateToProps(state) {
     const { authenticating, auth, error, full_name } = state.user;
     return {
-        auth: auth,
         authenticating: authenticating,
-        error: error,
         fullName: full_name,
     };
 }

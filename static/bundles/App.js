@@ -29894,8 +29894,8 @@
 	    };
 	}
 
-	function getUser(token) {
-	    return function (dispatch) {
+	function getUser() {
+	    return function (dispatch, getState) {
 	        dispatch(userRequest());
 
 	        return fetch(_endpoints.USER_DETAIL, {
@@ -29903,7 +29903,7 @@
 	            headers: new Headers({
 	                'Accept': 'application/json',
 	                'Content-Type': 'application/json',
-	                'Authorization': 'Token ' + token
+	                'Authorization': 'Token ' + getState().user.auth
 	            })
 	        }).then(function (response) {
 	            return response.json();
@@ -30118,19 +30118,12 @@
 	            this.props.dispatch((0, _user.getUserToken)('ben', 'tripplanner'));
 	        }
 	    }, {
-	        key: 'handleClick',
-	        value: function handleClick() {
-	            this.forceUpdate();
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
 
 	            var _props = this.props;
-	            var auth = _props.auth;
 	            var authenticating = _props.authenticating;
-	            var error = _props.error;
 	            var fullName = _props.fullName;
 	            var params = _props.params;
 
@@ -30149,22 +30142,15 @@
 	                    'p',
 	                    null,
 	                    'Authenticating: ',
-	                    authenticating.toString(),
-	                    ' | ',
-	                    auth
+	                    authenticating.toString()
 	                ),
 	                _react2.default.createElement(
 	                    'button',
-	                    { onClick: this.handleClick.bind(this) },
-	                    'Force Render'
-	                ),
-	                auth ? _react2.default.createElement(
-	                    'button',
 	                    { onClick: function onClick() {
-	                            return _this2.props.dispatch((0, _user.getUser)(auth));
+	                            return _this2.props.dispatch((0, _user.getUser)());
 	                        } },
 	                    'Get User Details'
-	                ) : null
+	                )
 	            );
 	        }
 	    }]);
@@ -30180,9 +30166,7 @@
 	    var full_name = _state$user.full_name;
 
 	    return {
-	        auth: auth,
 	        authenticating: authenticating,
-	        error: error,
 	        fullName: full_name
 	    };
 	}
