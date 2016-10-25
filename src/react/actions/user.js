@@ -99,15 +99,14 @@ export function userFailure(error) {
 export function getUser(token) {
     return dispatch => {
         dispatch(userRequest());
-        console.log('userRequest() with token', token);
 
         return fetch(USER_DETAIL, {
             method: 'GET',
-            headers: {
+            headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Token: ' + token,  // were still getting a 401 FORBIDDEN error.
-            },
+                'Authorization': 'Token ' + token,
+            }),
         })
             .then(response => response.json())
             .then(json => dispatch(userSuccess(json)))

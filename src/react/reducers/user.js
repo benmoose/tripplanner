@@ -11,9 +11,9 @@ const defaultState = {
 
     loading: false,
     detail: null,
-    fullName: undefined,
-    firstName: undefined,
-    lastName: undefined,
+    full_name: undefined,
+    first_name: undefined,
+    last_name: undefined,
     username: undefined,
 };
 

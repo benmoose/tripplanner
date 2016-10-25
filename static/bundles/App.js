@@ -29738,9 +29738,9 @@
 
 	    loading: false,
 	    detail: null,
-	    fullName: undefined,
-	    firstName: undefined,
-	    lastName: undefined,
+	    full_name: undefined,
+	    first_name: undefined,
+	    last_name: undefined,
 	    username: undefined
 	};
 
@@ -29897,14 +29897,14 @@
 	function getUser(token) {
 	    return function (dispatch) {
 	        dispatch(userRequest());
-	        console.log('userRequest() with token', token);
 
 	        return fetch(_endpoints.USER_DETAIL, {
 	            method: 'GET',
-	            headers: {
+	            headers: new Headers({
 	                'Accept': 'application/json',
 	                'Content-Type': 'application/json',
-	                'Authorization': 'Token: ' + token }
+	                'Authorization': 'Token ' + token
+	            })
 	        }).then(function (response) {
 	            return response.json();
 	        }).then(function (json) {
@@ -30115,12 +30115,18 @@
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            this.props.dispatch((0, _user.getUserToken)('ben', 'Grabb-00'));
+	            this.props.dispatch((0, _user.getUserToken)('ben', 'tripplanner'));
+	        }
+	    }, {
+	        key: 'handleClick',
+	        value: function handleClick() {
+	            this.forceUpdate();
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            this.props.dispatch((0, _user.getUser)(this.props.auth));
+	            var _this2 = this;
+
 	            var _props = this.props;
 	            var auth = _props.auth;
 	            var authenticating = _props.authenticating;
@@ -30136,7 +30142,7 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'Hello ',
+	                    'Hello, ',
 	                    fullName
 	                ),
 	                _react2.default.createElement(
@@ -30146,7 +30152,19 @@
 	                    authenticating.toString(),
 	                    ' | ',
 	                    auth
-	                )
+	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { onClick: this.handleClick.bind(this) },
+	                    'Force Render'
+	                ),
+	                auth ? _react2.default.createElement(
+	                    'button',
+	                    { onClick: function onClick() {
+	                            return _this2.props.dispatch((0, _user.getUser)(auth));
+	                        } },
+	                    'Get User Details'
+	                ) : null
 	            );
 	        }
 	    }]);
@@ -30159,12 +30177,13 @@
 	    var authenticating = _state$user.authenticating;
 	    var auth = _state$user.auth;
 	    var error = _state$user.error;
-	    var fullName = state.user.fullName;
+	    var full_name = _state$user.full_name;
 
 	    return {
 	        auth: auth,
 	        authenticating: authenticating,
-	        error: error
+	        error: error,
+	        fullName: full_name
 	    };
 	}
 
