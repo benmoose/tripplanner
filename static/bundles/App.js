@@ -30058,10 +30058,17 @@
 	}
 
 	function getTrips() {
-	    return function (dispatch) {
+	    return function (dispatch, getState) {
 	        dispatch(tripsRequest());
 
-	        return fetch(_endpoints.TRIP_LIST).then(function (response) {
+	        return fetch(_endpoints.TRIP_LIST, {
+	            method: 'GET',
+	            headers: new Headers({
+	                'Accept': 'application/json',
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Token ' + getState().user.auth
+	            })
+	        }).then(function (response) {
 	            return response.json();
 	        }).then(function (json) {
 	            return dispatch(tripsSuccess(json));
@@ -30091,9 +30098,15 @@
 
 	var _user = __webpack_require__(272);
 
+	var _trips = __webpack_require__(275);
+
 	var _navigation = __webpack_require__(277);
 
 	var _navigation2 = _interopRequireDefault(_navigation);
+
+	var _TripSelector = __webpack_require__(282);
+
+	var _TripSelector2 = _interopRequireDefault(_TripSelector);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30113,8 +30126,8 @@
 	    }
 
 	    _createClass(App, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
 	            this.props.dispatch((0, _user.getUserToken)('ben', 'tripplanner'));
 	        }
 	    }, {
@@ -30125,19 +30138,15 @@
 	            var _props = this.props;
 	            var authenticating = _props.authenticating;
 	            var fullName = _props.fullName;
+	            var trips = _props.trips;
+	            var loading = _props.loading;
 	            var params = _props.params;
 
 
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_navigation2.default, null),
-	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'Hello, ',
-	                    fullName
-	                ),
+	                _react2.default.createElement(_navigation2.default, { fullName: fullName }),
 	                _react2.default.createElement(
 	                    'p',
 	                    null,
@@ -30145,12 +30154,26 @@
 	                    authenticating.toString()
 	                ),
 	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Loading Trips: ',
+	                    loading.toString()
+	                ),
+	                _react2.default.createElement(
 	                    'button',
 	                    { onClick: function onClick() {
 	                            return _this2.props.dispatch((0, _user.getUser)());
 	                        } },
 	                    'Get User Details'
-	                )
+	                ),
+	                _react2.default.createElement(
+	                    'button',
+	                    { onClick: function onClick() {
+	                            return _this2.props.dispatch((0, _trips.getTrips)());
+	                        } },
+	                    'Get Trips'
+	                ),
+	                _react2.default.createElement(_TripSelector2.default, { trips: trips })
 	            );
 	        }
 	    }]);
@@ -30161,13 +30184,16 @@
 	function mapStateToProps(state) {
 	    var _state$user = state.user;
 	    var authenticating = _state$user.authenticating;
-	    var auth = _state$user.auth;
-	    var error = _state$user.error;
 	    var full_name = _state$user.full_name;
+	    var _state$trips = state.trips;
+	    var trips = _state$trips.trips;
+	    var loading = _state$trips.loading;
 
 	    return {
 	        authenticating: authenticating,
-	        fullName: full_name
+	        fullName: full_name,
+	        trips: trips,
+	        loading: loading
 	    };
 	}
 
@@ -30213,6 +30239,9 @@
 	    _createClass(Navigation, [{
 	        key: 'render',
 	        value: function render() {
+	            var fullName = this.props.fullName;
+
+
 	            return _react2.default.createElement(
 	                'nav',
 	                { className: '' + _navigation2.default.navigation },
@@ -30248,7 +30277,8 @@
 	                        _react2.default.createElement(
 	                            'a',
 	                            { className: '' + _navigation2.default.navigation__link__a, href: '#' },
-	                            'Foo Bar ',
+	                            fullName,
+	                            ' ',
 	                            _react2.default.createElement('i', { className: 'fa fa-chevron-down' })
 	                        )
 	                    )
@@ -30620,6 +30650,127 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _entryButtons = __webpack_require__(283);
+
+	var _entryButtons2 = _interopRequireDefault(_entryButtons);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TripSelector = function (_Component) {
+	    _inherits(TripSelector, _Component);
+
+	    function TripSelector() {
+	        _classCallCheck(this, TripSelector);
+
+	        return _possibleConstructorReturn(this, (TripSelector.__proto__ || Object.getPrototypeOf(TripSelector)).apply(this, arguments));
+	    }
+
+	    _createClass(TripSelector, [{
+	        key: 'render',
+	        value: function render() {
+	            var trips = this.props.trips;
+
+
+	            var tripButtons = _react2.default.createElement(
+	                'ul',
+	                null,
+	                trips.map(function (trip, i) {
+	                    return _react2.default.createElement(
+	                        'li',
+	                        { key: i },
+	                        trip.title,
+	                        ' ',
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: trip.get_absolute_url },
+	                            'Go'
+	                        )
+	                    );
+	                })
+	            );
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: _entryButtons2.default.buttons },
+	                _react2.default.createElement(
+	                    'a',
+	                    null,
+	                    '+ New Trip'
+	                ),
+	                tripButtons
+	            );
+	        }
+	    }]);
+
+	    return TripSelector;
+	}(_react.Component);
+
+	exports.default = TripSelector;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(284);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(281)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./entryButtons.scss", function() {
+				var newContent = require("!!./../../../../../node_modules/css-loader/index.js?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!./../../../../../node_modules/sass-loader/index.js!./entryButtons.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(280)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".entryButtons_buttons_1UK9n{display:flex;justify-content:center;align-items:center;box-sizing:border-box;flex-flow:row wrap;flex-basis:0;width:100%;height:calc(100vh - 64px);padding:15px}", ""]);
+
+	// exports
+	exports.locals = {
+		"buttons": "entryButtons_buttons_1UK9n"
+	};
 
 /***/ }
 /******/ ]);

@@ -5,6 +5,8 @@ import styles from './styles/navigation.scss';
 
 export default class Navigation extends Component {
     render() {
+        const { fullName } = this.props;
+
         return (
             <nav className={`${styles.navigation}`}>
                 <div className={`${styles.navigation__brand}`}>
@@ -17,7 +19,7 @@ export default class Navigation extends Component {
                 <ul className={`${styles.navigation__profile}`}>
                     <li className={`${styles.navigation__link}`}>
                         <a className={`${styles.navigation__link__a}`} href="#">
-                            Foo Bar <i className="fa fa-chevron-down"></i>
+                            {fullName} <i className="fa fa-chevron-down"></i>
                         </a>
                     </li>
                 </ul>

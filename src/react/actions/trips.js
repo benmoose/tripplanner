@@ -43,10 +43,17 @@ export function tripsFailure(error) {
 }
 
 export function getTrips() {
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch(tripsRequest());
 
-        return fetch(TRIP_LIST)
+        return fetch(TRIP_LIST, {
+            method: 'GET',
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + getState().user.auth,
+            }),
+        })
             .then(response => response.json())
             .then(json => dispatch(tripsSuccess(json)))
             .catch(error => dispatch(tripsFailure(error)))
