@@ -21,3 +21,9 @@ class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
         fields = ('title', 'get_absolute_url', 'locations',)
+
+
+class SimpleTripSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trip
+        fields = ('uuid', 'title')

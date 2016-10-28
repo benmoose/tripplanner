@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 
 from rest_framework import generics
 
-from .serializers import TripSerializer
+from .serializers import TripSerializer, SimpleTripSerializer
 from .models import Trip
 
 
@@ -19,7 +19,7 @@ class TripList(generics.ListAPIView):
     Returns an array of trips for the current user.
     """
     queryset = Trip.objects.filter(active=True)
-    serializer_class = TripSerializer
+    serializer_class = SimpleTripSerializer
 
     def filter_queryset(self, queryset):
         """

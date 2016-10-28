@@ -1,30 +1,32 @@
 /*
- * Redux Trips Reducer
+ * Redux Trip Reducer
  * */
 
-import * as actionType from '../actions/trips';
+import * as actionType from '../actions/trip';
 
 
 const defaultState = {
     loading: false,
-    error: null,
-    trips: [],
+    error: undefined,
+    uuid: undefined,
+    title: undefined,
+    locations: [],
 };
 
-export const tripsReducer = (state = defaultState, action) => {
+export const tripReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case actionType.TRIPS_LIST_REQUEST:
+        case actionType.TRIP_LIST_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case actionType.TRIPS_LIST_SUCCESS:
+        case actionType.TRIP_LIST_SUCCESS:
             return {
                 ...state,
-                trips: action.payload.trips,
+                ...action.payload,
                 loading: false,
             };
-        case actionType.TRIPS_LIST_FAILURE:
+        case actionType.TRIP_LIST_FAILURE:
             return {
                 ...state,
                 error: action.payload.error,

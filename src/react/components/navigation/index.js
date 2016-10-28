@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
+import TripSelector from '../tripSelector';
+
 import styles from './styles/navigation.scss';
 
 
 export default class Navigation extends Component {
     render() {
-        const { fullName } = this.props;
+        const { fullName, trips, onSelectTrip } = this.props;
 
         return (
             <nav className={`${styles.navigation}`}>
@@ -15,7 +17,7 @@ export default class Navigation extends Component {
                 </div>
 
                 <div className={`${styles.trip}`}>
-                    <span className={`${styles.trip__title}`}>Foo Bar</span>
+                    <TripSelector onSelectTrip={onSelectTrip} trips={trips}/>
                     <span className={`${styles.trip__countdown}`}>24 days left!</span>
                 </div>
 
@@ -27,7 +29,6 @@ export default class Navigation extends Component {
                     </li>
                 </ul>
             </nav>
-
         );
     }
 }
