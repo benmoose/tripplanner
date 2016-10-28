@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getUserToken, getUser } from '../actions/user';
-import { getTrips } from '../actions/trips';
+import { getUserToken } from '../actions/user';
 
-import Navigation from '../components/navigation';
-import TripSelector from '../components/dashboard/TripSelector';
+import Navigation from '../components/navigation/';
+import Sidemenu from '../components/sidemenu/';
+import Window from '../components/window/';
 
 
 class App extends Component {
@@ -14,16 +14,15 @@ class App extends Component {
     }
 
     render() {
-        const { authenticating, fullName, trips, loading, params } = this.props;
+        const { fullName, authenticating, loading, trips, params } = this.props;
 
         return (
             <div>
                 <Navigation fullName={fullName}/>
-                <p>Authenticating: {authenticating.toString()}</p>
-                <p>Loading Trips: {loading.toString()}</p>
-                <button onClick={() => this.props.dispatch(getUser())}>Get User Details</button>
-                <button onClick={() => this.props.dispatch(getTrips())}>Get Trips</button>
-                <TripSelector trips={trips}/>
+                <Sidemenu/>
+                <Window>
+                    {this.props.children || <p>Default UI</p>}
+                </Window>
             </div>
         );
     }
@@ -34,10 +33,10 @@ function mapStateToProps(state) {
     const { authenticating, full_name } = state.user;
     const { trips, loading } = state.trips;
     return {
-        authenticating: authenticating,
         fullName: full_name,
-        trips: trips,
-        loading: loading,
+        authenticating,
+        loading,
+        trips,
     };
 }
 

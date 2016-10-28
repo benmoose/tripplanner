@@ -1,0 +1,20 @@
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+
+@import "../../_styles/tools/block";
+
+/*
+Window Component
+*/
+
+
+.window {
+  @include set_block;
+  position: relative;
+  width: 100%;
+  padding-left: $sidemenu-width;
+}
+
+.windowInner {
+  padding: $sd-space;
+}

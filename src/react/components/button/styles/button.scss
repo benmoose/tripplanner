@@ -1,0 +1,86 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/spacing";
+
+@import "../../_styles/tools/block";
+@import "../../_styles/tools/type";
+
+/*
+Base Button Component
+*/
+
+
+%_btn {
+  &,
+  &:link,
+  &:visited {
+    @include set_inline_block;
+    @include set_heading_font;
+    position: relative;
+    padding: $sd-space/2 $lg-space;
+    border: none;
+    outline: none;
+  }
+}
+
+
+/*
+Primary Button Component
+*/
+
+
+.btn {
+  &,
+  &:link,
+  &:visited {
+    @extend %_btn;
+    color: $text;
+  }
+
+  &:hover,
+  &:active {
+    color: rgba($text, .9);
+  }
+}
+
+
+/*
+Sidemenu Button Component
+*/
+
+
+.btnSidemenu {
+  &,
+  &:link,
+  &:visited {
+    @extend %_btn;
+    @include set_block;
+    width: 100%;
+    background: none;
+    font-size: $base-font-size;
+    padding: $sd-space $lg-space;
+  }
+
+  &:hover,
+  &:active {
+    background: rgba(white, .08);
+  }
+
+  &.active {
+    pointer-events: none;
+    background: $primary;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+        top: 0;
+        left: 0;
+      width: 100%;
+      height: 100%;
+      border-left: 2px solid $primary;
+    }
+  }
+
+  .fa {
+    margin-right: 12px;
+  }
+}

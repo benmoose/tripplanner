@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styles from './styles/entryButtons.scss';
 
 
-export default class TripSelector extends Component {
+export default class TripList extends Component {
 
     render() {
         const {trips} = this.props;

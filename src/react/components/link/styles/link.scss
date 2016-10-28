@@ -1,0 +1,50 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/tools/block";
+@import "../../_styles/tools/type";
+
+/*
+Link Component
+*/
+
+.link {
+  &,
+  &:link,
+  &:visited {
+    @include set_inline_block;
+    color: $primary;
+  }
+
+  &:hover,
+  &:active {
+    color: darken($primary, 10%);
+  }
+}
+
+.menulink {
+  &,
+  &:link,
+  &:visited {
+    @include set_heading_font;
+    @include set_block;
+    position: relative;
+    width: 100%;
+    font-size: $base-font-size;
+    padding: $sd-space $lg-space;
+  }
+
+  &:hover,
+  &:active {
+    background: rgba(white, .08);
+  }
+
+  &.active {
+    pointer-events: none;
+    background: rgba(white, .16);
+  }
+}
+
+
+.link__icon {
+  margin-right: 12px;
+}

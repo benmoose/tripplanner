@@ -4,9 +4,6 @@ const outputRoot = './static/',
       webpackOutput = `${outputRoot}bundles`,
       webpackInput = `${inputRoot}react`;
 
-var entry = (...component) => {
-    return `${webpackInput}/containers/${component.join('/')}/mount.js`;
-};
 
 // Plugins
 const BundleTracker = require('webpack-bundle-tracker');
@@ -14,7 +11,7 @@ const BundleTracker = require('webpack-bundle-tracker');
 module.exports = {
     context: __dirname,
     entry: {
-        App: './src/react/index.js',
+        App: `${webpackInput}/index.js`,
     },
     output: {
         path: webpackOutput,
@@ -27,12 +24,12 @@ module.exports = {
                 exclude: [/(node_modules)/, /gulpfile/],
                 loader: 'babel',
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'stage-2', 'react']
                 }
             },
             {
                 test: /.scss$/,
-                loader: 'style!css?localIdentName=[name]_[local]_[hash:base64:5]&minimize&modules!sass'
+                loader: 'style!css?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]&minimize!sass'
             }
         ]
     },

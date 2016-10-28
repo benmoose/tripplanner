@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 import styles from './styles/navigation.scss';
 
@@ -9,16 +10,18 @@ export default class Navigation extends Component {
 
         return (
             <nav className={`${styles.navigation}`}>
-                <div className={`${styles.navigation__brand}`}>
-                    <a href="#">TripPlanner</a>
+                <div className={`${styles.brand}`}>
+                    <Link to="/">TripPlanner</Link>
                 </div>
-                <div className={`${styles.navigation__trip}`}>
-                    <span className={`${styles.navigation__trip__title}`}>Foo Bar</span>
-                    <span className={`${styles.navigation__trip__countdown}`}>24 days left</span>
+
+                <div className={`${styles.trip}`}>
+                    <span className={`${styles.trip__title}`}>Foo Bar</span>
+                    <span className={`${styles.trip__countdown}`}>24 days left!</span>
                 </div>
-                <ul className={`${styles.navigation__profile}`}>
-                    <li className={`${styles.navigation__link}`}>
-                        <a className={`${styles.navigation__link__a}`} href="#">
+
+                <ul className={`${styles.profile}`}>
+                    <li className={`${styles.link}`}>
+                        <a className={`${styles.link__a}`} href="#">
                             {fullName} <i className="fa fa-chevron-down"></i>
                         </a>
                     </li>
