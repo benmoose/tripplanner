@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Map from '../../components/map/';
+import Itinerary from '../../components/itinerary/';
 
 
 class MyTrip extends Component {
@@ -11,6 +12,7 @@ class MyTrip extends Component {
         return (
             <div>
                 <Map locations={locations.map(item => { return item.title })}/>
+                <Itinerary locations={locations}/>
             </div>
         );
     }

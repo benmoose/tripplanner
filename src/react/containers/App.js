@@ -1,3 +1,7 @@
+/*
+* Application Container (Authenticated User's Only)
+* */
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -11,9 +15,9 @@ import Window from '../components/window/';
 
 
 class App extends Component {
-    componentWillMount() {
-        this.props.getUserToken('ben', 'tripplanner');
-    }
+    // componentWillMount() {
+    //     this.props.getUserToken('ben', 'tripplanner');
+    // }
 
     render() {
         const { fullName, authenticating, loading, trips, onSelectTrip, params } = this.props;

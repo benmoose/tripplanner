@@ -5,9 +5,9 @@ import styles from './styles/itinerary.scss';
 
 export default class Itinerary extends Component {
     render() {
-        const {trip_locations} = this.props;
+        const { locations } = this.props;
 
-        var itineraryItems = trip_locations.map((item, i) => {
+        var itineraryItems = locations.map((item, i) => {
             return (<ItineraryItem key={i}
                                    location={item.title}
                                    arriveTime={item.arrive}
@@ -38,13 +38,12 @@ class ItineraryItem extends Component {
                     {departTime ? <p>Depart <strong>{location}</strong> on <strong>{departTime}</strong>.</p> : null}
                 </div>
 
-                {travelType && destinationLocation ?
+                {departTime ?
                 <ItineraryTravel travelType={travelType}
                                  travelIcon={travelIcon}
                                  originLocation={location}
                                  destinationLocation={destinationLocation}
-                                 travelDuration={travelDuration}
-                /> : null}
+                                 travelDuration={travelDuration}/> : null}
             </div>
         );
     }
@@ -55,15 +54,15 @@ class ItineraryTravel extends Component {
     render() {
         const { travelType, travelIcon, originLocation, destinationLocation, travelDuration } = this.props;
         return (
-            <div className={styles.itinerarytravel}>
-                <div className={styles.itinerarytravel__line}></div>
+            <div className={styles.travel}>
+                <div className={styles.travel__line}></div>
 
-                <div className={styles.itinerarytravel__detail}>
-                    <p className={styles.itinerarytravel__detail__item}>
-                        <i className={`fa ${travelIcon}`} aria-hidden="true"></i>
+                <div className={styles.travel__detail}>
+                    <p className={styles.travel__detail__item}>
+                        <i className={`fa ${travelIcon} ${styles.icon}`} aria-hidden="true"></i>
                         {travelType} from <strong>{originLocation}</strong> to <strong>{destinationLocation}</strong>
                     </p>
-                    {travelDuration ? <p className={styles.itinerarytravel__detail__time}>{travelDuration}</p> : null}
+                    {travelDuration ? <p className={styles.travel__detail__time}>{travelDuration}</p> : null}
                 </div>
             </div>
         );
