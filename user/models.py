@@ -1,13 +1,36 @@
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
-from rest_framework.authtoken.models import Token
+from oauth2_provider.models import AccessToken
+from rest_framework_social_oauth2.backends import DjangoOAuth2
 
 
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    """This method generates a REST Framework Token for a user on creation."""
-    if created:
-        Token.objects.create(user=instance)
+class TripPlannerOAuth2(DjangoOAuth2):
+    def get_user_details(self, response):
+        if response.get(self.ID_KEY, None):
+            user = User.objects.get(pk=response[self.ID_KEY])
+            return {'username': user.username,
+                    'email': user.email,
+                    'fullname': user.get_full_name(),
+                    'first_name': user.first_name,
+                    'last_name': user.last_name
+                    }
+        return {}
+
+    def user_data(self, access_token, *args, **kwargs):
+        try:
+            user_id = AccessToken.objects.get(token=access_token).user.pk
+            return {self.ID_KEY: user_id}
+        except AccessToken.DoesNotExist:
+            return None
+
+    def do_auth(self, access_token, *args, **kwargs):
+        """Finish the auth process once the access_token was retrieved"""
+        data = self.user_data(access_token, *args, **kwargs)
+        response = kwargs.get('response') or {}
+        response.update(data or {})
+        kwargs.update({'response': response, 'backend': self})
+        if response.get(self.ID_KEY, None):
+            user = User.objects.get(pk=response[self.ID_KEY])
+            return user
+        else:
+            return None

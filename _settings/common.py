@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'rest_framework_social_oauth2',
     'webpack_loader',
     'redactor',
-    'user',
     'trip',
     'bucketlist',
 ]
