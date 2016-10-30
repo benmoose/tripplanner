@@ -1,5 +1,5 @@
 /*
-* Application Container (Authenticated User's Only)
+* Application Container
 * */
 
 import React, { Component } from 'react';
@@ -15,19 +15,22 @@ import Window from '../components/window/';
 
 
 class App extends Component {
-    // componentWillMount() {
-    //     this.props.getUserToken('ben', 'tripplanner');
-    // }
-
     render() {
         const { fullName, authenticating, loading, trips, onSelectTrip, params } = this.props;
+
+        let children = null;
+        if (this.props.children) {
+            children = React.cloneElement(this.props.children, {
+                auth: this.props.route.auth,  // add auth instance from route to children
+            })
+        }
 
         return (
             <div>
                 <Navigation onSelectTrip={onSelectTrip} trips={trips} fullName={fullName}/>
                 <Sidemenu/>
                 <Window>
-                    {this.props.children || <button onClick={() => {this.props.onLoadUser(); this.props.onLoadTrips()}}>Load State</button>}
+                    {children}
                 </Window>
             </div>
         );

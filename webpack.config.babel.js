@@ -1,12 +1,12 @@
-// dirs
+const dotenv = require('dotenv');
+
 const outputRoot = './static/',
       inputRoot = './src/',
       webpackOutput = `${outputRoot}bundles`,
       webpackInput = `${inputRoot}react`;
 
-
-// Plugins
 const BundleTracker = require('webpack-bundle-tracker');
+
 
 module.exports = {
     context: __dirname,
