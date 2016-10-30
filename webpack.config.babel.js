@@ -1,11 +1,20 @@
 const dotenv = require('dotenv');
 
+const webpack = require('webpack');
+
 const outputRoot = './static/',
-      inputRoot = './src/',
-      webpackOutput = `${outputRoot}bundles`,
-      webpackInput = `${inputRoot}react`;
+    inputRoot = './src/',
+    webpackOutput = `${outputRoot}bundles`,
+    webpackInput = `${inputRoot}react`;
 
 const BundleTracker = require('webpack-bundle-tracker');
+
+// convert .env keys to form __KEY__
+const dotenvVars = dotenv.config();
+const envVars = Object.keys(dotenvVars).reduce((memo, key) => {
+    memo[`__${key.toUpperCase()}__`] = JSON.stringify(dotenvVars[key]);
+    return memo;
+}, {});
 
 
 module.exports = {
@@ -34,6 +43,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new BundleTracker({filename: "./webpack-stats.json"})
+        new webpack.DefinePlugin(envVars),
+        new BundleTracker({filename: "./webpack-stats.json"}),
     ]
 };
