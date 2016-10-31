@@ -4,13 +4,13 @@
 
 import { combineReducers } from 'redux';
 
-import { userReducer } from './user';
+import { authReducer } from './auth';
 import { tripsReducer } from './trips';
 import { tripReducer } from './trip';
 
 
 export const reducer = combineReducers({
-    user: userReducer,
+    user: authReducer,
     trips: tripsReducer,
     trip: tripReducer,
 });
