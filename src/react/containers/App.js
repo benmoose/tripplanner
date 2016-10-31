@@ -15,6 +15,10 @@ import Window from '../components/window/';
 
 
 class App extends Component {
+    componentWillMount() {
+
+    }
+
     render() {
         const { fullName, authenticating, loading, trips, onSelectTrip, params } = this.props;
 

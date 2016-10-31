@@ -5,7 +5,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import AuthService from '../utility/AuthService';
 
 import configureStore from '../configureStore';
-import { userGetTokenSuccess } from '../actions/user';
+import { getUserToken, getUser } from '../actions/user';
 
 import App from './App';
 import Login from '../components/Login/';
@@ -20,6 +20,9 @@ const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
 const requireAuth = (nextState, replace) => {
     if (!auth.loggedIn()) {
         replace('/login');
+    } else {
+        store.dispatch(getUserToken({token: auth.getToken()}));
+        store.dispatch(getUser());
     }
 };
 

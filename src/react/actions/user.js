@@ -25,13 +25,13 @@ export const USER_FAILURE = 'USER_FAILURE';
 
 /* Get User Token */
 
-export function userGetTokenRequest() {
+function userGetTokenRequest() {
     return {
         type: USER_GET_TOKEN_REQUEST,
     }
 }
 
-export function userGetTokenSuccess(token) {
+function userGetTokenSuccess(token) {
     return {
         type: USER_GET_TOKEN_SUCCESS,
         payload: {
@@ -40,7 +40,7 @@ export function userGetTokenSuccess(token) {
     }
 }
 
-export function userGetTokenFailure(error) {
+function userGetTokenFailure(error) {
     return {
         type: USER_GET_TOKEN_FAILURE,
         payload: {
@@ -59,6 +59,7 @@ export function getUserToken(username, password) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                grant_type: 'password',
                 username: username,
                 password: password,
             }),
@@ -72,13 +73,13 @@ export function getUserToken(username, password) {
 
 /* Get User Details */
 
-export function userRequest() {
+function userRequest() {
     return {
         type: USER_REQUEST,
     }
 }
 
-export function userSuccess(user) {
+function userSuccess(user) {
     return {
         type: USER_SUCCESS,
         payload: {
@@ -87,7 +88,7 @@ export function userSuccess(user) {
     }
 }
 
-export function userFailure(error) {
+function userFailure(error) {
     return {
         type: USER_FAILURE,
         payload: {
@@ -105,7 +106,7 @@ export function getUser() {
             headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Token ' + getState().user.auth,
+                'Authorization': 'Bearer ' + getState().user.auth,
             }),
         })
             .then(response => response.json())

@@ -4,6 +4,7 @@
 
 
 var baseUri = '/api/';
+var authUri = '/auth/';
 
 export var apiEndpoint = (...path) => {
     var path_array = path.map(item => {
@@ -12,8 +13,15 @@ export var apiEndpoint = (...path) => {
     return `${baseUri}${path_array.join('/')}`;
 };
 
+export var authEndpoint = (...path) => {
+    var path_array = path.map(item => {
+        return item.replace(new RegExp('/', 'g'), '');
+    });
+    return `${authUri}${path_array.join('/')}`;
+};
 
-export var USER_GET_TOKEN = apiEndpoint('api-token-auth');
+
+export var USER_GET_TOKEN = authEndpoint('token');
 export var USER_DETAIL = apiEndpoint('user');
 
 export var TRIP_LIST = apiEndpoint('trips');
