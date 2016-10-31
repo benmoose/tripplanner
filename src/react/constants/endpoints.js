@@ -3,8 +3,8 @@
 * */
 
 
-var baseUri = '/api/';
-var authUri = '/auth/';
+const baseUri = '/api/';
+const authUri = '/auth/';
 
 export var apiEndpoint = (...path) => {
     var path_array = path.map(item => {

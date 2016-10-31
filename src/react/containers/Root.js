@@ -5,11 +5,11 @@ import { Router, Route, browserHistory } from 'react-router';
 import AuthService from '../utility/AuthService';
 
 import configureStore from '../configureStore';
-import { getUserToken, getUser } from '../actions/user';
 
 import App from './App';
 import Login from '../components/Login/';
 import MyTrip from './pages/MyTrip';
+import Logout from '../components/Logout/';
 
 
 const store = configureStore();
@@ -21,8 +21,7 @@ const requireAuth = (nextState, replace) => {
     if (!auth.loggedIn()) {
         replace('/login');
     } else {
-        store.dispatch(getUserToken({token: auth.getToken()}));
-        store.dispatch(getUser());
+        console.log('User logged in');
     }
 };
 
@@ -33,7 +32,7 @@ export default class Root extends Component {
                 <Router history={browserHistory}>
                     <Route path="/" component={App} auth={auth}>
                         <Route path="login" component={Login}/>
-                        <Route path="foo0" component={MyTrip} onEnter={requireAuth}/>
+                        <Route path="foo0" component={Logout} onEnter={requireAuth}/>
                         <Route path="foo1" component={MyTrip} onEnter={requireAuth}/>
                         <Route path="foo2" component={MyTrip} onEnter={requireAuth}/>
                         <Route path="foo3" component={MyTrip} onEnter={requireAuth}/>

@@ -2,13 +2,13 @@
 * Application Container
 * */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes as T } from 'react';
 import { connect } from 'react-redux';
 
 import { getTrips } from '../actions/trips';
 import { getTrip } from '../actions/trip';
 
-import Navigation from '../components/navigation/';
+import Navigation from '../components/Navigation/';
 import Sidemenu from '../components/sidemenu/';
 import Window from '../components/window/';
 
