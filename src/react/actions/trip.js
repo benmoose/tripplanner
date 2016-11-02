@@ -2,6 +2,7 @@
  * Redux Trips Actions
  * */
 
+import { authFetch } from '../utility/apiHelper';
 import { TRIP_DETAIL } from '../constants/endpoints';
 
 
@@ -9,9 +10,9 @@ import { TRIP_DETAIL } from '../constants/endpoints';
  * Action Creators
  * */
 
-export const TRIP_LIST_REQUEST = 'TRIP_LIST_REQUEST';
-export const TRIP_LIST_SUCCESS = 'TRIP_LIST_SUCCESS';
-export const TRIP_LIST_FAILURE = 'TRIP_LIST_FAILURE';
+export const TRIP_REQUEST = 'TRIP_REQUEST';
+export const TRIP_SUCCESS = 'TRIP_SUCCESS';
+export const TRIP_FAILURE = 'TRIP_FAILURE';
 
 
 /*
@@ -20,13 +21,13 @@ export const TRIP_LIST_FAILURE = 'TRIP_LIST_FAILURE';
 
 export function tripRequest() {
     return {
-        type: TRIP_LIST_REQUEST,
+        type: TRIP_REQUEST,
     }
 }
 
 export function tripSuccess(trip) {
     return {
-        type: TRIP_LIST_SUCCESS,
+        type: TRIP_SUCCESS,
         payload: {
             ...trip,
         },
@@ -35,27 +36,37 @@ export function tripSuccess(trip) {
 
 export function tripFailure(error) {
     return {
-        type: TRIP_LIST_FAILURE,
+        type: TRIP_FAILURE,
         payload: {
             error: error,
         },
     }
 }
 
+// export function getTrip(uuid) {
+//     return (dispatch, getState) => {
+//         dispatch(tripRequest());
+//
+//         return fetch(TRIP_DETAIL(uuid), {
+//             method: 'GET',
+//             headers: new Headers({
+//                 'Accept': 'application/json',
+//                 'Content-Type': 'application/json',
+//                 'Authorization': 'Bearer ' + localStorage.getItem('id_token'),
+//             }),
+//         })
+//             .then(response => response.json())
+//             .then(json => dispatch(tripSuccess(json)))
+//             .catch(error => dispatch(tripFailure(error)))
+//     }
+// }
+
 export function getTrip(uuid) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(tripRequest());
 
-        return fetch(TRIP_DETAIL(uuid), {
-            method: 'GET',
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Token ' + getState().user.auth,
-            }),
-        })
-            .then(response => response.json())
+        return authFetch(TRIP_DETAIL(uuid))
             .then(json => dispatch(tripSuccess(json)))
-            .catch(error => dispatch(tripFailure(error)))
+            .catch(error => dispatch(tripFailure(error)));
     }
 }

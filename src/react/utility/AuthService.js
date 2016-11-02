@@ -8,7 +8,7 @@ export default class AuthService extends EventEmitter {
     constructor(clientId, domain) {
         super();
         // Configure Auth0
-        this.lock = new Auth0Lock(clientId, domain, {});
+        this.lock = new Auth0Lock(clientId, domain);
         // Add callback for lock `authenticated` event
         this.lock.on('authenticated', this._doAuthentication.bind(this));
         // Add callback for lock `authorization_error` event
@@ -54,7 +54,7 @@ export default class AuthService extends EventEmitter {
         };
         // if logged in, include auth header
         if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer' + this.getToken();
+            headers['Authorization'] = 'Bearer ' + this.getToken();
         }
 
         return fetch(url, {

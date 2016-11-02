@@ -1,4 +1,4 @@
-function callApi(endpoint, authenticated) {
+function callApi(endpoint, authenticated = false) {
     let token = localStorage.getItem('id_token') || null;
     let config = {};
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import AuthService from '../utility/AuthService';
 
@@ -31,11 +31,12 @@ export default class Root extends Component {
             <Provider store={store}>
                 <Router history={browserHistory}>
                     <Route path="/" component={App} auth={auth}>
-                        <Route path="login" component={Login}/>
+                        <IndexRoute component={MyTrip} onEnter={requireAuth}/>
                         <Route path="foo0" component={Logout} onEnter={requireAuth}/>
                         <Route path="foo1" component={MyTrip} onEnter={requireAuth}/>
                         <Route path="foo2" component={MyTrip} onEnter={requireAuth}/>
                         <Route path="foo3" component={MyTrip} onEnter={requireAuth}/>
+                        <Route path="login" component={Login}/>
                     </Route>
                 </Router>
             </Provider>

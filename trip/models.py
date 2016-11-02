@@ -18,7 +18,9 @@ class Trip(TimeStampedModel, RichTextAndPreviewTextModel):
     Trips store high level information about a trip such as a name, time of creation,
     list of users involved ect...
     """
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    uuid = models.UUIDField(primary_key=True,
+                            default=uuid.uuid4,
+                            editable=False)
     users = models.ManyToManyField(User)
     title = models.CharField(max_length=60)
     active = models.BooleanField(default=True)

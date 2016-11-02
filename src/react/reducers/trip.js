@@ -15,18 +15,18 @@ const defaultState = {
 
 export const tripReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case actionType.TRIP_LIST_REQUEST:
+        case actionType.TRIP_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case actionType.TRIP_LIST_SUCCESS:
+        case actionType.TRIP_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
                 loading: false,
             };
-        case actionType.TRIP_LIST_FAILURE:
+        case actionType.TRIP_FAILURE:
             return {
                 ...state,
                 error: action.payload.error,
