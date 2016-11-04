@@ -1,0 +1,21 @@
+/*
+Settings layer
+*/
+
+// UI Colours
+$background: #444F5A;
+$background-light: lighten($background, 8%);
+$background-dark: darken($background, 6%);
+
+$navigation: darken($background, 12%);
+
+
+// Brand Colours
+$primary: #58B9E2;
+$secondary: #FC5185;
+
+
+// Text Colours
+$text: white;
+$text-subtle: rgba($text, .75);
+$text-x-subtle: rgba($text, .45);

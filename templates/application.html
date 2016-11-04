@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block window %}
+    <div id="mount"></div>
+{% endblock %}
+
+{% block react %}
+    <script src="{% static 'bundles/App.js' %}"></script>
+{% endblock %}

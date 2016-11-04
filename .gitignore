@@ -2,7 +2,6 @@
 ### VirtualEnv template
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
-.DS_Store
 .Python
 [Bb]in
 [Ii]nclude
@@ -48,6 +47,9 @@ jspm_packages
 
 # Optional npm cache directory
 .npm
+
+# MacOS
+.DS_Store
 
 # Optional REPL history
 .node_repl_history
@@ -106,6 +108,7 @@ coverage.xml
 # Django stuff:
 *.log
 _settings/local.py
+static/
 db.sqlite3
 
 # Flask stuff:

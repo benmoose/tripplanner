@@ -1,0 +1,29 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/settings/z-index";
+
+@import "../../_styles/tools/block";
+@import "../../_styles/tools/list";
+@import "../../_styles/tools/type";
+
+/*
+Sidemenu Component
+*/
+
+
+.sidemenu {
+  @include set_block;
+  position: fixed;
+    top: $navigation-height;
+    left: 0;
+  width: $sidemenu-width;
+  height: calc(100vh - #{$navigation-height});
+  background: $background-dark;
+  z-index: $zindex-2-nav;
+}
+
+.sidemenu__list {
+  @include reset_list;
+  padding-top: $sd-space;
+}

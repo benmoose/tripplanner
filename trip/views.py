@@ -1,32 +1,16 @@
-from django.shortcuts import Http404
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView
 
 from rest_framework import generics
 
-from .serializers import TripSerializer
+from user_jwt.utility.jwt_authentication import header_to_sub
+from .serializers import TripSerializer, SimpleTripSerializer
 from .models import Trip
 
 
-class NewTrip(TemplateView):
-    template_name = 'dashboard/select-trip.html'
+# Application
 
-
-class Dashboard(DetailView):
-    model = Trip
-    pk_url_kwarg = 'uuid'
-    template_name = 'dashboard/my-trip.html'
-
-    def get_queryset(self):
-        return Trip.objects.filter(active=True).filter(
-            users__username__contains=self.request.user.username)
-
-    def get_object(self, queryset=None):
-        if not queryset:
-            queryset = self.get_queryset()
-        try:
-            return queryset.get(uuid=self.kwargs['uuid'])
-        except:
-            raise Http404
+class Application(TemplateView):
+    template_name = 'application.html'
 
 
 # API Views
@@ -36,7 +20,7 @@ class TripList(generics.ListAPIView):
     Returns an array of trips for the current user.
     """
     queryset = Trip.objects.filter(active=True)
-    serializer_class = TripSerializer
+    serializer_class = SimpleTripSerializer
 
     def filter_queryset(self, queryset):
         """
@@ -57,4 +41,5 @@ class TripDetail(generics.RetrieveAPIView):
         This ensures that user's can only see trips they are involved with.
         """
         return queryset.filter(
-            users__username__contains=self.request.user.username)
+            users__sub=header_to_sub(
+                self.request.META.get('HTTP_AUTHORIZATION')))

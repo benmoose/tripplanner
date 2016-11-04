@@ -1,0 +1,101 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/settings/z-index";
+
+@import "../../_styles/tools/type";
+
+/*
+Navigation Component
+*/
+
+
+.navigation {
+  position: fixed;
+    top: 0;
+    left: 0;
+  display: flex;
+  width: 100%;
+  height: $navigation-height;
+  box-sizing: border-box;
+  padding: $sd-space $sd-space $sd-space - 2px;
+  background: $navigation;
+  color: $text;
+  z-index: $zindex-2-nav;
+}
+
+
+// Abstract classes
+
+%navigation__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+%navigation__text {
+  @include set_heading_font;
+}
+
+
+// Navigation Brand
+
+.brand {
+  @extend %navigation__item;
+  flex: 1;
+  font-size: $h3-font-size;
+
+  a {
+    @extend %navigation__text;
+  }
+}
+
+
+// Navigation Links
+
+.link {
+  &,
+  & a {
+    @extend %navigation__text;
+    display: inline-block;
+  }
+}
+
+.link__a {
+  padding: 5px 12px;
+}
+
+
+// Trip Details
+
+.trip {
+  @extend %navigation__item;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.trip__title,
+.trip__countdown {
+  display: inline-block;
+  padding: 2px 0;
+}
+
+.trip__countdown {
+  @include set_small_font;
+  color: $text-subtle;
+}
+
+
+// Navigation Profile
+
+.profile {
+  @extend %navigation__item;
+  flex: 1;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: right;
+}

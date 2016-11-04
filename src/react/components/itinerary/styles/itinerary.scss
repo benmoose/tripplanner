@@ -1,0 +1,77 @@
+@import "../../../../sass/itcss/settings/color";
+@import "../../../../sass/itcss/settings/spacing";
+
+@import "../../../../sass/itcss/tools/box-shadow";
+@import "../../../../sass/itcss/tools/block";
+
+/*
+Itinerary Component
+*/
+
+.itinerary {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 50%;
+}
+
+
+/*
+ItineraryItem Component
+*/
+
+.itineraryitem {
+  @include set_inline_block;
+  padding: $sd-space;
+  background: $background-light;
+  border: none;
+  flex: 1;
+
+  *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+/*
+ItineraryTravel Component
+*/
+
+.travel {
+  display: flex;
+  height: auto;
+}
+
+.travel__line {
+  width: $lg-space;
+  border-right: 3px dotted $background-light;
+  margin-right: $lg-space;
+}
+
+.travel__detail {
+  flex: 1;
+
+}
+
+.travel__detail__item {
+  margin: 0;
+
+  &:first-of-type {
+    margin-top: $sd-space;
+  }
+
+  &:last-of-type {
+    margin-bottom: $sd-space;
+  }
+}
+
+.icon {
+  composes: icon from '../../_styles/utility/icons.scss';
+}
+
+.travel__detail__time {
+  composes: travel__detail__item;
+  color: $primary;
+  font-weight: bold;
+  padding-top: $sm-space;
+}

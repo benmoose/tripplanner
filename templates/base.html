@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     {% include '_components/head/meta.html' %}
+    {% include '_components/head/fav.html' %}
     <title>Trip Planner</title>
     {% include '_components/head/cdn.html' %}
     {% include '_components/head/styles.html' %}
@@ -11,15 +12,10 @@
     {% endblock %}
 </head>
 <body>
-{% include '_components/navigation/navigation.html' with user_full_name=user_full_name trip=trip %}
-
 {% block window %}
 {% endblock %}
 
 {% block react %}
-{% endblock %}
-
-{% block js %}
 {% endblock %}
 </body>
 </html>

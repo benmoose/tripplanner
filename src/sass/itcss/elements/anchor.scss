@@ -6,13 +6,10 @@ Elements Layer
 a {
   &,
   &:link,
-  &:visited {
-    text-decoration: none;
-    color: $primary;
-  }
-
+  &:visited,
   &:hover,
   &:active {
-    color: darken($primary, 10%);
+    text-decoration: none;
+    color: inherit;
   }
 }

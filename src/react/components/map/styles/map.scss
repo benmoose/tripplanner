@@ -1,0 +1,25 @@
+@import "../../../../sass/itcss/settings/color";
+@import "../../../../sass/itcss/settings/spacing";
+
+@import "../../../../sass/itcss/tools/box-shadow";
+
+/*
+Map Component
+*/
+
+
+$height: 260px;
+
+.map {
+  height: $height;
+  width: 100%;
+  overflow: hidden;
+  background: $background-light;
+}
+
+.map__map {
+  @include set_box_shadow;
+  height: $height;
+  width: 100%;
+  border: 0;
+}

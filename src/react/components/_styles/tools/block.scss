@@ -1,0 +1,24 @@
+/*
+Tools Layer
+*/
+
+
+@mixin set_block {
+  display: block;
+  box-sizing: border-box;
+}
+
+@mixin set_inline_block {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+%set_block {
+  display: block;
+  box-sizing: border-box;
+}
+
+%set_inline_block {
+  display: inline-block;
+  box-sizing: border-box;
+}
