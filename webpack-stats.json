@@ -1,1 +1,1 @@
-{"status":"done","chunks":{"MyTrip":[{"name":"MyTrip.js","path":"static/bundles/MyTrip.js"}],"SelectTrip":[{"name":"SelectTrip.js","path":"static/bundles/SelectTrip.js"}]}}
+{"status":"error","error":"ModuleBuildError","message":"Module build failed: Error: ENOENT: no such file or directory, open '/Users/Moose/Documents/Django/tripplanner/src/react/index.js'\n    at Error (native)"}
