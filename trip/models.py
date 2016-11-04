@@ -1,8 +1,7 @@
 import uuid
 
 from django.db import models
-from django.contrib.auth.models import User
-from django.urls import reverse
+from user_jwt.models import UserJWT
 
 from _common.models.abstract_models import TimeStampedModel,\
     RichTextAndPreviewTextModel
@@ -21,7 +20,7 @@ class Trip(TimeStampedModel, RichTextAndPreviewTextModel):
     uuid = models.UUIDField(primary_key=True,
                             default=uuid.uuid4,
                             editable=False)
-    users = models.ManyToManyField(User)
+    users = models.ManyToManyField(UserJWT)
     title = models.CharField(max_length=60)
     active = models.BooleanField(default=True)
 
@@ -67,4 +66,5 @@ class TripLocation(models.Model):
             .filter(arrive__gt=self.arrive).first()
 
     class Meta:
+        # prevent arriving in two locations at same time
         unique_together = ('trip', 'arrive',)

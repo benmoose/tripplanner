@@ -1,14 +1,16 @@
-import Auth0Lock from 'auth0-lock';
 import { EventEmitter } from 'events';
+import Auth0Lock from 'auth0-lock';
+import { browserHistory } from 'react-router';
 
 import { isTokenExpired } from './jwtHelper';
+import { authFetch } from './apiHelper';
 
 
 export default class AuthService extends EventEmitter {
     constructor(clientId, domain) {
         super();
         // Configure Auth0
-        this.lock = new Auth0Lock(clientId, domain);
+        this.lock = new Auth0Lock(clientId, domain, {});
         // Add callback for lock `authenticated` event
         this.lock.on('authenticated', this._doAuthentication.bind(this));
         // Add callback for lock `authorization_error` event
@@ -20,6 +22,8 @@ export default class AuthService extends EventEmitter {
     _doAuthentication(authResult) {
         // Saves the user token
         this.setToken(authResult.idToken);
+        // Go to home page
+        browserHistory.replace('/');
         // Async loads user profile data
         this.lock.getProfile(authResult.idToken, (error, profile) => {
             if (error) {
@@ -35,36 +39,6 @@ export default class AuthService extends EventEmitter {
         console.log('Authentication Error', error);
     }
 
-    _checkStatus(response) {
-        // Raises an error if response status is not a success code
-        if (response.status >= 200 && response.status < 300) {
-            return response;
-        } else {
-            var error = new Error(response.statusText);
-            error.response = response;
-            throw error;
-        }
-    }
-
-    fetch(url, options) {
-        // Performs API calls sending required auth headers
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        };
-        // if logged in, include auth header
-        if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer ' + this.getToken();
-        }
-
-        return fetch(url, {
-            headers,
-            ...options,
-        })
-            .then(this._checkStatus)  // _checkStatus ensures non-200 status codes don't resolve
-            .then(response => response.json());
-    }
-
     login() {
         // Call the show method to display the widget.
         this.lock.show()
@@ -77,6 +51,8 @@ export default class AuthService extends EventEmitter {
     }
 
     setToken(idToken) {
+        // Get or Create Django User_JWT object (to relate JWT to user)
+        authFetch('http://127.0.0.1:8000/api/user/jwt/get-or-create');
         // Saves user token to localStorage
         localStorage.setItem('id_token', idToken)
     }

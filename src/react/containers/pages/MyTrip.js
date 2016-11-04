@@ -9,7 +9,7 @@ import Itinerary from '../../components/itinerary/';
 
 class MyTrip extends Component {
     componentWillMount() {
-        this.props.getTrip('74b98f30-bca6-4f92-af85-e6b58e034b49');
+        this.props.getTrip('b58b206d-ec0b-4194-845c-73e9f7b877ae');
     }
 
     render() {

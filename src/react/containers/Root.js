@@ -31,12 +31,12 @@ export default class Root extends Component {
             <Provider store={store}>
                 <Router history={browserHistory}>
                     <Route path="/" component={App} auth={auth}>
-                        <IndexRoute component={MyTrip} onEnter={requireAuth}/>
                         <Route path="foo0" component={Logout} onEnter={requireAuth}/>
                         <Route path="foo1" component={MyTrip} onEnter={requireAuth}/>
                         <Route path="foo2" component={MyTrip} onEnter={requireAuth}/>
                         <Route path="foo3" component={MyTrip} onEnter={requireAuth}/>
                         <Route path="login" component={Login}/>
+                        <Route path="access_token=:token" component={Login}/> //to prevent router errors
                     </Route>
                 </Router>
             </Provider>
