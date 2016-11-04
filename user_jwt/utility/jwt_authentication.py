@@ -38,7 +38,7 @@ def requires_login(f):
         auth = request.META.get('HTTP_AUTHORIZATION', None)
         if not auth:
             return authenticate('invalid header',
-                                'Authorization header no present')
+                                'Authorization header not present')
 
         parts = auth.split()
         if parts[0].lower() != 'bearer':

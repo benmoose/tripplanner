@@ -52,7 +52,9 @@ export default class AuthService extends EventEmitter {
 
     setToken(idToken) {
         // Get or Create Django User_JWT object (to relate JWT to user)
-        authFetch('http://127.0.0.1:8000/api/user/jwt/get-or-create');
+        authFetch('http://127.0.0.1:8000/api/user/jwt/get-or-create', {
+            'Authorization': 'Bearer ' + idToken,
+        });
         // Saves user token to localStorage
         localStorage.setItem('id_token', idToken)
     }

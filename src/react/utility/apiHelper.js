@@ -9,7 +9,7 @@ function _checkStatus(response) {
     }
 }
 
-export function authFetch(endpoint, options={}) {
+export function authFetch(endpoint, custom_headers={}) {
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -21,8 +21,7 @@ export function authFetch(endpoint, options={}) {
     }
 
     return fetch(endpoint, {
-        headers,
-        ...options,
+        'headers': Object.assign(headers, custom_headers),
     })
         .then(_checkStatus)  // _checkStatus ensures non-200 status codes don't resolve
         .then(response => response.json());
