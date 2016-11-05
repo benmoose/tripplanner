@@ -43,24 +43,6 @@ export function tripFailure(error) {
     }
 }
 
-// export function getTrip(uuid) {
-//     return (dispatch, getState) => {
-//         dispatch(tripRequest());
-//
-//         return fetch(TRIP_DETAIL(uuid), {
-//             method: 'GET',
-//             headers: new Headers({
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json',
-//                 'Authorization': 'Bearer ' + localStorage.getItem('id_token'),
-//             }),
-//         })
-//             .then(response => response.json())
-//             .then(json => dispatch(tripSuccess(json)))
-//             .catch(error => dispatch(tripFailure(error)))
-//     }
-// }
-
 export function getTrip(uuid) {
     return (dispatch) => {
         dispatch(tripRequest());

@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^user/jwt/get-or-create/?$', requires_login(user_jwt_views.GetOrCreateUserJWT.as_view())),
 
     url(r'^trips/?$', requires_login(trip_views.TripList.as_view())),
+    url(r'^trips/create/?$', requires_login(trip_views.TripCreate.as_view())),
     url(r'^trips/(?P<uuid>[\w-]+)/?$', requires_login(trip_views.TripDetail.as_view())),
 ]
 

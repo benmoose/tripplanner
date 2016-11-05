@@ -56365,6 +56365,8 @@
 	exports.tripsFailure = tripsFailure;
 	exports.getTrips = getTrips;
 
+	var _apiHelper = __webpack_require__(418);
+
 	var _endpoints = __webpack_require__(432);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /*
@@ -56408,19 +56410,10 @@
 	}
 
 	function getTrips() {
-	    return function (dispatch, getState) {
+	    return function (dispatch) {
 	        dispatch(tripsRequest());
 
-	        return fetch(_endpoints.TRIP_LIST, {
-	            method: 'GET',
-	            headers: new Headers({
-	                'Accept': 'application/json',
-	                'Content-Type': 'application/json',
-	                'Authorization': 'Token ' + getState().user.auth
-	            })
-	        }).then(function (response) {
-	            return response.json();
-	        }).then(function (json) {
+	        return (0, _apiHelper.authFetch)(_endpoints.TRIP_LIST).then(function (json) {
 	            return dispatch(tripsSuccess(json));
 	        }).catch(function (error) {
 	            return dispatch(tripsFailure(error));
@@ -56583,24 +56576,6 @@
 	        }
 	    };
 	}
-
-	// export function getTrip(uuid) {
-	//     return (dispatch, getState) => {
-	//         dispatch(tripRequest());
-	//
-	//         return fetch(TRIP_DETAIL(uuid), {
-	//             method: 'GET',
-	//             headers: new Headers({
-	//                 'Accept': 'application/json',
-	//                 'Content-Type': 'application/json',
-	//                 'Authorization': 'Bearer ' + localStorage.getItem('id_token'),
-	//             }),
-	//         })
-	//             .then(response => response.json())
-	//             .then(json => dispatch(tripSuccess(json)))
-	//             .catch(error => dispatch(tripFailure(error)))
-	//     }
-	// }
 
 	function getTrip(uuid) {
 	    return function (dispatch) {
@@ -57889,6 +57864,8 @@
 
 	var _trip = __webpack_require__(434);
 
+	var _trips = __webpack_require__(431);
+
 	var _map = __webpack_require__(460);
 
 	var _map2 = _interopRequireDefault(_map);
@@ -57917,6 +57894,7 @@
 	    _createClass(MyTrip, [{
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
+	            this.props.getTrips();
 	            this.props.getTrip('b58b206d-ec0b-4194-845c-73e9f7b877ae');
 	        }
 	    }, {
@@ -57942,6 +57920,9 @@
 
 	function mapDispatchToProps(dispatch) {
 	    return {
+	        getTrips: function getTrips() {
+	            return dispatch((0, _trips.getTrips)());
+	        },
 	        getTrip: function getTrip(uuid) {
 	            return dispatch((0, _trip.getTrip)(uuid));
 	        }
