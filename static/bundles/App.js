@@ -55161,6 +55161,7 @@
 
 	function authFetch(endpoint) {
 	    var custom_headers = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	    var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'GET';
 
 	    var headers = {
 	        'Accept': 'application/json',
