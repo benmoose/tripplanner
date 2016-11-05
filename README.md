@@ -8,12 +8,12 @@ Trip Planner is a place for groups to organise holidays/trips together in one pl
 Feature List
 ------------
 **Core Features**
-- [x] Map of trip
-- [x] Social login
-- [ ] Travel itinerary
-- [ ] Todo list
-- [ ] Bucket list
+- [x] Map of trip  
+- [x] Social login  
+- [ ] Travel itinerary  
+- [ ] Todo list  
+- [ ] Bucket list  
 
 **Optional Features**
-- [ ] Blog / Photo log
-- [ ] Trip chat
+- [ ] Blog / Photo log  
+- [ ] Trip chat  
