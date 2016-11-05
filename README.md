@@ -13,6 +13,7 @@ Feature List
 - [ ] Travel itinerary
 - [ ] Todo list
 - [ ] Bucket list
+
 **Optional Features**
 - [ ] Blog / Photo log
 - [ ] Trip chat
