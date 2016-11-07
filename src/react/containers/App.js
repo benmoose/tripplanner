@@ -16,7 +16,7 @@ import Window from '../components/window/';
 class App extends Component {
 
     render() {
-        const { isAuthenticating, isAuthenticated, trips, onSelectTrip, params } = this.props;
+        const { trips, changeToTrip, params } = this.props;
 
         // add auth instance from route to children
         let children = null;
@@ -28,7 +28,7 @@ class App extends Component {
 
         return (
             <div>
-                <Navigation onSelectTrip={onSelectTrip} trips={trips} fullName={'Foo Bar'}/>
+                <Navigation onSelectTrip={changeToTrip} trips={trips} fullName={'Foo Bar'}/>
                 <Sidemenu/>
                 <Window>
                     {children}
@@ -41,17 +41,14 @@ class App extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onLoadTrips: () => dispatch(getTrips()),
-        onSelectTrip: (uuid) => dispatch(getTrip(uuid)),
+        loadTrips: () => dispatch(getTrips()),
+        changeToTrip: (uuid) => dispatch(getTrip(uuid)),
     }
 }
 
 function mapStateToProps(state) {
-    const { isAuthenticating, isAuthenticated } = state.user;
     const { trips } = state.trips;
     return {
-        isAuthenticating,
-        isAuthenticated,
         trips,
     };
 }
