@@ -9,7 +9,7 @@ function _checkStatus(response) {
     }
 }
 
-export function authFetch(endpoint, custom_headers={}) {
+export function authFetch(endpoint, custom_headers = {}, method='GET') {
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

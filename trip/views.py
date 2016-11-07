@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from rest_framework import generics
 
 from user_jwt.utility.jwt_authentication import header_to_sub
+from user_jwt.models import UserJWT
 from .serializers import TripSerializer, SimpleTripSerializer
 from .models import Trip
 
@@ -27,11 +28,21 @@ class TripList(generics.ListAPIView):
         This ensures that user's can only see trips they are involved with.
         """
         return queryset.filter(
-            users__username__contains=self.request.user.username)
+            users__sub=header_to_sub(
+                self.request.META.get('HTTP_AUTHORIZATION')))
+
+
+class TripCreate(generics.CreateAPIView):
+    serializer_class = SimpleTripSerializer
+    #
+    # def create(self, request, *args, **kwargs):
+    #     super().create(request, *args, **kwargs)
 
 
 class TripDetail(generics.RetrieveAPIView):
-    """Returns details for a single trip."""
+    """
+    Returns details for a single trip.
+    """
     queryset = Trip.objects.filter(active=True)
     serializer_class = TripSerializer
     lookup_field = 'uuid'

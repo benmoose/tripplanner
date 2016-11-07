@@ -20,7 +20,8 @@ class TripSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trip
-        fields = ('title', 'get_absolute_url', 'locations',)
+        fields = ('title', 'get_absolute_url', 'locations', 'created',
+                  'modified',)
 
 
 class SimpleTripSerializer(serializers.ModelSerializer):

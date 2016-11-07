@@ -2,6 +2,7 @@
  * Redux Trips Actions
  * */
 
+import { authFetch } from '../utility/apiHelper';
 import { TRIP_LIST } from '../constants/endpoints';
 
 
@@ -43,18 +44,10 @@ export function tripsFailure(error) {
 }
 
 export function getTrips() {
-    return (dispatch, getState) => {
+    return dispatch => {
         dispatch(tripsRequest());
 
-        return fetch(TRIP_LIST, {
-            method: 'GET',
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Token ' + getState().user.auth,
-            }),
-        })
-            .then(response => response.json())
+        return authFetch(TRIP_LIST)
             .then(json => dispatch(tripsSuccess(json)))
             .catch(error => dispatch(tripsFailure(error)))
     }
