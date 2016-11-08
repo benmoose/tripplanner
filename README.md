@@ -1,10 +1,16 @@
 Trip Planner
 ============
-Project Started **18/10/16**.  
-Lead Developer **Ben Hadfield**  
+
 Introduction
 ------------
-Trip Planner is a place for groups to organise holidays/trips together in one place!
+Trip Planner is a platform for friends and family to organise trips together in one place! This is a personal project I'm developing whilst at uni. Pull Requests are more than welcome!
+
+Technologies
+------------
+- [Django] (https://www.djangoproject.com/) (with Django REST Framework)  
+- [React] (https://facebook.github.io/react/) (with [Redux] (http://redux.js.org/))  
+- Authentication with [JSON Web Tokens] (https://jwt.io/) and [Auth0] (https://auth0.com/)  
+
 Feature List
 ------------
 **Core Features**
