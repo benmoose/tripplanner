@@ -17,6 +17,7 @@ Feature List
 - [ ] Travel itinerary  
 - [ ] Todo list  
 - [ ] Bucket list  
+- [ ] Price Lists  
 
 **Optional Features**
 - [ ] Blog / Photo log  
