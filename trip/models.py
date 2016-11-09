@@ -1,11 +1,10 @@
 import uuid
 
 from django.db import models
-from user_jwt.models import UserJWT
 
-from _common.models.abstract_models import TimeStampedModel,\
+from _common.models.mixins.mixins import TimeStampedModel,\
     RichTextAndPreviewTextModel
-
+from user_jwt.models import UserJWT
 from .constants.choices import TRAVEL_TYPES, TRAVEL_TO_FONTAWEOME
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 
-from _common.models.abstract_models import TimeStampedModel
+from _common.models.mixins.mixins import TimeStampedModel
 
 
 class UserJWT(TimeStampedModel):

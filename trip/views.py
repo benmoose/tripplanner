@@ -2,8 +2,9 @@ from django.views.generic import TemplateView
 
 from rest_framework import generics
 
+from _common.models.abstract.api import ProtectedApiView
+
 from user_jwt.utility.jwt_authentication import header_to_sub
-from user_jwt.models import UserJWT
 from .serializers import TripSerializer, SimpleTripSerializer
 from .models import Trip
 
@@ -16,7 +17,7 @@ class Application(TemplateView):
 
 # API Views
 
-class TripList(generics.ListAPIView):
+class TripList(ProtectedApiView, generics.ListAPIView):
     """
     Returns an array of trips for the current user.
     """
@@ -33,13 +34,17 @@ class TripList(generics.ListAPIView):
 
 
 class TripCreate(generics.CreateAPIView):
+    """
+    Endpoint for creating a new trip.
+    """
     serializer_class = SimpleTripSerializer
-    #
-    # def create(self, request, *args, **kwargs):
-    #     super().create(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        print('in create')
+        super().create(request, *args, **kwargs)
 
 
-class TripDetail(generics.RetrieveAPIView):
+class TripDetail(ProtectedApiView, generics.RetrieveAPIView):
     """
     Returns details for a single trip.
     """
