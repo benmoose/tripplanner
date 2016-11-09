@@ -7,7 +7,7 @@ Technologies
 ------------
 - [Django] (https://www.djangoproject.com/) (with Django REST Framework)  
 - [React] (https://facebook.github.io/react/) (with [Redux] (http://redux.js.org/))  
-- Authentication with [JSON Web Tokens] (https://jwt.io/) and [Auth0] (https://auth0.com/)  
+- Authentication with [JSON Web Tokens] (https://jwt.io/), powered by [Auth0] (https://auth0.com/)  
 
 Feature List
 ------------
