@@ -3,8 +3,8 @@
 
 
 /*
-* Imports
-*/
+ * Imports
+ */
 
 import React, { Component } from 'react'
 import styles from './styles/tripSelector.scss'
@@ -34,6 +34,7 @@ export default class TripSelector extends Component {
     }
 
     handleNewTripClick(e: Event): void {
+        e.preventDefault()
         this.props.onNewTripClick()
     }
 
@@ -47,7 +48,7 @@ export default class TripSelector extends Component {
         return (
             <select className={styles.selector} onChange={this.handleChange.bind(this)}>
                 {options}
-                <option onClick={this.handleNewTripClick.bind(this)}>New Trip</option>
+                <option key="newtrip" onClick={this.handleNewTripClick.bind(this)}>New Trip</option>
             </select>
         );
     }
