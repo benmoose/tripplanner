@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView
+from rest_framework.response import Response
 
 from rest_framework import generics
 
@@ -33,15 +34,14 @@ class TripList(ProtectedApiView, generics.ListAPIView):
                 self.request.META.get('HTTP_AUTHORIZATION')))
 
 
-class TripCreate(generics.CreateAPIView):
+class TripCreate(ProtectedApiView, generics.CreateAPIView):
     """
     Endpoint for creating a new trip.
     """
     serializer_class = SimpleTripSerializer
 
     def create(self, request, *args, **kwargs):
-        print('in create')
-        super().create(request, *args, **kwargs)
+        return super().create(request, *args, **kwargs)
 
 
 class TripDetail(ProtectedApiView, generics.RetrieveAPIView):

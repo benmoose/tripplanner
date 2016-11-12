@@ -1,24 +1,54 @@
-import React, { Component } from 'react';
+/* @flow */
+'use strict'
 
-import styles from './styles/tripSelector.scss';
 
+/*
+* Imports
+*/
+
+import React, { Component } from 'react'
+import styles from './styles/tripSelector.scss'
+import * as T from '../../types/'
+
+
+/*
+ * Prop Types
+ */
+
+type Props  = {
+    trips: Array<T.TripSimple>,
+    onSelectTrip: Function,
+    onNewTripClick: Function,
+}
+
+
+/*
+ * Component
+ */
 
 export default class TripSelector extends Component {
-    handleChange(e) {
+    props: Props;
+
+    handleChange(e: Event): void {
         this.props.onSelectTrip(e.target.value)
+    }
+
+    handleNewTripClick(e: Event): void {
+        this.props.onNewTripClick()
     }
 
     render() {
         const { trips } = this.props;
 
-        var options = <select className={styles.selector} onChange={this.handleChange.bind(this)}>{trips.map((item, i) => {
+        var options = trips.map((item, i) => {
             return <option key={i} value={item.uuid}>{item.title}</option>
-        })}</select>;
+        });
 
         return (
-            <div>
+            <select className={styles.selector} onChange={this.handleChange.bind(this)}>
                 {options}
-            </div>
+                <option onClick={this.handleNewTripClick.bind(this)}>New Trip</option>
+            </select>
         );
     }
 }
