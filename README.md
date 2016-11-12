@@ -5,9 +5,12 @@ Trip Planner is a platform for friends and family to organise trips together in 
 
 Technologies
 ------------
-- [Django] (https://www.djangoproject.com/) (with Django REST Framework)  
-- [React] (https://facebook.github.io/react/) (with [Redux] (http://redux.js.org/))  
-- Authentication with [JSON Web Tokens] (https://jwt.io/) and [Auth0] (https://auth0.com/)  
+- [Django] (https://www.djangoproject.com/) (with Django REST Framework) 
+  - [REST Framework] (http://www.django-rest-framework.org/) for API development
+- [React] (https://facebook.github.io/react/) for component-based UI development
+  - [Redux] (http://redux.js.org/) for state management
+  - [Flow] (https://flowtype.org/) for JS type checking
+- Authentication with [JSON Web Tokens] (https://jwt.io/) using [Auth0] (https://auth0.com/)  
 
 Feature List
 ------------
@@ -17,6 +20,7 @@ Feature List
 - [ ] Travel itinerary  
 - [ ] Todo list  
 - [ ] Bucket list  
+- [ ] Price manager / list  
 
 **Optional Features**
 - [ ] Blog / Photo log  
