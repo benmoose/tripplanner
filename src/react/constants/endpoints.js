@@ -1,28 +1,31 @@
 /*
-* Use this to generate endpoints.
-* */
+ * @flow
+ *
+ * Use this to generate endpoints.
+ */
 
 
-const baseUri = '/api/';
-const authUri = '/auth/';
+const baseUri = '/api/'
+const authUri = '/auth/'
 
-export var apiEndpoint = (...path) => {
-    var path_array = path.map(item => {
-        return item.replace(new RegExp('/', 'g'), '');
+export const apiEndpoint = (...path) => {
+    let path_array = path.map(item => {
+        return item.replace(new RegExp('/', 'g'), '')
     });
-    return `${baseUri}${path_array.join('/')}`;
+    return `${baseUri}${path_array.join('/')}`
 };
 
-export var authEndpoint = (...path) => {
-    var path_array = path.map(item => {
-        return item.replace(new RegExp('/', 'g'), '');
+export const authEndpoint = (...path) => {
+    let path_array = path.map(item => {
+        return item.replace(new RegExp('/', 'g'), '')
     });
-    return `${authUri}${path_array.join('/')}`;
+    return `${authUri}${path_array.join('/')}`
 };
 
 
-export var USER_GET_TOKEN = authEndpoint('token');
-export var USER_DETAIL = apiEndpoint('user');
+export const USER_GET_TOKEN = authEndpoint('token')
+export const USER_DETAIL = apiEndpoint('user')
 
-export var TRIP_LIST = apiEndpoint('trips');
-export var TRIP_DETAIL = (uuid) => apiEndpoint('trips', uuid);
+export const TRIP_LIST = apiEndpoint('trips')
+export const TRIP_CREATE = apiEndpoint('trips', 'create')
+export const TRIP_DETAIL = (uuid) => apiEndpoint('trips', uuid)

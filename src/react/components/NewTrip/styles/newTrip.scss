@@ -1,0 +1,28 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+
+@import "../../_styles/tools/block";
+
+/*
+ * New Trip Component
+ */
+
+
+.form {
+  display: block;
+  position: absolute;
+  top: $navigation-height;
+  left: 40px;
+  padding: $sm-space;
+  background: #00b0ff;
+  width: 170px;
+  z-index: 5000;
+}
+
+.form__input {
+  @include set_block;
+  position: relative;
+  width: 100%;
+  background: white;
+}

@@ -12,6 +12,7 @@ import { getTrips } from '../actions/trips'
 import { getTrip } from '../actions/trip'
 
 import Navigation from '../components/Navigation/'
+import NewTrip from '../components/NewTrip/'
 import Sidemenu from '../components/sidemenu/'
 import Window from '../components/window/'
 
@@ -19,9 +20,8 @@ import Window from '../components/window/'
 class App extends Component {
 
     componentWillMount() {
-        // get list of users trips
+        // get list of users trips and populate app with specific trip
         this.props.loadTrips()
-        // populate app with specific trip
         this.props.getTrip('b58b206d-ec0b-4194-845c-73e9f7b877ae')
     }
 
@@ -39,6 +39,7 @@ class App extends Component {
         return (
             <div>
                 <Navigation onSelectTrip={getTrip} trips={trips} fullName={'Foo Bar'}/>
+                <NewTrip/>
                 <Sidemenu/>
                 <Window>
                     {children}
