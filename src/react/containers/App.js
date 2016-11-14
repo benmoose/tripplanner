@@ -39,7 +39,7 @@ class App extends Component {
         return (
             <div>
                 <Navigation onSelectTrip={getTrip} trips={trips} fullName={'Foo Bar'}/>
-                <NewTrip onClick={createTrip}/>
+                <NewTrip onSubmit={createTrip}/>
                 <Sidemenu/>
                 <Window>
                     {children}

@@ -9,20 +9,30 @@
  */
 
 
-.form {
+.container {
   display: block;
   position: absolute;
   top: $navigation-height;
   left: 40px;
   padding: $sm-space;
-  background: #00b0ff;
+  background: $background;
   width: 170px;
   z-index: 5000;
 }
 
-.form__input {
-  @include set_block;
+%form-item {
+  @include set_inline_block;
+  float: left;
+}
+
+.input {
+  @extend %form-item;
+  width: auto;
   position: relative;
-  width: 100%;
   background: white;
+}
+
+.submit {
+  @extend %form-item;
+  width: auto;
 }

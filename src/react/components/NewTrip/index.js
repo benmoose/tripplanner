@@ -6,6 +6,7 @@
 
 import React, { Component, PropTypes as T } from 'react'
 import styles from './styles/newTrip.scss'
+var classnames = require('classnames')
 
 
 /*
@@ -15,32 +16,43 @@ import styles from './styles/newTrip.scss'
 export default class NewTrip extends Component {
     constructor(props) {
         super(props)
-        this.state = {title: ''}
+        this.state = {title: '', validation_error: true,}
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(e) {
-        console.log('title changed')
-        this.setState({title: e.target.value})
+        const title = e.target.value
+        this.setState({title: title})
+        this.validateTitle(title)
     }
 
     handleSubmit(e) {
-        console.log('handle submit')
-        this.props.onClick(this.state.title)
+        if (!this.state.validation_error) {
+            this.props.onSubmit(this.state.title)
+        }
         e.preventDefault()
     }
 
-    render () {
+    validateTitle(title) {
+        // simple check to ensure title isn't empty
+        const validation_error = title.length === 0
+        this.setState({validation_error})
+    }
+
+    render() {
         return (
-            <form className={styles.form} onSubmit={this.handleSubmit}>
-                <input className={styles.form__input} type="text" value={this.state.title} onChange={this.handleChange} />
-                <input type="submit" value="Create" />
+            <form className={styles.container} onSubmit={this.handleSubmit}>
+                <input onChange={this.handleChange}
+                       type="text"
+                       value={this.state.title}
+                       className={classnames(styles.input, {'error': this.state.validation_error})} />
+                <input className={styles.submit} type="submit" value="Create" />
             </form>
         )
     }
 }
 
 NewTrip.propTypes = {
-    onClick: T.func,
+    onSubmit: T.func.isRequired,
 }
