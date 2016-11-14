@@ -1,8 +1,8 @@
 'use strict'
 
 /*
- * Imports
- */
+* Imports
+*/
 
 import React, { Component, PropTypes as T } from 'react'
 import styles from './styles/newTrip.scss'
@@ -10,10 +10,22 @@ var classnames = require('classnames')
 
 
 /*
- * Component
- */
+* Component
+*/
+
+type Props = {
+    onSubmit: Function,
+}
+
+type State = {
+    title: string,
+    validation_error: boolean,
+}
 
 export default class NewTrip extends Component {
+    props : Props
+    state : State
+
     constructor(props) {
         super(props)
         this.state = {title: '', validation_error: true,}
@@ -46,19 +58,15 @@ export default class NewTrip extends Component {
             <div>
                 <form className={styles.container} onSubmit={this.handleSubmit}>
                     <input onChange={this.handleChange}
-                           type="text"
-                           value={title}
-                           className={classnames(styles.input, {'error': validation_error})}/>
+                        type="text"
+                        value={title}
+                        className={classnames(styles.input, {'error': validation_error})}/>
 
                     <input className={classnames(styles.submit, {'disabled': validation_error})}
-                           type="submit"
-                           value="Create"/>
+                        type="submit"
+                        value="Create"/>
                 </form>
             </div>
         )
     }
-}
-
-NewTrip.propTypes = {
-    onSubmit: T.func.isRequired,
 }

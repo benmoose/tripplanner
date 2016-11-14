@@ -1,17 +1,27 @@
-import React, { Component, PropTypes as T } from 'react';
+/* @flow */
+'use strict'
 
+/*
+ * Imports
+ */
+
+import React, { Component } from 'react';
 import styles from './styles/button.scss';
 
 
-export default class Button extends Component {
-    static propTypes = {
-        onClick: T.func.isRequired,
-    };
+/*
+ * Component
+ */
 
-    render() {
-        const { children, onClick } = this.props;
-        return (
-            <button onClick={onClick} className={styles.btn}>{children}</button>
-        );
-    }
+type Props = {
+    onClick: Function,
+    children: React$Element<any>,
+}
+
+export function Button({onClick, children}: Props) {
+    return <button onClick={onClick} className={styles.btn}>{children}</button>
+}
+
+export function LinkButton({onClick, children}: Props) {
+    return <button onClick={onClick} className={styles.link_btn}>{children}</button>
 }
