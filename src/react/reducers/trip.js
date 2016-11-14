@@ -30,7 +30,7 @@ const defaultState: State = {
     error: null,
 }
 
-export const tripReducer = (state: State = defaultState, action: Object): State => {
+export const tripReducer = (state: State = defaultState, action: T.Action): State => {
     switch (action.type) {
         case actionType.TRIP_REQUEST:
             return {

@@ -1,21 +1,21 @@
+/* @flow */
+'use strict'
+
 /*
- * @flow
- *
  * Use this to generate endpoints.
  */
-
 
 const baseUri = '/api/'
 const authUri = '/auth/'
 
-export const apiEndpoint = (...path) => {
+export const apiEndpoint = (...path: Array<string>) => {
     let path_array = path.map(item => {
         return item.replace(new RegExp('/', 'g'), '')
     });
     return `${baseUri}${path_array.join('/')}`
 };
 
-export const authEndpoint = (...path) => {
+export const authEndpoint = (...path: Array<string>) => {
     let path_array = path.map(item => {
         return item.replace(new RegExp('/', 'g'), '')
     });
@@ -28,4 +28,4 @@ export const USER_DETAIL = apiEndpoint('user')
 
 export const TRIP_LIST = apiEndpoint('trips')
 export const TRIP_CREATE = apiEndpoint('trips', 'create')
-export const TRIP_DETAIL = (uuid) => apiEndpoint('trips', uuid)
+export const TRIP_DETAIL = (uuid: string) => apiEndpoint('trips', uuid)
