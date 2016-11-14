@@ -6,6 +6,7 @@ from rest_framework import generics
 from _common.models.abstract.api import ProtectedApiView
 
 from user_jwt.utility.jwt_authentication import header_to_sub
+from user_jwt.models import UserJWT
 from .serializers import TripSerializer, SimpleTripSerializer
 from .models import Trip
 
@@ -40,8 +41,12 @@ class TripCreate(ProtectedApiView, generics.CreateAPIView):
     """
     serializer_class = SimpleTripSerializer
 
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        # get the User from Auth Token
+        sub = header_to_sub(self.request.META.get('HTTP_AUTHORIZATION'))
+        user = UserJWT.objects.get(sub=sub)
+        instance = serializer.save()
+        instance.users.add(user.pk)
 
 
 class TripDetail(ProtectedApiView, generics.RetrieveAPIView):
