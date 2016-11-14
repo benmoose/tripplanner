@@ -9,7 +9,7 @@ import React, { Component, PropTypes as T } from 'react'
 import { connect } from 'react-redux'
 
 import { getTrips } from '../actions/trips'
-import { getTrip } from '../actions/trip'
+import { getTrip, tripCreate } from '../actions/trip'
 
 import Navigation from '../components/Navigation/'
 import NewTrip from '../components/NewTrip/'
@@ -26,7 +26,7 @@ class App extends Component {
     }
 
     render() {
-        const { trips, getTrip, params } = this.props
+        const { trips, getTrip, createTrip, params } = this.props
 
         // add auth instance from route to children
         let children = null
@@ -39,7 +39,7 @@ class App extends Component {
         return (
             <div>
                 <Navigation onSelectTrip={getTrip} trips={trips} fullName={'Foo Bar'}/>
-                <NewTrip/>
+                <NewTrip onClick={createTrip}/>
                 <Sidemenu/>
                 <Window>
                     {children}
@@ -54,6 +54,7 @@ function mapDispatchToProps(dispatch) {
     return {
         loadTrips: () => dispatch(getTrips()),
         getTrip: (uuid) => dispatch(getTrip(uuid)),
+        createTrip: (title) => dispatch(tripCreate(title)),
     }
 }
 

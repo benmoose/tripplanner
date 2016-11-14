@@ -4,8 +4,8 @@
  * Redux Trip Reducer
  * */
 
-import * as actionType from '../actions/trip';
-import * as T from '../types/';
+import * as actionType from '../actions/trip'
+import * as T from '../types/'
 
 
 type State = {
@@ -28,7 +28,7 @@ const defaultState: State = {
     modified: null,
     loading: false,
     error: null,
-};
+}
 
 export const tripReducer = (state: State = defaultState, action: Object): State => {
     switch (action.type) {
@@ -36,20 +36,39 @@ export const tripReducer = (state: State = defaultState, action: Object): State 
             return {
                 ...state,
                 loading: true,
-            };
+            }
         case actionType.TRIP_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
                 loading: false,
-            };
+                error: null,
+            }
         case actionType.TRIP_FAILURE:
             return {
                 ...state,
                 error: action.payload.error,
                 loading: false,
-            };
+            }
+        case actionType.TRIP_CREATE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case actionType.TRIP_CREATE_SUCCESS:
+            return {
+                ...state,
+                ...action.payload,
+                loading: false,
+                error: null,
+            }
+        case actionType.TRIP_CREATE_FAILURE:
+            return {
+                ...state,
+                error: action.payload.error,
+                loading: false,
+            }
+        default:
+            return state
     }
-
-    return state;
 };

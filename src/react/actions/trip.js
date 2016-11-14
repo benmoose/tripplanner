@@ -6,6 +6,7 @@
 
 import { authFetch } from '../utility/apiHelper'
 import { TRIP_DETAIL, TRIP_CREATE } from '../constants/endpoints'
+import * as T from '../types/'
 
 
 /*
@@ -33,7 +34,7 @@ export function tripRequest() {
     }
 }
 
-export function tripSuccess(trip) {
+export function tripSuccess(trip: T.Trip) {
     return {
         type: TRIP_SUCCESS,
         payload: {
@@ -42,7 +43,7 @@ export function tripSuccess(trip) {
     }
 }
 
-export function tripFailure(error) {
+export function tripFailure(error: string) {
     return {
         type: TRIP_FAILURE,
         payload: {
@@ -51,7 +52,7 @@ export function tripFailure(error) {
     }
 }
 
-export function getTrip(uuid) {
+export function getTrip(uuid: string) {
     return (dispatch) => {
         dispatch(tripRequest());
 
@@ -79,7 +80,7 @@ function tripCreateSuccess(uuid) {
     }
 }
 
-function tripCreateFailure(error) {
+function tripCreateFailure(error: string) {
     return {
         type: TRIP_CREATE_FAILURE,
         payload: {
@@ -91,7 +92,7 @@ function tripCreateFailure(error) {
 export function tripCreate(title: string) {
     return dispatch => {
         dispatch(tripCreateRequest())
-        return authFetch(TRIP_CREATE)
+        return authFetch(TRIP_CREATE, {}, 'POST', {title})
             .then(json => dispatch(tripCreateRequest(json.uuid)))
             .catch(error => dispatch(tripCreateFailure(error)))
     }
