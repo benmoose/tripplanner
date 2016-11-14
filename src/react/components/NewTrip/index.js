@@ -41,13 +41,17 @@ export default class NewTrip extends Component {
     }
 
     render() {
+        let {title, validation_error} = this.state
         return (
             <form className={styles.container} onSubmit={this.handleSubmit}>
                 <input onChange={this.handleChange}
                        type="text"
-                       value={this.state.title}
-                       className={classnames(styles.input, {'error': this.state.validation_error})} />
-                <input className={styles.submit} type="submit" value="Create" />
+                       value={title}
+                       className={classnames(styles.input, {'error': validation_error})}/>
+
+                <input className={classnames(styles.submit, {'disabled': validation_error})}
+                       type="submit"
+                       value="Create"/>
             </form>
         )
     }
