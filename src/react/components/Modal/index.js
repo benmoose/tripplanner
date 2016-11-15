@@ -59,17 +59,19 @@ export default class Modal extends Component {
 
         return (
             <div className={styles.container + ` ${this.state.open ? styles.open : ''}`}>
-                <div className={styles.modal} role="dialog">
-                    <header className={styles.header}>
-                        <h2 className={styles.header__h}>{title}</h2>
-                    </header>
+                <div className={styles.modal__wrapper}>
+                    <div className={styles.modal} role="dialog">
+                        <header className={styles.header}>
+                            <h2 className={styles.header__h}>{title}</h2>
+                        </header>
 
-                    <div className={styles.body}>{children}</div>
+                        <div className={styles.body}>{children}</div>
 
-                    <footer className={styles.footer}>
-                        <LinkButton onClick={this.close}>Close</LinkButton>
-                        <Button onClick={this.handleClick}>{buttonText}</Button>
-                    </footer>
+                        <footer className={styles.footer}>
+                            <LinkButton onClick={this.close}>Close</LinkButton>
+                            <Button onClick={this.handleClick}>{buttonText}</Button>
+                        </footer>
+                    </div>
                 </div>
                 <div className={styles.overlay} onClick={this.close} />
             </div>

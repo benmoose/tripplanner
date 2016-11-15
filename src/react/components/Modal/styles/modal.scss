@@ -3,6 +3,8 @@
 @import "../../_styles/settings/spacing";
 @import "../../_styles/settings/z-index";
 @import "../../_styles/tools/block";
+@import "../../_styles/tools/box-shadow";
+
 
 
 /*
@@ -56,17 +58,25 @@
   z-index: 0;
 }
 
+.modal__wrapper {
+    height: 100%;
+    display: flex;
+      align-items: center;
+      justify-content: center;
+}
+
 .modal {
   @extend %modal_width;
+  @include set_box_shadow_large;
+  display: inline-block;
   position: relative;
-  margin: auto;
-  max-width: 520px;
   background: $background;
   z-index: 1;
 }
 
 .header {
   @extend %modal_section;
+  text-align: center;
   background: $background-dark;
 }
 
@@ -76,6 +86,16 @@
 
 .body {
   @extend %modal_section;
+  max-height: 50vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  // clearfix
+  &:after {
+      content: '';
+      display: table;
+      clear: both;
+  }
 
   // remove bottom margin from last element
   & > *:last-child {
@@ -84,6 +104,6 @@
 }
 
 .footer {
-  clear: both;
+    background: $background-dark;
   text-align: right;
 }

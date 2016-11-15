@@ -31,8 +31,17 @@ export default class NewTrip extends Component {
     constructor(props: Props) {
         super(props)
         this.state = {title: '', validation_error: true}
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+
+        /* TODO
+         * Unfortunately, must set `self: any` var due to Flow having issues
+         * with binding functions in constructor.
+         * Consider using ES2015+ (Stage 0) Class Properties here as a
+         * workaround.
+         * More info @ Flow issue #1545.
+         */
+        const self: any = this
+        self.handleChange = this.handleChange.bind(this)
+        self.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(e) {
@@ -57,12 +66,10 @@ export default class NewTrip extends Component {
         let {title, validation_error} = this.state
         return (
             <Modal title="Create Trip" buttonText="Create" onClick={this.handleSubmit}>
-                <div className={styles.container}>
-                    <input onChange={this.handleChange}
-                           type="text"
-                           value={title}
-                           className={classnames(styles.input, {'error': validation_error})} />
-                </div>
+                <input onChange={this.handleChange}
+                       type="text"
+                       value={title}
+                       className={classnames(styles.input, {'error': validation_error})} />
             </Modal>
         )
     }

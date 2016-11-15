@@ -16,8 +16,8 @@
 
 .input {
   @extend %form-item;
-  width: auto;
-  background: white;
+  width: 100%;
+  background: $background-light;
 }
 
 .submit {
