@@ -1,9 +1,6 @@
 /*
- * @flow
- *
- * Application Container with navigation and sidebar
- *
- * */
+ * Application Container with Navigation and Sidebar
+ */
 
 import React, { Component, PropTypes as T } from 'react'
 import { connect } from 'react-redux'
@@ -38,7 +35,7 @@ class App extends Component {
 
         return (
             <div>
-                <Navigation onSelectTrip={getTrip} trips={trips} fullName={'Foo Bar'}/>
+                <Navigation onSelectTrip={getTrip} trips={trips} fullName={'Full Name'}/>
                 <NewTrip onSubmit={createTrip}/>
                 <Sidemenu/>
                 <Window>

@@ -1,29 +1,28 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
-import AuthService from '../utility/AuthService';
+import AuthService from '../utility/AuthService'
 
-import configureStore from '../configureStore';
+import configureStore from '../configureStore'
 
-import App from './App';
-import Login from '../components/Login/';
-import MyTrip from './pages/MyTrip';
-import Logout from '../components/Logout/';
+import App from './App'
+import Login from '../components/Login/'
+import MyTrip from './pages/MyTrip'
+import Logout from '../components/Logout/'
 
 
-const store = configureStore();
-
-const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__);
+const store = configureStore()
+const auth = new AuthService(__AUTH0_CLIENT_ID__, __AUTH0_DOMAIN__)
 
 // validate user for private routes
 const requireAuth = (nextState, replace) => {
     if (!auth.loggedIn()) {
-        replace('/login');
+        replace('/login')
     } else {
-        console.log('User logged in');
+        console.log('User logged in')
     }
-};
+}
 
 export default class Root extends Component {
     render() {
@@ -43,3 +42,5 @@ export default class Root extends Component {
         )
     }
 }
+
+// TODO: Find out why Login component has stopped rendering

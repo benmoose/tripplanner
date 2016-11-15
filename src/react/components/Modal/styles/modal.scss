@@ -1,6 +1,13 @@
+@import "../../_styles/settings/z-index";
+
 /*
  * Modal Component
  */
 
 
- .modal {}
+ .modal {
+     position: absolute;
+     left: 420px;
+     outline: firebrick 1px solid;
+     z-index: $zindex-3-modal;
+ }

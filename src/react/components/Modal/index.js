@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react'
-import { LinkButton } from '../Button/'
+import { Button, LinkButton } from '../Button/'
 import styles from './styles/modal.scss'
 
 
@@ -15,9 +15,10 @@ import styles from './styles/modal.scss'
  */
 
 type Props = {
-    title: ?string,
-    children: React$Element<any>,
-    actionButton: ?Element<any>,
+    title?: string,
+    children?: React$Element<any>,
+    buttonText: string,
+    onClick: Function,
 }
 
  type State = {
@@ -34,13 +35,17 @@ export default class Modal extends Component {
     }
 
     render() {
+        const { onClick, buttonText, children } = this.props
+
         return (
             <div className={styles.container}>
                 <div className={styles.modal} role="dialog">
                     <header className={styles.header}></header>
-                    <div className={styles.body}></div>
+                    <div className={styles.body}>{children}</div>
                     <footer className={styles.footer}>
-                        <LinkButton onClick={() => alert('clicked')}>Close</LinkButton>
+                        <LinkButton onClick={() => alert('clicked')}>
+                            Close</LinkButton>
+                        <Button onClick={onClick}>{buttonText}</Button>
                     </footer>
                 </div>
                 <div className={styles.overlay}></div>

@@ -1,3 +1,4 @@
+/* @flow */
 'use strict'
 
 /*
@@ -5,6 +6,7 @@
 */
 
 import React, { Component, PropTypes as T } from 'react'
+import Modal from '../Modal/'
 import styles from './styles/newTrip.scss'
 var classnames = require('classnames')
 
@@ -26,9 +28,9 @@ export default class NewTrip extends Component {
     props : Props
     state : State
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props)
-        this.state = {title: '', validation_error: true,}
+        this.state = {title: '', validation_error: true}
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -46,7 +48,7 @@ export default class NewTrip extends Component {
         e.preventDefault()
     }
 
-    validateTitle(title) {
+    validateTitle(title: string) {
         // simple check to ensure title isn't empty
         const validation_error = title.length === 0
         this.setState({validation_error})
@@ -55,18 +57,9 @@ export default class NewTrip extends Component {
     render() {
         let {title, validation_error} = this.state
         return (
-            <div>
-                <form className={styles.container} onSubmit={this.handleSubmit}>
-                    <input onChange={this.handleChange}
-                        type="text"
-                        value={title}
-                        className={classnames(styles.input, {'error': validation_error})}/>
-
-                    <input className={classnames(styles.submit, {'disabled': validation_error})}
-                        type="submit"
-                        value="Create"/>
-                </form>
-            </div>
+            <Modal buttonText="Create" onClick={() => alert('clicked')}>
+                <p>content...</p>
+            </Modal>
         )
     }
 }
