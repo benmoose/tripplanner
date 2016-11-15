@@ -45,7 +45,6 @@ export default class NewTrip extends Component {
         if (!this.state.validation_error) {
             this.props.onSubmit(this.state.title)
         }
-        e.preventDefault()
     }
 
     validateTitle(title: string) {
@@ -57,8 +56,13 @@ export default class NewTrip extends Component {
     render() {
         let {title, validation_error} = this.state
         return (
-            <Modal buttonText="Create" onClick={() => alert('clicked')}>
-                <p>content...</p>
+            <Modal title="Create Trip" buttonText="Create" onClick={this.handleSubmit}>
+                <div className={styles.container}>
+                    <input onChange={this.handleChange}
+                           type="text"
+                           value={title}
+                           className={classnames(styles.input, {'error': validation_error})} />
+                </div>
             </Modal>
         )
     }

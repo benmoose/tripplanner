@@ -8,27 +8,15 @@
  * New Trip Component
  */
 
-
-.container {
-  display: block;
-  position: absolute;
-  top: $navigation-height;
-  left: 40px;
-  padding: $sm-space;
-  background: $background;
-  width: 170px;
-  z-index: 5000;
-}
-
 %form-item {
   @include set_inline_block;
   float: left;
+  position: relative;
 }
 
 .input {
   @extend %form-item;
   width: auto;
-  position: relative;
   background: white;
 }
 

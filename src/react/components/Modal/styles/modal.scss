@@ -44,7 +44,7 @@
   pointer-events: none;
   visibility: hidden;
   display: none;
-  
+
   &.open {
     @extend %modal_open;
   }
@@ -84,5 +84,6 @@
 }
 
 .footer {
+  clear: both;
   text-align: right;
 }
