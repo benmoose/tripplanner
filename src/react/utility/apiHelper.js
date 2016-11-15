@@ -9,20 +9,27 @@ function _checkStatus(response) {
     }
 }
 
-export function authFetch(endpoint, custom_headers = {}, method='GET') {
-    const headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+export function authFetch(endpoint, custom_headers={}, method='GET', body_data={}) {
+    let options = {
+        'headers': {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        method,
     };
 
     // if logged in, include auth header
     if (localStorage.getItem('id_token')) {
-        headers['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
+        options['headers']['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
     }
 
-    return fetch(endpoint, {
-        'headers': Object.assign(headers, custom_headers),
-    })
+    // if body passed as arg then include it
+    if(Object.keys(body_data).length !== 0) {
+        console.log('body_data', body_data, 'len', Object.keys(body_data).length)
+        options['body'] = JSON.stringify(body_data)
+    }
+
+    return fetch(endpoint, options)
         .then(_checkStatus)  // _checkStatus ensures non-200 status codes don't resolve
         .then(response => response.json());
 }

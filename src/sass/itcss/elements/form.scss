@@ -1,0 +1,16 @@
+@import "../settings/spacing";
+
+/*
+ * Elements Layer
+ */
+
+input {
+  padding: $sm-space;
+  border: transparent 2px solid;
+  border-radius: $sm-space;
+  outline: none;
+
+  &.error {
+    border: #d81b60 2px solid;
+  }
+}
