@@ -8,7 +8,7 @@
 import React, { Component, PropTypes as T } from 'react'
 import Modal from '../Modal/'
 import styles from './styles/newTrip.scss'
-var classnames = require('classnames')
+const classnames = require('classnames')
 
 
 /*
