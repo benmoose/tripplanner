@@ -10,7 +10,7 @@ Technologies
 - [React] (https://facebook.github.io/react/) for component-based UI development
   - [Redux] (http://redux.js.org/) for state management
   - [Flow] (https://flowtype.org/) for JS type checking
-  - [Reselect] (https://github.com/reactjs/reselect) for accessingz data from Redux store
+  - [Reselect] (https://github.com/reactjs/reselect) for accessing data from Redux store
 - Authentication with [JSON Web Tokens] (https://jwt.io/) using [Auth0] (https://auth0.com/)  
 
 Feature List
@@ -21,8 +21,8 @@ Feature List
 - [ ] Travel itinerary  
 - [ ] Todo list  
 - [ ] Bucket list  
-- [ ] Price manager / list  
 
 **Optional Features**
 - [ ] Blog / Photo log  
 - [ ] Trip chat  
+- [ ] Price manager / list  
