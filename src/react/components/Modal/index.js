@@ -8,7 +8,6 @@
 import React, { Component } from 'react'
 import { Button, LinkButton } from '../Button/'
 import styles from './styles/modal.scss'
-const classnames = require('classnames')
 
 
 /*
