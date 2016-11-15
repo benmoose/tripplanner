@@ -5,10 +5,10 @@ Trip Planner is a platform for friends and family to organise trips together in 
 
 Technologies
 ------------
-- [Django] (https://www.djangoproject.com/) (with Django REST Framework) 
+- [Django] (https://www.djangoproject.com/) as the server-side framework
   - [REST Framework] (http://www.django-rest-framework.org/) for API development
-- [React] (https://facebook.github.io/react/) for component-based UI development
-  - [Redux] (http://redux.js.org/) for state management
+- [React] (https://facebook.github.io/react/) for front-end UI development
+  - [Redux] (http://redux.js.org/) for application state management
   - [Flow] (https://flowtype.org/) for JS type checking
   - [Reselect] (https://github.com/reactjs/reselect) for accessing data from Redux store
 - Authentication with [JSON Web Tokens] (https://jwt.io/) using [Auth0] (https://auth0.com/)  
