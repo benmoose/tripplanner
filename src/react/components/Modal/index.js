@@ -33,7 +33,8 @@ export default class Modal extends Component {
         super(props)
         this.state = {open: true}
 
-        /* Unfortunately, must set `self: any` var due to Flow having issues
+        /* TODO
+         * Unfortunately, must set `self: any` var due to Flow having issues
          * with binding functions in constructor.
          * Consider using ES2015+ (Stage 0) Class Properties here as a
          * workaround.
