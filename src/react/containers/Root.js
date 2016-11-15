@@ -42,5 +42,3 @@ export default class Root extends Component {
         )
     }
 }
-
-// TODO: Find out why Login component has stopped rendering
