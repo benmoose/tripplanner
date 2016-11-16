@@ -17,6 +17,7 @@ const classnames = require('classnames')
 
 type Props = {
     onSubmit: Function,
+    open: boolean,
 }
 
 type State = {

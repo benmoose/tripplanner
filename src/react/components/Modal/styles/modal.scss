@@ -54,7 +54,7 @@
 
 .overlay {
   @extend %full_background;
-  background: rgba(black, .45);
+  background: rgba(black, .55);
   z-index: 0;
 }
 
@@ -77,11 +77,11 @@
 .header {
   @extend %modal_section;
   text-align: center;
-  background: $background-dark;
-}
 
-.header__h {
-  margin: 0;
+  // remove bottom margin from last element
+  & > *:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .body {
@@ -104,6 +104,6 @@
 }
 
 .footer {
-    background: $background-dark;
+  background: $background-dark;
   text-align: right;
 }

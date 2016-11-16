@@ -8,7 +8,7 @@ import configureStore from '../configureStore'
 
 import App from './App'
 import Login from '../components/Login/'
-import MyTrip from './pages/MyTrip'
+import MyTrip from './MyTrip'
 import Logout from '../components/Logout/'
 
 

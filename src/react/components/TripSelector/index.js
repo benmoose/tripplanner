@@ -1,7 +1,6 @@
 /* @flow */
 'use strict'
 
-
 /*
  * Imports
  */
@@ -29,13 +28,13 @@ type Props  = {
 export default class TripSelector extends Component {
     props: Props;
 
-    handleChange(e: Event): void {
+    handleChange(e) {
         this.props.onSelectTrip(e.target.value)
     }
 
-    handleNewTripClick(e: Event): void {
-        e.preventDefault()
+    handleNewTripClick(e) {
         this.props.onNewTripClick()
+        e.preventDefault()
     }
 
     render() {
@@ -46,9 +45,9 @@ export default class TripSelector extends Component {
         });
 
         return (
-            <select className={styles.selector} onChange={this.handleChange.bind(this)}>
+            <select className={styles.selector} onChange={this.handleChange}>
                 {options}
-                <option key="newtrip" onClick={this.handleNewTripClick.bind(this)}>New Trip</option>
+                <option key="_newtrip" onClick={this.handleNewTripClick}>New Trip</option>
             </select>
         );
     }

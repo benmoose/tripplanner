@@ -16,6 +16,7 @@ import styles from './styles/modal.scss'
 
 type Props = {
     title: string,
+    subtitle?: string,
     children?: React$Element<any>,
     buttonText: string,
     onClick: Function,
@@ -31,7 +32,7 @@ export default class Modal extends Component {
 
     constructor(props: Props) {
         super(props)
-        this.state = {open: true}
+        this.state = { open: true }
 
         /* TODO
          * Unfortunately, must set `self: any` var due to Flow having issues
@@ -55,14 +56,15 @@ export default class Modal extends Component {
     }
 
     render() {
-        const { title, children, buttonText } = this.props
+        const { title, subtitle, children, buttonText } = this.props
 
         return (
             <div className={styles.container + ` ${this.state.open ? styles.open : ''}`}>
                 <div className={styles.modal__wrapper}>
                     <div className={styles.modal} role="dialog">
                         <header className={styles.header}>
-                            <h2 className={styles.header__h}>{title}</h2>
+                            <h2>{title}</h2>
+                            <h6>What shall we call your new trip?</h6>
                         </header>
 
                         <div className={styles.body}>{children}</div>
