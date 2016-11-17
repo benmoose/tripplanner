@@ -18,6 +18,7 @@ type Props = {
     title: string,
     subtitle?: string,
     children?: React$Element<any>,
+    open?: boolean,
     buttonText: string,
     onClick: Function,
 }
@@ -32,7 +33,7 @@ export default class Modal extends Component {
 
     constructor(props: Props) {
         super(props)
-        this.state = { open: true }
+        this.state = { open: this.props.open || false }
 
         /* TODO
          * Unfortunately, must set `self: any` var due to Flow having issues

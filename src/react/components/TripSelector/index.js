@@ -23,25 +23,25 @@ type Props  = {
 export default class TripSelector extends Component {
     props: Props
 
-    handleChange(e) {
-        this.props.onSelectTrip(e.target.value)
-    }
-
-    handleNewTripClick(e) {
-        this.props.onNewTripClick()
-        e.preventDefault()
+    handleSelectTrip(e) {
+        // conditionally handle change based on if New Trip was selected
+        if (e.target.selectedIndex === e.target.options.length - 1 ) {
+            this.props.onNewTripClick()
+        } else {
+            this.props.onSelectTrip(e.target.options[e.target.selectedIndex].value)
+        }
     }
 
     render() {
         const { trips } = this.props
-        var tripOptions = trips.map((trip, i) => {
+        const tripOptions = trips.map((trip, i) => {
             return <option key={i} value={trip.uuid}>{trip.title}</option>
         })
 
         return (
-            <select className={styles.selector} onChange={this.handleChange}>
+            <select className={styles.selector} onChange={this.handleSelectTrip.bind(this)}>
                 {tripOptions}
-                <option key="_newtrip" onClick={this.handleNewTripClick}>New Trip</option>
+                <option key="_newtrip">New Trip</option>
             </select>
         )
     }

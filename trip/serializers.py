@@ -21,7 +21,7 @@ class TripSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trip
-        fields = ('title', 'get_absolute_url', 'locations', 'created',
+        fields = ('uuid', 'title', 'get_absolute_url', 'locations', 'created',
                   'modified',)
 
 

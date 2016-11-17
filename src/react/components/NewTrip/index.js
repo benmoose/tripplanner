@@ -17,7 +17,6 @@ const classnames = require('classnames')
 
 type Props = {
     onSubmit: Function,
-    open: boolean,
 }
 
 type State = {
@@ -31,7 +30,10 @@ export default class NewTrip extends Component {
 
     constructor(props: Props) {
         super(props)
-        this.state = {title: '', validation_error: true}
+        this.state = {
+            title: '',
+            validation_error: true,
+        }
 
         /* TODO
          * Unfortunately, must set `self: any` var due to Flow having issues
@@ -43,6 +45,10 @@ export default class NewTrip extends Component {
         const self: any = this
         self.handleChange = this.handleChange.bind(this)
         self.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    openModal() {
+        this.modal.open()
     }
 
     handleChange(e) {
@@ -64,9 +70,10 @@ export default class NewTrip extends Component {
     }
 
     render() {
-        let {title, validation_error} = this.state
+        var { title, validation_error } = this.state
+
         return (
-            <Modal title="Create Trip" buttonText="Create" onClick={this.handleSubmit}>
+            <Modal title="Create Trip" buttonText="Create" onClick={this.handleSubmit} ref={el => this.modal = el}>
                 <input onChange={this.handleChange}
                        type="text"
                        value={title}

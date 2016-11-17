@@ -15,32 +15,22 @@ import NewTrip from '../components/NewTrip/'
  * Component
  */
 
- type State = {
-     open: boolean,
- }
-
 class NavigationContainer extends Component {
-    state: State
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            open: false,
-        }
-    }
-
-    componentWillMount() { console.log(this.props.loadTrips(), typeof this.props.loadTrips);this.props.loadTrips() }
-    handleNewTripClick() { this.setState({open: true}) }
+    componentWillMount() { this.props.loadTrips() }
+    handleNewTripClick() { this.newtrip.openModal() }
 
     render() {
         const { trips, createTrip, getTrip } = this.props
 
-        // TODO: make this universal across all Auth0 types
+        // TODO: make this universal across all Auth0 user types
         const user_name: string = localStorage.getItem('name') || 'Foo Bar'
+
+        // TODO: check if there is a better way than refs to open the modal
         return (
             <div>
                 <Navigation onNewTripClick={this.handleNewTripClick.bind(this)} onSelectTrip={getTrip} trips={trips} fullName={user_name} />
-                <NewTrip open={this.state.open} onSubmit={createTrip} />
+                <NewTrip onSubmit={createTrip} ref={el => this.newtrip = el} />
             </div>
         )
     }

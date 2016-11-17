@@ -28,7 +28,7 @@ export default class Navigation extends Component {
     props: Props
 
     render() {
-        const { fullName, trips, onSelectTrip } = this.props;
+        const { fullName, trips, onSelectTrip, onNewTripClick } = this.props;
 
         return (
             <nav className={`${styles.navigation}`}>
@@ -37,8 +37,8 @@ export default class Navigation extends Component {
                 </div>
 
                 <div className={`${styles.trip}`}>
-                    <TripSelector onSelectTrip={onSelectTrip} trips={trips}/>
-                    <span className={`${styles.trip__countdown}`}>_x_ days left!</span>
+                    <TripSelector onSelectTrip={onSelectTrip} onNewTripClick={onNewTripClick} trips={trips}/>
+                    <span className={`${styles.trip__countdown}`}>n days left!</span>
                 </div>
 
                 <ul className={`${styles.profile}`}>
