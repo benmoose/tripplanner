@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { getTrip } from '../../actions/trip'
+import { getTrip } from '../actions/trip'
 
-import Map from '../../components/map/'
-import Itinerary from '../../components/itinerary/'
+import Map from '../components/map/'
+import Itinerary from '../components/itinerary/'
 
 
 class MyTrip extends Component {
@@ -20,19 +20,18 @@ class MyTrip extends Component {
     }
 }
 
-
-function mapDispatchToProps(dispatch) {
-    return {
-        getTrip: (uuid) => dispatch(getTrip(uuid)),
-    }
-}
-
 function mapStateToProps(state) {
     const { locations, loading } = state.trip;
     return {
         locations,
         loading,
     };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getTrip: (uuid) => dispatch(getTrip(uuid)),
+    }
 }
 
 export default connect(

@@ -17,21 +17,28 @@ import NewTrip from '../components/NewTrip/'
 
 class NavigationContainer extends Component {
 
-    componentWillMount() {
-        this.props.loadTrips()
-    }
+    componentWillMount() { this.props.loadTrips() }
+    handleNewTripClick() { this.newtrip.openModal() }
 
     render() {
         const { trips, createTrip, getTrip } = this.props
 
-        // TODO: make this universal across all Auth0 types
-        const user_name = localStorage.getItem('name')
+        // TODO: make this universal across all Auth0 user types
+        const user_name: string = 'Foo Bar'
+
+        // TODO: check if there is a better way than refs to open the modal
         return (
             <div>
-                <Navigation onSelectTrip={getTrip} trips={trips} fullName={user_name} />
-                <NewTrip open={true} onSubmit={createTrip} />
+                <Navigation onNewTripClick={this.handleNewTripClick.bind(this)} onSelectTrip={getTrip} trips={trips} fullName={user_name} />
+                <NewTrip onSubmit={createTrip} ref={el => this.newtrip = el} />
             </div>
         )
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        trips: state.trips.trips,
     }
 }
 
@@ -43,15 +50,8 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-function mapStateToProps(state) {
-    const { trips } = state.trips;
-    return {
-        trips,
-    }
-}
-
 // create container
 export default connect(
-    // mapDispatchToProps,
-    // mapStateToProps,
+    mapStateToProps,
+    mapDispatchToProps
 )(NavigationContainer)

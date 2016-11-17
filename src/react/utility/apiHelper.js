@@ -14,6 +14,7 @@ export function authFetch(endpoint, custom_headers={}, method='GET', body_data={
         'headers': {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            ...custom_headers,
         },
         method,
     };
@@ -25,7 +26,6 @@ export function authFetch(endpoint, custom_headers={}, method='GET', body_data={
 
     // if body passed as arg then include it
     if(Object.keys(body_data).length !== 0) {
-        console.log('body_data', body_data, 'len', Object.keys(body_data).length)
         options['body'] = JSON.stringify(body_data)
     }
 

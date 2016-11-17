@@ -1,3 +1,4 @@
+@import "../settings/color";
 @import "../settings/spacing";
 
 /*
@@ -7,8 +8,8 @@
 input {
   padding: $sm-space;
   border: transparent 2px solid;
-  border-radius: $sm-space;
   outline: none;
+  color: $text;
 
   &.error {
     border: #d81b60 2px solid;

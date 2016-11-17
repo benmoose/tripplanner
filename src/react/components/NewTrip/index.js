@@ -8,7 +8,7 @@
 import React, { Component, PropTypes as T } from 'react'
 import Modal from '../Modal/'
 import styles from './styles/newTrip.scss'
-var classnames = require('classnames')
+const classnames = require('classnames')
 
 
 /*
@@ -30,9 +30,25 @@ export default class NewTrip extends Component {
 
     constructor(props: Props) {
         super(props)
-        this.state = {title: '', validation_error: true}
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.state = {
+            title: '',
+            validation_error: true,
+        }
+
+        /* TODO
+         * Unfortunately, must set `self: any` var due to Flow having issues
+         * with binding functions in constructor.
+         * Consider using ES2015+ (Stage 0) Class Properties here as a
+         * workaround.
+         * More info @ Flow issue #1545.
+         */
+        const self: any = this
+        self.handleChange = this.handleChange.bind(this)
+        self.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    openModal() {
+        this.modal.open()
     }
 
     handleChange(e) {
@@ -45,7 +61,6 @@ export default class NewTrip extends Component {
         if (!this.state.validation_error) {
             this.props.onSubmit(this.state.title)
         }
-        e.preventDefault()
     }
 
     validateTitle(title: string) {
@@ -55,10 +70,14 @@ export default class NewTrip extends Component {
     }
 
     render() {
-        let {title, validation_error} = this.state
+        var { title, validation_error } = this.state
+
         return (
-            <Modal buttonText="Create" onClick={() => alert('clicked')}>
-                <p>content...</p>
+            <Modal title="Create Trip" buttonText="Create" onClick={this.handleSubmit} ref={el => this.modal = el}>
+                <input onChange={this.handleChange}
+                       type="text"
+                       value={title}
+                       className={classnames(styles.input, {'error': validation_error})} />
             </Modal>
         )
     }

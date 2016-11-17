@@ -3,9 +3,9 @@ Tools Layer
 */
 
 @mixin set_box_shadow {
-  box-shadow: 0 2px 5px rgba(black, 28%);
+  box-shadow: 0 2px 5px rgba(black, .26);
 }
 
 @mixin set_box_shadow_large {
-  box-shadow: 0 0 24px rgba(black, 14%);
+  box-shadow: 0 0 24px rgba(black, .32);
 }

@@ -1,7 +1,6 @@
 /* @flow */
 'use strict'
 
-
 /*
  * Imports
  */
@@ -12,7 +11,7 @@ import * as T from '../../types/'
 
 
 /*
- * Prop Types
+ * Component
  */
 
 type Props  = {
@@ -21,35 +20,29 @@ type Props  = {
     onNewTripClick: Function,
 }
 
-
-/*
- * Component
- */
-
 export default class TripSelector extends Component {
-    props: Props;
+    props: Props
 
-    handleChange(e: Event): void {
-        this.props.onSelectTrip(e.target.value)
-    }
-
-    handleNewTripClick(e: Event): void {
-        e.preventDefault()
-        this.props.onNewTripClick()
+    handleSelectTrip(e) {
+        // conditionally handle change based on if New Trip was selected
+        if (e.target.selectedIndex === e.target.options.length - 1 ) {
+            this.props.onNewTripClick()
+        } else {
+            this.props.onSelectTrip(e.target.options[e.target.selectedIndex].value)
+        }
     }
 
     render() {
-        const { trips } = this.props;
-
-        var options = trips.map((item, i) => {
-            return <option key={i} value={item.uuid}>{item.title}</option>
-        });
+        const { trips } = this.props
+        const tripOptions = trips.map((trip, i) => {
+            return <option key={i} value={trip.uuid}>{trip.title}</option>
+        })
 
         return (
-            <select className={styles.selector} onChange={this.handleChange.bind(this)}>
-                {options}
-                <option key="newtrip" onClick={this.handleNewTripClick.bind(this)}>New Trip</option>
+            <select className={styles.selector} onChange={this.handleSelectTrip.bind(this)}>
+                {tripOptions}
+                <option key="_newtrip">New Trip</option>
             </select>
-        );
+        )
     }
 }
