@@ -53,7 +53,7 @@ export function tripFailure(error: string) {
 }
 
 export function getTrip(uuid: string) {
-    return (dispatch) => {
+    return dispatch => {
         dispatch(tripRequest());
 
         return authFetch(TRIP_DETAIL(uuid))

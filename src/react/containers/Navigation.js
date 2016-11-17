@@ -24,7 +24,7 @@ class NavigationContainer extends Component {
         const { trips, createTrip, getTrip } = this.props
 
         // TODO: make this universal across all Auth0 user types
-        const user_name: string = localStorage.getItem('name') || 'Foo Bar'
+        const user_name: string = 'Foo Bar'
 
         // TODO: check if there is a better way than refs to open the modal
         return (
