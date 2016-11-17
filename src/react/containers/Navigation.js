@@ -15,23 +15,40 @@ import NewTrip from '../components/NewTrip/'
  * Component
  */
 
-class NavigationContainer extends Component {
+ type State = {
+     open: boolean,
+ }
 
-    componentWillMount() {
-        this.props.loadTrips()
+class NavigationContainer extends Component {
+    state: State
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            open: false,
+        }
     }
+
+    componentWillMount() { console.log(this.props.loadTrips(), typeof this.props.loadTrips);this.props.loadTrips() }
+    handleNewTripClick() { this.setState({open: true}) }
 
     render() {
         const { trips, createTrip, getTrip } = this.props
 
         // TODO: make this universal across all Auth0 types
-        const user_name = localStorage.getItem('name')
+        const user_name: string = localStorage.getItem('name') || 'Foo Bar'
         return (
             <div>
-                <Navigation onSelectTrip={getTrip} trips={trips} fullName={user_name} />
-                <NewTrip open={true} onSubmit={createTrip} />
+                <Navigation onNewTripClick={this.handleNewTripClick.bind(this)} onSelectTrip={getTrip} trips={trips} fullName={user_name} />
+                <NewTrip open={this.state.open} onSubmit={createTrip} />
             </div>
         )
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        trips: state.trips.trips,
     }
 }
 
@@ -43,15 +60,8 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-function mapStateToProps(state) {
-    const { trips } = state.trips;
-    return {
-        trips,
-    }
-}
-
 // create container
 export default connect(
-    mapDispatchToProps,
     mapStateToProps,
+    mapDispatchToProps
 )(NavigationContainer)

@@ -2,13 +2,14 @@
  * Application Container with Navigation and Sidebar
  */
 
-import React, { Component, PropTypes as T } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { getTrips } from '../actions/trips'
 import { getTrip, tripCreate } from '../actions/trip'
 
 import NavigationContainer from './Navigation'
+
 import Sidemenu from '../components/sidemenu/'
 import Window from '../components/window/'
 
@@ -38,16 +39,15 @@ class App extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {}
+}
 
 function mapDispatchToProps(dispatch) {
     return {}
 }
 
-function mapStateToProps(state) {
-    return {}
-}
-
 export default connect(
-    mapDispatchToProps,
     mapStateToProps,
+    mapDispatchToProps
 )(App)

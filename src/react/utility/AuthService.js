@@ -51,7 +51,9 @@ export default class AuthService extends EventEmitter {
     }
 
     setToken(idToken) {
-        // Get or Create Django User_JWT object (to relate JWT to user)
+        // Check user has a registered JWT and create one if not.
+        // This is how we track with trips belong to which user.
+        console.log('idToken for get_or_create', idToken)
         authFetch('http://127.0.0.1:8000/api/user/jwt/get-or-create', {
             'Authorization': 'Bearer ' + idToken,
         });

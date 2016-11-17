@@ -11,7 +11,7 @@ import * as T from '../../types/'
 
 
 /*
- * Prop Types
+ * Component
  */
 
 type Props  = {
@@ -20,13 +20,8 @@ type Props  = {
     onNewTripClick: Function,
 }
 
-
-/*
- * Component
- */
-
 export default class TripSelector extends Component {
-    props: Props;
+    props: Props
 
     handleChange(e) {
         this.props.onSelectTrip(e.target.value)
@@ -38,17 +33,16 @@ export default class TripSelector extends Component {
     }
 
     render() {
-        const { trips } = this.props;
-
-        var options = trips.map((item, i) => {
-            return <option key={i} value={item.uuid}>{item.title}</option>
-        });
+        const { trips } = this.props
+        var tripOptions = trips.map((trip, i) => {
+            return <option key={i} value={trip.uuid}>{trip.title}</option>
+        })
 
         return (
             <select className={styles.selector} onChange={this.handleChange}>
-                {options}
+                {tripOptions}
                 <option key="_newtrip" onClick={this.handleNewTripClick}>New Trip</option>
             </select>
-        );
+        )
     }
 }

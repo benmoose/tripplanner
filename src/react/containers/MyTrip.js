@@ -20,19 +20,18 @@ class MyTrip extends Component {
     }
 }
 
-
-function mapDispatchToProps(dispatch) {
-    return {
-        getTrip: (uuid) => dispatch(getTrip(uuid)),
-    }
-}
-
 function mapStateToProps(state) {
     const { locations, loading } = state.trip;
     return {
         locations,
         loading,
     };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getTrip: (uuid) => dispatch(getTrip(uuid)),
+    }
 }
 
 export default connect(
