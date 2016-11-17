@@ -1,0 +1,17 @@
+@import "../settings/color";
+@import "../settings/spacing";
+
+/*
+ * Elements Layer
+ */
+
+input {
+  padding: $sm-space;
+  border: transparent 2px solid;
+  outline: none;
+  color: $text;
+
+  &.error {
+    border: #d81b60 2px solid;
+  }
+}

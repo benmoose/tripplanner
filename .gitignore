@@ -154,6 +154,7 @@ ENV/
 
 # User-specific stuff:
 .idea/
+*/.idea/
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/dictionaries

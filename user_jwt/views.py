@@ -2,12 +2,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from _common.models.abstract.api import ProtectedApiView
+
 from .utility.jwt_authentication import header_to_sub
 from .models import UserJWT
 from .serializers import UserJWTSerializer
 
 
-class GetOrCreateUserJWT(APIView):
+class GetOrCreateUserJWT(ProtectedApiView, APIView):
     serializer_class = UserJWTSerializer
 
     def get(self, request, format=None):

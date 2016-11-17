@@ -19,6 +19,7 @@ def authenticate(code, detail):
 
 
 def decode_token(token):
+    """Returns payload of token"""
     try:
         return jwt.decode(
             token,
@@ -34,6 +35,7 @@ def decode_token(token):
 
 
 def requires_login(f):
+    """Checks request has valid HTTP AUTH header"""
     def wrap(request, *args, **kwargs):
         auth = request.META.get('HTTP_AUTHORIZATION', None)
         if not auth:

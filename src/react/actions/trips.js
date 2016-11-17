@@ -1,22 +1,27 @@
 /*
+ * @flow
+ *
  * Redux Trips Actions
- * */
+ */
 
-import { TRIP_LIST } from '../constants/endpoints';
-
-
-/*
- * Action Creators
- * */
-
-export const TRIPS_LIST_REQUEST = 'TRIPS_LIST_REQUEST';
-export const TRIPS_LIST_SUCCESS = 'TRIPS_LIST_SUCCESS';
-export const TRIPS_LIST_FAILURE = 'TRIPS_LIST_FAILURE';
+import { authFetch } from '../utility/apiHelper'
+import { TRIP_LIST } from '../constants/endpoints'
 
 
 /*
- * Action Creators
+ * Constants
  * */
+
+export const TRIPS_LIST_REQUEST = 'TRIPS_LIST_REQUEST'
+export const TRIPS_LIST_SUCCESS = 'TRIPS_LIST_SUCCESS'
+export const TRIPS_LIST_FAILURE = 'TRIPS_LIST_FAILURE'
+
+
+/*
+ * Actions
+ * */
+
+/* Trips List */
 
 export function tripsRequest() {
     return {
@@ -43,18 +48,9 @@ export function tripsFailure(error) {
 }
 
 export function getTrips() {
-    return (dispatch, getState) => {
-        dispatch(tripsRequest());
-
-        return fetch(TRIP_LIST, {
-            method: 'GET',
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Token ' + getState().user.auth,
-            }),
-        })
-            .then(response => response.json())
+    return dispatch => {
+        dispatch(tripsRequest())
+        return authFetch(TRIP_LIST)
             .then(json => dispatch(tripsSuccess(json)))
             .catch(error => dispatch(tripsFailure(error)))
     }

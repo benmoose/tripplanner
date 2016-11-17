@@ -1,21 +1,21 @@
 import uuid
 
 from django.db import models
-from user_jwt.models import UserJWT
 
-from _common.models.abstract_models import TimeStampedModel,\
+from _common.models.mixins.mixins import TimeStampedModel,\
     RichTextAndPreviewTextModel
-
+from user_jwt.models import UserJWT
 from .constants.choices import TRAVEL_TYPES, TRAVEL_TO_FONTAWEOME
 
 
 class Trip(TimeStampedModel, RichTextAndPreviewTextModel):
     """
     This model represents a trip.
-    Each trip can have multiple users and each user can belong to 0 or more trips.
+    Each trip can have multiple users and each user can belong to 0 or more
+    trips.
 
-    Trips store high level information about a trip such as a name, time of creation,
-    list of users involved ect...
+    Trips store high level information about a trip such as a name,
+    time of creation, list of users involved ect...
     """
     uuid = models.UUIDField(primary_key=True,
                             default=uuid.uuid4,

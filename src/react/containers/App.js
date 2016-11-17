@@ -1,25 +1,26 @@
 /*
-* Application Container
-* */
+ * Application Container with Navigation and Sidebar
+ */
 
-import React, { Component, PropTypes as T } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import { getTrips } from '../actions/trips';
-import { getTrip } from '../actions/trip';
+import { getTrips } from '../actions/trips'
+import { getTrip, tripCreate } from '../actions/trip'
 
-import Navigation from '../components/Navigation/';
-import Sidemenu from '../components/sidemenu/';
-import Window from '../components/window/';
+import NavigationContainer from './Navigation'
+
+import Sidemenu from '../components/sidemenu/'
+import Window from '../components/window/'
 
 
 class App extends Component {
 
     render() {
-        const { isAuthenticating, isAuthenticated, trips, onSelectTrip, params } = this.props;
+        const { trips, params } = this.props
 
         // add auth instance from route to children
-        let children = null;
+        let children = null
         if (this.props.children) {
             children = React.cloneElement(this.props.children, {
                 auth: this.props.route.auth,
@@ -28,35 +29,25 @@ class App extends Component {
 
         return (
             <div>
-                <Navigation onSelectTrip={onSelectTrip} trips={trips} fullName={'Foo Bar'}/>
+                <NavigationContainer/>
                 <Sidemenu/>
                 <Window>
                     {children}
                 </Window>
             </div>
-        );
-    }
-}
-
-
-function mapDispatchToProps(dispatch) {
-    return {
-        onLoadTrips: () => dispatch(getTrips()),
-        onSelectTrip: (uuid) => dispatch(getTrip(uuid)),
+        )
     }
 }
 
 function mapStateToProps(state) {
-    const { isAuthenticating, isAuthenticated } = state.user;
-    const { trips } = state.trips;
-    return {
-        isAuthenticating,
-        isAuthenticated,
-        trips,
-    };
+    return {}
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
-)(App);
+    mapDispatchToProps
+)(App)

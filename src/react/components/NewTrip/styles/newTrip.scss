@@ -1,0 +1,26 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+
+@import "../../_styles/tools/block";
+
+/*
+ * New Trip Component
+ */
+
+%form-item {
+  @include set_inline_block;
+  float: left;
+  position: relative;
+}
+
+.input {
+  @extend %form-item;
+  width: 100%;
+  background: $background-light;
+}
+
+.submit {
+  @extend %form-item;
+  width: auto;
+}

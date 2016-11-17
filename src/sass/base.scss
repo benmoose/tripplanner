@@ -17,10 +17,11 @@ Global Styles
 @import "itcss/tools/type";
 
 // Generic Layer
-@import "bootstrap/bootstrap-grid";
+// ...
 
 // Elements Layer
 @import "itcss/elements/anchor";
 @import "itcss/elements/body";
+@import "itcss/elements/form";
 @import "itcss/elements/heading";
 @import "itcss/elements/paragraph";

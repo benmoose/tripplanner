@@ -38,7 +38,7 @@ module.exports = {
             },
             {
                 test: /.scss$/,
-                loader: 'style!css?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]&minimize!sass'
+                loader: 'style!css?modules&autoreset&initial&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]&minimize!sass'
             }
         ]
     },

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from user_jwt.serializers import UserJWTSerializer
 from .models import Trip, TripLocation
 
 
@@ -20,10 +21,13 @@ class TripSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trip
-        fields = ('title', 'get_absolute_url', 'locations',)
+        fields = ('uuid', 'title', 'get_absolute_url', 'locations', 'created',
+                  'modified',)
 
 
 class SimpleTripSerializer(serializers.ModelSerializer):
+    users = UserJWTSerializer(read_only=True, many=True)
+
     class Meta:
         model = Trip
-        fields = ('uuid', 'title')
+        fields = ('uuid', 'title', 'users',)

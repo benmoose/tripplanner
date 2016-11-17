@@ -1,14 +1,34 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router';
+/* @flow */
+'use strict'
 
-import TripSelector from '../tripSelector';
+/*
+ * Imports
+ */
 
-import styles from './styles/navigation.scss';
+import React, { Component } from 'react'
+import { Link } from 'react-router'
 
+import TripSelector from '../tripSelector'
+import styles from './styles/navigation.scss'
+import * as T from '../../types/'
+
+
+/*
+ * Component
+ */
+
+ type Props = {
+     fullName: string,
+     trips: Array<T.TripSimple>,
+     onSelectTrip: Function,
+     onNewTripClick: Function,
+ }
 
 export default class Navigation extends Component {
+    props: Props
+
     render() {
-        const { fullName, trips, onSelectTrip } = this.props;
+        const { fullName, trips, onSelectTrip, onNewTripClick } = this.props;
 
         return (
             <nav className={`${styles.navigation}`}>
@@ -17,8 +37,8 @@ export default class Navigation extends Component {
                 </div>
 
                 <div className={`${styles.trip}`}>
-                    <TripSelector onSelectTrip={onSelectTrip} trips={trips}/>
-                    <span className={`${styles.trip__countdown}`}>24 days left!</span>
+                    <TripSelector onSelectTrip={onSelectTrip} onNewTripClick={onNewTripClick} trips={trips}/>
+                    <span className={`${styles.trip__countdown}`}>n days left!</span>
                 </div>
 
                 <ul className={`${styles.profile}`}>
@@ -29,6 +49,6 @@ export default class Navigation extends Component {
                     </li>
                 </ul>
             </nav>
-        );
+        )
     }
 }

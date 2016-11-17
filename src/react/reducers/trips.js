@@ -1,17 +1,26 @@
+/* @flow */
+'use strict'
+
 /*
  * Redux Trips Reducer
- * */
+ */
 
 import * as actionType from '../actions/trips';
+import * as T from '../types/'
 
+type State = {
+    trips: Array<T.TripSimple>,
+    loading: boolean,
+    error: ?string,
+}
 
-const defaultState = {
+const defaultState: State = {
+    trips: [],
     loading: false,
     error: null,
-    trips: [],
 };
 
-export const tripsReducer = (state = defaultState, action) => {
+export const tripsReducer = (state: State = defaultState, action: T.Action): State => {
     switch (action.type) {
         case actionType.TRIPS_LIST_REQUEST:
             return {

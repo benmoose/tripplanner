@@ -1,0 +1,109 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/settings/z-index";
+@import "../../_styles/tools/block";
+@import "../../_styles/tools/box-shadow";
+
+
+
+/*
+ * Modal Component
+ */
+
+ %modal_width {
+   max-width: $modal-width;
+   width: 85%;
+ }
+
+ %full_background {
+   position: fixed;
+     top: 0;
+     bottom: 0;
+     left: 0;
+     right: 0;
+ }
+
+ %modal_section {
+   padding: $sd-space;
+ }
+
+ %modal_open {
+   opacity: 1;
+   pointer-events: auto;
+   visibility: visible;
+   display: block;
+ }
+
+.container {
+  @extend %full_background;
+  @include set_block;
+  background: none;
+  border: none;
+  outline: none;
+  z-index: $zindex-3-modal;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  display: none;
+
+  &.open {
+    @extend %modal_open;
+  }
+}
+
+.overlay {
+  @extend %full_background;
+  background: rgba(black, .55);
+  z-index: 0;
+}
+
+.modal__wrapper {
+    height: 100%;
+    display: flex;
+      align-items: center;
+      justify-content: center;
+}
+
+.modal {
+  @extend %modal_width;
+  @include set_box_shadow_large;
+  display: inline-block;
+  position: relative;
+  background: $background;
+  z-index: 1;
+}
+
+.header {
+  @extend %modal_section;
+  text-align: center;
+
+  // remove bottom margin from last element
+  & > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.body {
+  @extend %modal_section;
+  max-height: 50vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  // clearfix
+  &:after {
+      content: '';
+      display: table;
+      clear: both;
+  }
+
+  // remove bottom margin from last element
+  & > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.footer {
+  background: $background-dark;
+  text-align: right;
+}

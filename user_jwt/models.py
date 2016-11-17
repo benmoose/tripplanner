@@ -1,11 +1,11 @@
 from django.db import models
 
-from _common.models.abstract_models import TimeStampedModel
+from _common.models.mixins.mixins import TimeStampedModel
 
 
 class UserJWT(TimeStampedModel):
-    """User represented by a JWT Token."""
+    """User represented by a JWT."""
     sub = models.CharField(max_length=64, unique=True)
 
-    def set_sub_from_token(self, token):
-        self.sub = self.jwt_get_sub(token)
+    def __str__(self):
+        return self.sub
