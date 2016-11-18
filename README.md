@@ -2,6 +2,7 @@ Trip Planner
 ============
 
 [![Build Status](https://travis-ci.org/benjaminhadfield/tripplanner.svg?branch=master)](https://travis-ci.org/benjaminhadfield/tripplanner)
+
 Trip Planner is a platform for friends and family to organise trips together in one place! This is a personal project I'm developing whilst at uni. Pull Requests are more than welcome!
 
 Technologies
