@@ -103,3 +103,26 @@ class RichTextAndPreviewTextModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class CompletableModel(models.Model):
+    """
+    Model which has a completed boolean field and associated setters.
+    """
+
+    is_complete = models.BooleanField(default=False)
+
+    def set_as_complete(self):
+        self.is_complete = True
+        self.save()
+
+    def set_as_incomplete(self):
+        self.is_complete = False
+        self.save()
+
+    def toggle_is_complete(self):
+        self.is_complete = not self.is_complete
+        self.save()
+
+    class Meta:
+        abstract = True

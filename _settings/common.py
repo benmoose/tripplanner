@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'redactor',
     'trip',
+    'todo_list',
     'bucketlist',
 ]
 

@@ -1,28 +1,20 @@
 from django.db import models
 
-from _common.models.mixins.mixins import TimeStampedModel
+from _common.models.mixins.mixins import TimeStampedModel, CompletableModel
 from trip.models import Trip
 
 
 class BucketList(TimeStampedModel):
-    """This model represents a single BucketList for a users trip"""
+    """This model represents a single bucket-list for a single trip."""
     trip = models.OneToOneField(Trip)
 
 
-class BucketListItem(TimeStampedModel):
-    """This model represents a single item in a BucketList"""
+class BucketListItem(TimeStampedModel,
+                     CompletableModel):
+    """This model represents a single item in a bucket-list."""
     bucket_list = models.ForeignKey(BucketList)
     title = models.CharField(max_length=200)
     description = models.TextField()
-    completed = models.BooleanField(default=False)
-
-    def set_completed(self):
-        self.completed = True
-        self.save()
-
-    def set_uncompleted(self):
-        self.completed = False
-        self.save()
 
     def __str__(self):
         return self.title
