@@ -5,6 +5,7 @@ import { getTrip } from '../actions/trip'
 
 import Map from '../components/map/'
 import Itinerary from '../components/itinerary/'
+import TodoList from '../components/TodoList/'
 
 
 class MyTrip extends Component {
@@ -15,6 +16,7 @@ class MyTrip extends Component {
             <div>
                 <Map locations={locations.map(item => { return item.title })}/>
                 <Itinerary locations={locations}/>
+                <TodoList/>
             </div>
         );
     }
