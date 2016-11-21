@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 
 from _common.models.mixins.mixins import TimeStampedModel,\
     RichTextAndPreviewTextModel
@@ -26,6 +27,12 @@ class Trip(TimeStampedModel, RichTextAndPreviewTextModel):
 
     def get_trip_locations(self):
         return TripLocation.objects.filter(trip=self).order_by('arrive')
+
+    def get_todo_list(self):
+        try:
+            return self.todolist
+        except ObjectDoesNotExist:
+            return None
 
     def get_absolute_url(self):
         return '/{}'.format(self.uuid)

@@ -14,7 +14,7 @@ class BucketListItem(TimeStampedModel,
     """This model represents a single item in a bucket-list."""
     bucket_list = models.ForeignKey(BucketList)
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.title
