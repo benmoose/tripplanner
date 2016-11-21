@@ -1,8 +1,5 @@
-/*
- * @flow
- *
- * Trip Types
- */
+/* @flow */
+'use strict'
 
 
 export type TripSimple = {

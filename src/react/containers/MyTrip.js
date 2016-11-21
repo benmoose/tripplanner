@@ -16,7 +16,7 @@ class MyTrip extends Component {
             <div>
                 <Map locations={locations.map(item => { return item.title })}/>
                 <Itinerary locations={locations}/>
-                <TodoList/>
+                <TodoList todos={[{title: 'todo 1', completed: false}, {title: 'todo 2', completed: true}]}/>
             </div>
         );
     }

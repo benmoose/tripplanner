@@ -6,7 +6,9 @@
  */
 
 import React, { Componet } from 'react'
+import TodoListItem from '../TodoListItem/'
 import styles from './styles/todoList.scss'
+import * as T from '../../types/'
 
 
 /*
@@ -14,9 +16,17 @@ import styles from './styles/todoList.scss'
  */
 
 type Props = {
-
+    todos: Array<T.Todo>,
 }
 
-export default function TodoList({}: Props) {
-    return <div>todo</div>
+export default function TodoList({todos}: Props) {
+    const todoList = todos.map((todo, i) => {
+        return <TodoListItem title={todo.title} completed={todo.completed}/>
+    })
+
+    return (
+        <div>
+            <ul>{todoList}</ul>
+        </div>
+    )
 }
