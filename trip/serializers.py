@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from user_jwt.serializers import UserJWTSerializer
+from todo_list.serializer import TodoListSerializer
 from .models import Trip, TripLocation
 
 
@@ -18,14 +19,16 @@ class TripLocationSerializer(serializers.ModelSerializer):
 
 class TripSerializer(serializers.ModelSerializer):
     locations = TripLocationSerializer(many=True, source='get_trip_locations')
+    todo = TodoListSerializer(source='get_todo_list')
 
     class Meta:
         model = Trip
-        fields = ('uuid', 'title', 'get_absolute_url', 'locations', 'created',
-                  'modified',)
+        fields = ('uuid', 'title', 'get_absolute_url', 'todo', 'locations',
+                  'created', 'modified',)
 
 
 class SimpleTripSerializer(serializers.ModelSerializer):
+    """Serializer for rendering trip changer list."""
     users = UserJWTSerializer(read_only=True, many=True)
 
     class Meta:

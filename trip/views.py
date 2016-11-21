@@ -1,10 +1,8 @@
 from django.views.generic import TemplateView
-from rest_framework.response import Response
 
 from rest_framework import generics
 
 from _common.models.abstract.api import ProtectedApiView
-
 from user_jwt.utility.jwt_authentication import header_to_sub
 from user_jwt.models import UserJWT
 from .serializers import TripSerializer, SimpleTripSerializer
