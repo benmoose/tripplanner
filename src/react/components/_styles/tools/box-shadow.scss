@@ -3,7 +3,11 @@ Tools Layer
 */
 
 @mixin set_box_shadow {
-  box-shadow: 0 2px 5px rgba(black, .26);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .12);
+}
+
+@mixin set_sidebar_box_shadow {
+  box-shadow: 1px 0 3px rgba(0, 0, 0, .12);
 }
 
 @mixin set_box_shadow_large {

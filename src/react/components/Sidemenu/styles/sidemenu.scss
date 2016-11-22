@@ -4,6 +4,7 @@
 @import "../../_styles/settings/z-index";
 
 @import "../../_styles/tools/block";
+@import "../../_styles/tools/box-shadow";
 @import "../../_styles/tools/list";
 @import "../../_styles/tools/type";
 
@@ -14,6 +15,7 @@ Sidemenu Component
 
 .sidemenu {
   @include set_block;
+  @include set_sidebar_box_shadow;
   position: fixed;
     top: 0;
     left: 0;

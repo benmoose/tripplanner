@@ -1,3 +1,4 @@
+@import "../../_styles/settings/color";
 @import "../../_styles/settings/sizing";
 @import "../../_styles/settings/spacing";
 @import "../../_styles/settings/z-index";
@@ -12,7 +13,6 @@ Window Component
 .window {
   @include set_block;
   position: relative;
-  width: 100%;
   margin: $navigation-height 0 0 $sidemenu-width;
   z-index: $zindex-0-default;
 }

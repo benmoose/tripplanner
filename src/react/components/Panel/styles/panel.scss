@@ -1,5 +1,6 @@
 @import "../../_styles/settings/color";
 @import "../../_styles/settings/spacing";
+@import "../../_styles/tools/box-shadow";
 @import "../../_styles/tools/block";
 
 /*
@@ -8,6 +9,8 @@
 
 .panel {
   @include set_inline_block;
-  border: 1px solid $divider;
+  @include set_box_shadow;
   padding: $sd-space;
+  margin: $sm-space;
+  background: white;
 }

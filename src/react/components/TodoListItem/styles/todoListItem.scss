@@ -11,6 +11,6 @@
   padding: $sd-space;
 
   &+& {
-    border-top: 1px solid #f1f2f3;
+    border-top: 1px solid $divider;
   }
 }
