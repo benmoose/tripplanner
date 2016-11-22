@@ -2,8 +2,8 @@
 'use strict'
 
 /*
-* Imports
-*/
+ * Imports
+ */
 
 import React, { Component, PropTypes as T } from 'react'
 import Modal from '../Modal/'
@@ -12,8 +12,8 @@ const classnames = require('classnames')
 
 
 /*
-* Component
-*/
+ * Component
+ */
 
 type Props = {
     onSubmit: Function,

@@ -9,6 +9,7 @@ import { getTrip } from '../actions/trip'
 import Panel from '../components/Panel/'
 import Map from '../components/map/'
 import Itinerary from '../components/itinerary/'
+import TodoList from '../components/TodoList/'
 
 
 class MyTrip extends Component {
@@ -22,6 +23,7 @@ class MyTrip extends Component {
                 <Panel>
                     <Itinerary locations={locations}/>
                 </Panel>
+                <TodoList/>
             </div>
         );
     }
