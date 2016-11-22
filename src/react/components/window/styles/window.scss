@@ -12,7 +12,7 @@ Window Component
   @include set_block;
   position: relative;
   width: 100%;
-  padding-left: $sidemenu-width;
+  padding: $navigation-height 0 0 $sidemenu-width;
 }
 
 .windowInner {

@@ -27,6 +27,10 @@ export default class Sidemenu extends Component {
 
         return (
             <div className={styles.sidemenu}>
+                <div className={styles.sidemenu__brand}>
+                    <h1 className={styles.sidemenu__brand__h1}>Tripplanner</h1>
+                </div>
+
                 <div className={styles.sidemenu__list}>
                     {links}
                 </div>
