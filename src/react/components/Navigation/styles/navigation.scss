@@ -17,7 +17,7 @@ Navigation Component
   display: flex;
   width: calc(100% - #{$sidemenu-width});
   height: $navigation-height;
-  border-bottom: 2px solid $divider;
+  border-bottom: 1px solid $divider;
   box-sizing: border-box;
   padding: $sd-space $sd-space $sd-space - 2px;
   background: $background-light;
