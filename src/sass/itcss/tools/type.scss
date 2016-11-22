@@ -16,7 +16,6 @@ Tools Layer
 
 @mixin set_body_font {
   @extend %set_antialias;
-  color: $text;
   font-family: $body-font;
   font-weight: normal;
   font-size: $base-font-size;
@@ -26,7 +25,6 @@ Tools Layer
 
 @mixin set_heading_font {
   @extend %set_antialias;
-  color: $text;
   font-family: "Poppins", $font-stack;
   font-weight: bold;
   letter-spacing: $heading-letter-spacing;

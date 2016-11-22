@@ -7,23 +7,37 @@
 @import "../../_styles/tools/list";
 @import "../../_styles/tools/type";
 
+
 /*
 Sidemenu Component
 */
 
-
 .sidemenu {
   @include set_block;
   position: fixed;
-    top: $navigation-height;
+    top: 0;
     left: 0;
   width: $sidemenu-width;
-  height: calc(100vh - #{$navigation-height});
+  height: 100%;
+  color: white;
   background: $background-dark;
   z-index: $zindex-2-nav;
 }
 
+.sidemenu__brand {
+  position: relative;
+  height: $navigation-height;
+  text-align: center;
+}
+
+.sidemenu__brand__h1 {
+  position: absolute;
+  top: 50%;
+  padding-left: $lg-space;
+  transform: translateY(-50%);
+  font-size: $h4-font-size;
+}
+
 .sidemenu__list {
   @include reset_list;
-  padding-top: $sm-space;
 }

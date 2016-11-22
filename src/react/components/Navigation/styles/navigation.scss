@@ -13,13 +13,14 @@ Navigation Component
 .navigation {
   position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
   display: flex;
-  width: 100%;
+  width: calc(100% - #{$sidemenu-width});
   height: $navigation-height;
+  border-bottom: 1px solid $divider;
   box-sizing: border-box;
   padding: $sd-space $sd-space $sd-space - 2px;
-  background: $navigation;
+  background: $background-light;
   color: $text;
   z-index: $zindex-2-nav;
 }
@@ -35,19 +36,6 @@ Navigation Component
 
 %navigation__text {
   @include set_heading_font;
-}
-
-
-// Navigation Brand
-
-.brand {
-  @extend %navigation__item;
-  flex: 1;
-  font-size: $h3-font-size;
-
-  a {
-    @extend %navigation__text;
-  }
 }
 
 
@@ -70,21 +58,11 @@ Navigation Component
 
 .trip {
   @extend %navigation__item;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-.trip__title,
-.trip__countdown {
+.trip__title {
   display: inline-block;
   padding: 2px 0;
-}
-
-.trip__countdown {
-  @include set_small_font;
-  color: $text-subtle;
 }
 
 

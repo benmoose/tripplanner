@@ -1,5 +1,6 @@
 @import "../../_styles/settings/sizing";
 @import "../../_styles/settings/spacing";
+@import "../../_styles/settings/z-index";
 
 @import "../../_styles/tools/block";
 
@@ -12,9 +13,10 @@ Window Component
   @include set_block;
   position: relative;
   width: 100%;
-  padding-left: $sidemenu-width;
+  margin: $navigation-height 0 0 $sidemenu-width;
+  z-index: $zindex-0-default;
 }
 
 .windowInner {
-  padding: $sm-space;
+  padding: 0;
 }
