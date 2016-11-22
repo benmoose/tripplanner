@@ -1,7 +1,16 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/tools/block";
+
 /*
-Todo List Item Component
-*/
+ * Todo List Item Component
+ */
 
 .item {
+  @include set_block;
+  padding: $sd-space;
 
+  &+& {
+    border-top: 1px solid #f1f2f3;
+  }
 }
