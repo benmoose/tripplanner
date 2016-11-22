@@ -5,19 +5,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { getTrips } from '../actions/trips'
-import { getTrip, tripCreate } from '../actions/trip'
-
 import NavigationContainer from './Navigation'
 
-import Sidemenu from '../components/sidemenu/'
+import Sidemenu from '../components/Sidemenu/'
 import Window from '../components/window/'
 
 
 class App extends Component {
 
     render() {
-        const { trips, params } = this.props
+        const { params } = this.props
 
         // add auth instance from route to children
         let children = null

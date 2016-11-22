@@ -1,0 +1,13 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/tools/block";
+
+/*
+ * Panel Component
+ */
+
+.panel {
+  @include set_inline_block;
+  border: 1px solid $divider;
+  padding: $sd-space;
+}
