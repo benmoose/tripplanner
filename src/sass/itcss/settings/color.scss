@@ -3,19 +3,21 @@ Settings layer
 */
 
 // UI Colours
-$background: #3A3D42;
-$background-light: lighten($background, 8%);
-$background-dark: darken($background, 6%);
+$background: #34495E;
+$background-dark: darken($background, 5%);
+$background-light: #F9FAFC;
 
-$navigation: darken($background, 12%);
-
+$divider: darken($background-light, 5%);
 
 // Brand Colours
-$primary: #58B9E2;
+$primary: #32CCF4;
 $secondary: #FC5185;
 
-
 // Text Colours
-$text: white;
+$text: #34495E;
 $text-subtle: rgba($text, .75);
 $text-x-subtle: rgba($text, .45);
+
+// Link Colours
+$link: $primary;
+$link-hover: lighten($primary, 10%);
