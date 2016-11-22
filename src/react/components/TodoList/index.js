@@ -20,7 +20,7 @@ type Props = {
 
 export default function TodoList({todos}: Props) {
     const todoList = todos.map((todo, i) => {
-        return <TodoListItem title={todo.title} completed={todo.completed}/>
+        return <TodoListItem key={i} title={todo.title} completed={todo.completed}/>
     })
 
     return (
