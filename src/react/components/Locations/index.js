@@ -9,13 +9,15 @@ import Location from '../Location/'
 
 export default class Locations extends Component {
     render() {
+        const { locations } = this.props
+
+        const locationElements = locations.map((item, i) => {
+            return <Location key={i} title={item.title}/>
+        })
+
         return (
             <div className={styles.container}>
-                <Location title="London"/>
-                <Location title="New York"/>
-                <Location title="New York"/>
-                <Location title="New York"/>
-                <Location title="Boston"/>
+                {locationElements}
             </div>
         )
     }

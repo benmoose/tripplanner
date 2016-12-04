@@ -1,7 +1,8 @@
+/* @flow */
+'use strict'
+
 import React, { Component } from 'react'
-
 import styles from './styles/sidemenu.scss'
-
 import { MenuLink } from '../link/'
 
 
@@ -16,10 +17,14 @@ export default class Sidemenu extends Component {
         ]
     }
 
+    urlize(title: string): string {
+        return encodeURI(title).replace('%20', '').toLowerCase()
+    }
+
     render() {
-        var links = this.links.map((item, i) => {
+        let links = this.links.map((item, i) => {
             return <MenuLink key={i}
-                             to={"foo"+i}
+                             to={this.urlize(item[0])}
                              children={item[0]}
                              iconClass={item[1]}
             />
@@ -28,7 +33,7 @@ export default class Sidemenu extends Component {
         return (
             <div className={styles.sidemenu}>
                 <div className={styles.sidemenu__brand}>
-                    <h1 to="/" className={styles.sidemenu__brand__h1}>Tripplanner</h1>
+                    <h1 className={styles.sidemenu__brand__h1}>Tripplanner</h1>
                 </div>
 
                 <div className={styles.sidemenu__list}>

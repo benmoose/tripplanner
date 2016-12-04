@@ -24,7 +24,7 @@ export type Location = {
     title: string,
     travel_icon: string,
     travel_type: string,
-    bucket_list: ?BucketList,
+    bucket_list: Array<BucketList>,
 }
 
 export type BucketList = {

@@ -12,7 +12,7 @@
 
 .container {
   @include set_block;
-  width: 350px;
+  width: 345px;
   margin-right: $sd-space;
   border: 1px solid lime;
   flex-shrink: 0;

@@ -6,34 +6,32 @@ import { connect } from 'react-redux'
 
 import { getTrip } from '../actions/trip'
 
-import Panel from '../components/Panel/'
 import Locations from '../components/Locations/'
 import Map from '../components/map/'
 import Suggestions from '../components/Suggestions/'
 
 
-class MyTrip extends Component {
+class BucketList extends Component {
 
     render() {
         const { loading, locations } = this.props;
+
         return (
             <div>
-                <Map locations={locations.map(item => { return item.title })}/>
                 <Suggestions/>
-                <Locations/>
-                {/*<Panel>*/}
-                    {/*<TodoList todos={[{title: 'todo 1', completed: false}, {title: 'todo 2', completed: true}]}/>*/}
-                {/*</Panel>*/}
+                <Map locations={locations.map(item => { return item.title })}/>
+                <Locations locations={locations}/>
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const { locations, loading } = state.trip;
+    const { locations, loading, bucket_list } = state.trip;
     return {
         locations,
         loading,
+        bucket_list,
     };
 }
 
@@ -46,4 +44,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(MyTrip);
+)(BucketList);
