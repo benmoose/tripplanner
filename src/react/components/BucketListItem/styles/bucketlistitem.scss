@@ -1,0 +1,16 @@
+@import "../../_styles/settings/color";
+
+/*
+Bucket List Component
+*/
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+
+  &+& {
+    border-top: 1px solid $background-light;
+  }
+}

@@ -12,7 +12,7 @@ export default class Locations extends Component {
         const { locations } = this.props
 
         const locationElements = locations.map((item, i) => {
-            return <Location key={i} title={item.title}/>
+            return <Location key={i} title={item.title} bucket_list_items={item.bucket_list}/>
         })
 
         return (

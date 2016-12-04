@@ -4,6 +4,7 @@
 
 import React, {Component} from 'react'
 import styles from './styles/location.scss'
+import BucketList from '../BucketList/'
 
 
 type Props = {
@@ -14,7 +15,8 @@ export default class Location extends Component {
     props: Props
 
     render() {
-        const { title } = this.props
+        const { title, bucket_list_items } = this.props
+        const items = bucket_list_items ? bucket_list_items.items : []
 
         return (
             <div className={styles.container}>
@@ -23,7 +25,7 @@ export default class Location extends Component {
                         <div className={styles.title}>{title}</div>
                     </div>
                 </figure>
-                <p>Bucket List Here</p>
+                <BucketList items={items}/>
             </div>
         )
     }
