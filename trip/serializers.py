@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from user_jwt.serializers import UserJWTSerializer
 from todo_list.serializer import TodoListSerializer
+from bucketlist.serializers import BucketListSerializer
 from .models import Trip, TripLocation
 
 
@@ -10,11 +11,12 @@ class TripLocationSerializer(serializers.ModelSerializer):
     depart = serializers.DateTimeField(format='%A %d, %B')
     travel_icon = serializers.CharField(source='get_travel_icon')
     travel_type = serializers.CharField(source='get_travel_type_display')
+    bucket_list = BucketListSerializer(source='get_bucket_list')
 
     class Meta:
         model = TripLocation
         fields = ('title', 'longitude', 'latitude', 'arrive', 'depart',
-                  'travel_type', 'travel_icon')
+                  'travel_type', 'travel_icon', 'bucket_list')
 
 
 class TripSerializer(serializers.ModelSerializer):

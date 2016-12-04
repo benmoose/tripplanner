@@ -1,0 +1,28 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/settings/z-index";
+@import "../../_styles/tools/block";
+@import "../../_styles/tools/box-shadow";
+
+/*
+Suggestions Component
+*/
+
+.container {
+  display: block;
+  position: fixed;
+  top: $navigation-height;
+  right: 0;
+  width: 245px;
+  padding: $sd-space;
+  background: $background-light;
+  overflow-y: scroll;
+  height: calc(100vh - #{$navigation-height});
+  z-index: $zindex-2-nav;
+  transform: translateX(100%);
+}
+
+.open {
+  transform: translateX(0);
+}

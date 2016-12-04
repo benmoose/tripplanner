@@ -1,0 +1,45 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/settings/z-index";
+@import "../../_styles/tools/block";
+@import "../../_styles/tools/type";
+@import "../../_styles/tools/box-shadow";
+
+/*
+ * Location Component
+ */
+
+.container {
+  @include set_block;
+  width: 350px;
+  margin-right: $sd-space;
+  border: 1px solid lime;
+  flex-shrink: 0;
+}
+
+.header {
+  position: relative;
+  height: 75px;
+  background: #ef8979;
+  margin: 0 0 $lg-space;
+}
+
+.titleContainer {
+  width: 100%;
+  position: absolute;
+    bottom: 0;
+    left: 0;
+  transform: translateY(50%);
+  background: none;
+  text-align: center;
+}
+
+.title {
+  @include set_inline_block;
+  @include set_box_shadow;
+  @include set_heading_font;
+  margin: 0;
+  padding: 2*$sm-space $sd-space;
+  background: white;
+}

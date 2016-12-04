@@ -1,0 +1,17 @@
+@import "../../_styles/settings/color";
+@import "../../_styles/settings/sizing";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/settings/z-index";
+@import "../../_styles/tools/block";
+@import "../../_styles/tools/box-shadow";
+
+/*
+ * Locations Component
+ */
+
+
+.container {
+  display: flex;
+  overflow-x: auto;
+  padding: $sm-space;
+}

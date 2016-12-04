@@ -72,6 +72,15 @@ class TripLocation(models.Model):
         return TripLocation.objects.filter(trip=self.trip)\
             .filter(arrive__gt=self.arrive).first()
 
+    def get_bucket_list(self):
+        try:
+            return self.bucketlist
+        except ObjectDoesNotExist:
+            return None
+
+    def __str__(self):
+        return '{0}, {1}'.format(self.trip.title, self.title)
+
     class Meta:
         # prevent arriving in two locations at same time
         unique_together = ('trip', 'arrive',)

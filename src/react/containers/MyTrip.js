@@ -7,9 +7,9 @@ import { connect } from 'react-redux'
 import { getTrip } from '../actions/trip'
 
 import Panel from '../components/Panel/'
+import Locations from '../components/Locations/'
 import Map from '../components/map/'
-import Itinerary from '../components/itinerary/'
-import TodoList from '../components/TodoList/'
+import Suggestions from '../components/Suggestions/'
 
 
 class MyTrip extends Component {
@@ -19,13 +19,11 @@ class MyTrip extends Component {
         return (
             <div>
                 <Map locations={locations.map(item => { return item.title })}/>
-
-                <Panel>
-                    <Itinerary locations={locations}/>
-                </Panel>
-                <Panel>
-                    <TodoList todos={[{title: 'todo 1', completed: false}, {title: 'todo 2', completed: true}]}/>
-                </Panel>
+                <Suggestions/>
+                <Locations/>
+                {/*<Panel>*/}
+                    {/*<TodoList todos={[{title: 'todo 1', completed: false}, {title: 'todo 2', completed: true}]}/>*/}
+                {/*</Panel>*/}
             </div>
         );
     }

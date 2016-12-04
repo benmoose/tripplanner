@@ -8,7 +8,6 @@
 
 .item {
   @include set_block;
-  padding: $sd-space;
 
   &+& {
     border-top: 1px solid $divider;
