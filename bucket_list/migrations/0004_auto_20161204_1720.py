@@ -10,16 +10,16 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('trip', '0001_initial'),
-        ('bucketlist', '0003_auto_20161121_1051'),
+        ('bucket_list', '0003_auto_20161121_1051'),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='bucketlist',
+            model_name='bucket_list',
             name='trip',
         ),
         migrations.AddField(
-            model_name='bucketlist',
+            model_name='bucket_list',
             name='trip_location',
             field=models.OneToOneField(default=1, on_delete=django.db.models.deletion.CASCADE, to='trip.TripLocation'),
             preserve_default=False,

@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'redactor',
     'trip',
     'todo_list',
-    'bucketlist',
+    'bucket_list',
 ]
 
 MIDDLEWARE = [

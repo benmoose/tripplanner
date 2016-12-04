@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class BucketlistConfig(AppConfig):
-    name = 'bucketlist'
+    name = 'bucket_list'

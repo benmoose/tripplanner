@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=200)),
                 ('description', models.TextField()),
                 ('completed', models.BooleanField(default=False)),
-                ('bucket_list', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bucketlist.BucketList')),
+                ('bucket_list', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bucket_list.BucketList')),
             ],
             options={
                 'abstract': False,

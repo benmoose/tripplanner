@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bucketlist', '0001_initial'),
+        ('bucket_list', '0001_initial'),
     ]
 
     operations = [

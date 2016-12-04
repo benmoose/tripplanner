@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from user_jwt.serializers import UserJWTSerializer
 from todo_list.serializer import TodoListSerializer
-from bucketlist.serializers import BucketListSerializer
+from bucket_list.serializers import BucketListSerializer
 from .models import Trip, TripLocation
 
 
