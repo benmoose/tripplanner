@@ -25,7 +25,7 @@ export default function TodoList({todos}: Props) {
 
     return (
         <div>
-            <ul>{todoList}</ul>
+            <ul className={styles.container}>{todoList}</ul>
         </div>
     )
 }

@@ -12,5 +12,6 @@
   @include set_box_shadow;
   padding: $sd-space;
   margin: $sm-space;
+  float: left;
   background: white;
 }

@@ -23,7 +23,9 @@ class MyTrip extends Component {
                 <Panel>
                     <Itinerary locations={locations}/>
                 </Panel>
-                <TodoList todos={[{title: 'todo 1', completed: false}, {title: 'todo 2', completed: true}]}/>
+                <Panel>
+                    <TodoList todos={[{title: 'todo 1', completed: false}, {title: 'todo 2', completed: true}]}/>
+                </Panel>
             </div>
         );
     }
