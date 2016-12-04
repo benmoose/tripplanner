@@ -5,6 +5,8 @@ Trip Planner
 
 Trip Planner is a platform for friends and family to organise trips together in one place! This is a personal project I'm developing whilst at uni. Pull Requests are more than welcome!
 
+![TripPlanner Dashboard](https://www.dropbox.com/s/j1nd1lhs7z5p328/Web%201920%20%E2%80%93%201.png?dl=0)
+
 Technologies
 ------------
 - [Django] (https://www.djangoproject.com/) as the server-side framework

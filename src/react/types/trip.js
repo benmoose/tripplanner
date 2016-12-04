@@ -24,4 +24,12 @@ export type Location = {
     title: string,
     travel_icon: string,
     travel_type: string,
+    bucket_list: ?BucketList,
+}
+
+export type BucketList = {
+    items: Array<{
+        title: string,
+        description: ?string,
+    }>
 }
