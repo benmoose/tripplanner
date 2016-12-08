@@ -71,10 +71,10 @@ class RecordViewsModel(models.Model):
 
 
 class VoteableModel(models.Model):
-    upvotes = models.PositiveIntegerField(default=0, editable=False)
+    votes = models.PositiveIntegerField(default=0, editable=False)
 
     def increment_upvotes(self):
-        self.upvotes += 1
+        self.votes += 1
         self.save()
 
     class Meta:
