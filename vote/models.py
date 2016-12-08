@@ -14,4 +14,7 @@ class Vote(VoteableModel):
         ('U+1F389', 'Party'),
     )
 
-    emoji = models.CharField(max_length=4, choices=EMOJI_CHOICES)
+    emoji = models.CharField(max_length=7, choices=EMOJI_CHOICES)
+
+    def __str__(self):
+        return '{0} ({1})'.format(self.get_emoji_display(), self.votes)

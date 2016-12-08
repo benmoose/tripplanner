@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'user_jwt',
     'webpack_loader',
     'redactor',
+    'vote',
     'trip',
     'todo_list',
     'bucket_list',

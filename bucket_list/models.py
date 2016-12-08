@@ -2,6 +2,7 @@ from django.db import models
 
 from _common.models.mixins.mixins import TimeStampedModel, CompletableModel
 from trip.models import TripLocation
+from vote.models import Vote
 
 
 class BucketList(TimeStampedModel):
@@ -21,6 +22,7 @@ class BucketListItem(TimeStampedModel,
     bucket_list = models.ForeignKey(BucketList)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    votes = models.ManyToManyField(Vote)
 
     def __str__(self):
         return self.title
