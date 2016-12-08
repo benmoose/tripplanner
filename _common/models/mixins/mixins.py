@@ -77,6 +77,11 @@ class VoteableModel(models.Model):
         self.votes += 1
         self.save()
 
+    def decrement_votes(self):
+        if self.votes > 0:
+            self.votes -= 1
+            self.save()
+
     class Meta:
         abstract = True
 
