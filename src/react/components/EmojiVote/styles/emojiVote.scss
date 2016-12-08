@@ -1,0 +1,16 @@
+@import "../../_styles/settings/spacing";
+@import "../../_styles/tools/block";
+
+/*
+Emoji Vote Component
+*/
+
+
+.container {
+  @include set_inline_block;
+  padding: 0 $sm-space/2;
+}
+
+.emoji {
+  margin-right: $sm-space;
+}

@@ -1,14 +1,18 @@
 @import "../../_styles/settings/color";
+@import "../../_styles/settings/spacing";
+@import "../../_styles/tools/block";
 
 /*
 Bucket List Component
 */
 
 .container {
+  @include set_block;
   width: 100%;
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+  padding: $sm-space;
 
   &+& {
     border-top: 1px solid $background-light;

@@ -31,5 +31,10 @@ export type BucketList = {
     items: Array<{
         title: string,
         description: ?string,
+        is_complete: boolean,
+        votes: ?Array<{
+            emoji: string,
+            votes: number,
+        }>
     }>
 }

@@ -4,6 +4,8 @@
 import React, { Component } from 'react'
 import styles from './styles/bucketlistitem.scss'
 
+import EmojiVote from '../EmojiVote/'
+
 type Props = {
     title: string,
 }
@@ -17,7 +19,8 @@ export default class BucketListItem extends Component {
             <div className={styles.container}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.votes}>
-                    <span>3 --</span>
+                    <EmojiVote code="0x1F604" count={5}/>
+                    <EmojiVote code="U+1F60B" count={5}/>
                 </div>
             </div>
         )
